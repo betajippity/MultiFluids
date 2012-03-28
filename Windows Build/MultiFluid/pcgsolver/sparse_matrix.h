@@ -264,7 +264,7 @@ typedef FixedSparseMatrix<double> FixedSparseMatrixd;
 template<class T>
 void multiply(const FixedSparseMatrix<T> &matrix, const std::vector<T> &x, std::vector<T> &result)
 {
-   assert(matrix.n==x.size());
+   //assert(matrix.n==x.size());
    result.resize(matrix.n);
    for(unsigned int i=0; i<matrix.n; ++i){
       result[i]=0;

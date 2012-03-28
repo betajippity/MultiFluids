@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <cassert>
 #include <vector>
+#include "glm/glm.hpp"
 
 template<class T, class ArrayT=std::vector<T> >
 struct Array3

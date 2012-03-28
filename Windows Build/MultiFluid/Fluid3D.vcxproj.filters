@@ -44,22 +44,13 @@
     <ClInclude Include="fluidsim.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="gluvi.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="hashtable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="levelset_util.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="openglutils.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="util.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="vec.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="pcgsolver\blas_wrapper.h">

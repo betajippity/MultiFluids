@@ -7,6 +7,7 @@
 
 #include "fluidsim.h"
 #include "array3_utils.h"
+#include "glm/glm.hpp"
 
 using namespace std;
 
@@ -18,22 +19,25 @@ float grid_width = 1;
 
 FluidSim sim;
 
-float sphere_phi(const Vec3f& position, const Vec3f& centre, float radius) {
-   return (dist(position,centre) - radius);
+float sphere_phi(const glm::vec3& position, const glm::vec3& centre, float radius);
+float sphere_phi(const glm::vec3& position, const glm::vec3& centre, float radius) {
+    return (glm::length(position-centre) - radius);
 }
 
-Vec3f c0(0.5f,0.5f,0.5f);
+glm::vec3 c0(0.5f,0.5f,0.5f);
 float rad0 = 0.35f;
 
-float boundary_phi(const Vec3f& position) {
+float boundary_phi(const glm::vec3& position);
+float boundary_phi(const glm::vec3& position) {
    return -sphere_phi(position, c0, rad0);
 }
 
-float liquid_phi(const Vec3f& position) {
-   return sphere_phi(position, Vec3f(0.55f, 0.55f, 0.4f), 0.23f);
+float liquid_phi(const glm::vec3& position);
+float liquid_phi(const glm::vec3& position) {
+   return sphere_phi(position, glm::vec3(0.55f, 0.55f, 0.4f), 0.23f);
 }
 
-void export_particles(string path, int frame, const std::vector<Vec3f>& particles, float radius);
+void export_particles(string path, int frame, const std::vector<glm::vec3>& particles, float radius);
 
 //Main testing code
 //-------------
@@ -74,7 +78,7 @@ int main(int argc, char **argv)
 }
 
 
-void export_particles(string path, int frame, const std::vector<Vec3f>& particles, float radius) {
+void export_particles(string path, int frame, const std::vector<glm::vec3>& particles, float radius) {
    //Write the output
    
    std::stringstream strout;

@@ -7,10 +7,10 @@
 #ifdef __APPLE__
 #include <GLUT/glut.h> // why does Apple have to put glut.h here...
 #else
-#include <GL/glut.h> // ...when everyone else puts it here?
+#include "GL/glut.h" // ...when everyone else puts it here?
 #endif
 
-#include "vec.h"
+
 
 namespace Gluvi{
 

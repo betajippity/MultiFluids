@@ -1,14 +1,15 @@
 #ifndef ARRAY2_UTILS_H
 #define ARRAY2_UTILS_H
 
-#include "vec.h"
+//#include "vec.h"
 #include "array2.h"
 #include "util.h"
+#include "glm/glm.hpp"
 
 template<class S, class T>
-T interpolate_value(const Vec<2,S>& point, const Array2<T, Array1<T> >& grid) {
+float interpolate_value(const glm::vec2& point, const Array2<T, Array1<T> >& grid) {
    int i,j;
-   S fx,fy;
+   float fx,fy;
 
    get_barycentric(point[0], i, fx, 0, grid.ni);
    get_barycentric(point[1], j, fy, 0, grid.nj);
@@ -20,9 +21,9 @@ T interpolate_value(const Vec<2,S>& point, const Array2<T, Array1<T> >& grid) {
 }
 
 template<class S, class T>
-float interpolate_gradient(Vec<2,T>& gradient, const Vec<2,S>& point, const Array2<T, Array1<float> >& grid) {
+float interpolate_gradient(glm::vec2& gradient, const glm::vec2& point, const Array2<T, Array1<float> >& grid) {
    int i,j;
-   S fx,fy;
+   float fx,fy;
    get_barycentric(point[0], i, fx, 0, grid.ni);
    get_barycentric(point[1], j, fy, 0, grid.nj);
 

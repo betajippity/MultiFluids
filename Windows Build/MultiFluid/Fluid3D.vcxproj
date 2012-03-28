@@ -83,12 +83,9 @@
     <ClInclude Include="array2_utils.h" />
     <ClInclude Include="array3_utils.h" />
     <ClInclude Include="fluidsim.h" />
-    <ClInclude Include="gluvi.h" />
     <ClInclude Include="hashtable.h" />
     <ClInclude Include="levelset_util.h" />
-    <ClInclude Include="openglutils.h" />
     <ClInclude Include="util.h" />
-    <ClInclude Include="vec.h" />
     <ClInclude Include="pcgsolver\blas_wrapper.h" />
     <ClInclude Include="pcgsolver\pcg_solver.h" />
     <ClInclude Include="pcgsolver\sparse_matrix.h" />

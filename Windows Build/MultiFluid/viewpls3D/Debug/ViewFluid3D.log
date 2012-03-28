@@ -1,128 +1,18 @@
-﻿Build started 3/18/2012 4:49:13 PM.
-     1>Project "C:\Users\Karl\Dropbox\Documents\projects\MultiFluid\Windows Build\MultiFluid\viewpls3D\ViewFluid3D.vcxproj" on node 3 (rebuild target(s)).
-     1>InitializeBuildStatus:
-         Creating "Debug\ViewFluid3D.unsuccessfulbuild" because "AlwaysCreate" was specified.
+﻿Build started 3/28/2012 5:35:46 AM.
+     1>Project "C:\Users\Karl Li\Dropbox\Documents\Projects\MultiFluids\Windows Build\MultiFluid\viewpls3D\ViewFluid3D.vcxproj" on node 3 (rebuild target(s)).
+     1>_PrepareForClean:
+         Deleting file "Debug\ViewFluid3D.lastbuildstate".
+       InitializeBuildStatus:
+         Touching "Debug\ViewFluid3D.unsuccessfulbuild".
        ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /IC:\cbatty\Research\ImagerCVS\bridson\smoothmarching /I..\common /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _CRT_SECURE_NO_DEPRECATE /D _VC80_UPGRADE=0x0710 /D _MBCS /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt gluvi.cpp main.cpp
          main.cpp
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\main.cpp(94): warning C4305: 'initializing' : truncation from 'double' to 'GLfloat'
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\main.cpp(94): warning C4305: 'initializing' : truncation from 'double' to 'GLfloat'
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\main.cpp(94): warning C4305: 'initializing' : truncation from 'double' to 'GLfloat'
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\main.cpp(98): warning C4305: 'initializing' : truncation from 'double' to 'GLfloat'
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\main.cpp(98): warning C4305: 'initializing' : truncation from 'double' to 'GLfloat'
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\main.cpp(98): warning C4305: 'initializing' : truncation from 'double' to 'GLfloat'
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\main.cpp(136): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\main.cpp(137): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\main.cpp(138): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\karl li\dropbox\documents\projects\multifluids\windows build\multifluid\viewpls3d\gluvi.h(10): fatal error C1083: Cannot open include file: 'GL/glut.h': No such file or directory
          gluvi.cpp
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(60): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(63): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(68): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(69): warning C4244: '-=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(70): warning C4244: '-=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(73): warning C4244: '*=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(102): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(103): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(103): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(214): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(217): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(222): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(223): warning C4244: '-=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(224): warning C4244: '-=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(227): warning C4244: '*=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(269): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(318): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(319): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(333): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(334): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(338): warning C4305: 'initializing' : truncation from 'double' to 'float'
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(348): warning C4305: 'initializing' : truncation from 'double' to 'float'
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(349): warning C4244: '-=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(350): warning C4244: '-=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(426): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(427): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(462): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(462): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(462): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(489): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(489): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(489): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(496): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(496): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(496): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(503): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(503): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(503): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(505): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(505): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(505): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(566): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(566): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(566): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(578): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(578): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(578): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(586): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(586): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(586): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(594): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(594): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(594): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(600): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(600): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(600): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(896): warning C4305: 'initializing' : truncation from 'double' to 'GLfloat'
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(896): warning C4305: 'initializing' : truncation from 'double' to 'GLfloat'
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(896): warning C4305: 'initializing' : truncation from 'double' to 'GLfloat'
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(900): warning C4305: 'initializing' : truncation from 'double' to 'GLfloat'
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(900): warning C4305: 'initializing' : truncation from 'double' to 'GLfloat'
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(900): warning C4305: 'initializing' : truncation from 'double' to 'GLfloat'
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(906): warning C4305: 'initializing' : truncation from 'double' to 'GLfloat'
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(906): warning C4305: 'initializing' : truncation from 'double' to 'GLfloat'
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(906): warning C4305: 'initializing' : truncation from 'double' to 'GLfloat'
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(912): warning C4305: 'initializing' : truncation from 'double' to 'GLfloat'
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(912): warning C4305: 'initializing' : truncation from 'double' to 'GLfloat'
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(912): warning C4305: 'initializing' : truncation from 'double' to 'GLfloat'
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(922): warning C4244: '=' : conversion from 'double' to 'GLfloat', possible loss of data
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(922): warning C4244: '=' : conversion from 'double' to 'GLfloat', possible loss of data
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(922): warning C4244: '=' : conversion from 'double' to 'GLfloat', possible loss of data
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(923): warning C4244: '=' : conversion from 'double' to 'GLfloat', possible loss of data
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(923): warning C4244: '=' : conversion from 'double' to 'GLfloat', possible loss of data
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(923): warning C4244: '=' : conversion from 'double' to 'GLfloat', possible loss of data
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(924): warning C4244: '=' : conversion from 'double' to 'GLfloat', possible loss of data
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(924): warning C4244: '=' : conversion from 'double' to 'GLfloat', possible loss of data
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(924): warning C4244: '=' : conversion from 'double' to 'GLfloat', possible loss of data
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(934): warning C4244: '=' : conversion from 'double' to 'GLfloat', possible loss of data
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(934): warning C4244: '=' : conversion from 'double' to 'GLfloat', possible loss of data
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(934): warning C4244: '=' : conversion from 'double' to 'GLfloat', possible loss of data
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(935): warning C4244: '=' : conversion from 'double' to 'GLfloat', possible loss of data
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(935): warning C4244: '=' : conversion from 'double' to 'GLfloat', possible loss of data
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(935): warning C4244: '=' : conversion from 'double' to 'GLfloat', possible loss of data
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(970): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\karl\dropbox\documents\projects\multifluid\windows build\multifluid\viewpls3d\gluvi.cpp(1024): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\karl li\dropbox\documents\projects\multifluids\windows build\multifluid\viewpls3d\gluvi.h(10): fatal error C1083: Cannot open include file: 'GL/glut.h': No such file or directory
          Generating Code...
-       ManifestResourceCompile:
-         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\rc.exe /nologo /fo"Debug\ViewFluid3D.exe.embed.manifest.res" Debug\ViewFluid3D_manifest.rc 
-     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\Microsoft.CppBuild.targets(990,5): warning MSB8012: TargetPath(C:\Users\Karl\Dropbox\Documents\projects\MultiFluid\Windows Build\MultiFluid\viewpls3D\Debug\ViewFluid3D.exe) does not match the Linker's OutputFile property value (C:\Users\Karl\Dropbox\Documents\projects\MultiFluid\Windows Build\MultiFluid\viewpls3D\Debug\ViewFlip3D.exe). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Link.OutputFile).
-     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\Microsoft.CppBuild.targets(992,5): warning MSB8012: TargetName(ViewFluid3D) does not match the Linker's OutputFile property value (ViewFlip3D). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Link.OutputFile).
-       Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"Debug\ViewFlip3D.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\ViewFluid3D.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"Debug\ViewFlip3D.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE:NO /IMPLIB:"Debug\ViewFluid3D.lib" /MACHINE:X86 Debug\ViewFluid3D.exe.embed.manifest.res
-         Debug\gluvi.obj
-         Debug\main.obj
-       Manifest:
-         Deleting file "Debug\ViewFluid3D.exe.embed.manifest".
-         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /out:"Debug\ViewFluid3D.exe.embed.manifest" /manifest Debug\ViewFluid3D.exe.intermediate.manifest
-         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\rc.exe /nologo /fo"Debug\ViewFluid3D.exe.embed.manifest.res" Debug\ViewFluid3D_manifest.rc 
-       LinkEmbedManifest:
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"Debug\ViewFlip3D.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\ViewFluid3D.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"Debug\ViewFlip3D.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE:NO /IMPLIB:"Debug\ViewFluid3D.lib" /MACHINE:X86 Debug\ViewFluid3D.exe.embed.manifest.res
-         Debug\gluvi.obj
-         Debug\main.obj
-         ViewFluid3D.vcxproj -> C:\Users\Karl\Dropbox\Documents\projects\MultiFluid\Windows Build\MultiFluid\viewpls3D\Debug\ViewFluid3D.exe
-       FinalizeBuildStatus:
-         Deleting file "Debug\ViewFluid3D.unsuccessfulbuild".
-         Touching "Debug\ViewFluid3D.lastbuildstate".
-     1>Done Building Project "C:\Users\Karl\Dropbox\Documents\projects\MultiFluid\Windows Build\MultiFluid\viewpls3D\ViewFluid3D.vcxproj" (rebuild target(s)).
+     1>Done Building Project "C:\Users\Karl Li\Dropbox\Documents\Projects\MultiFluids\Windows Build\MultiFluid\viewpls3D\ViewFluid3D.vcxproj" (rebuild target(s)) -- FAILED.
 
-Build succeeded.
+Build FAILED.
 
-Time Elapsed 00:00:03.70
+Time Elapsed 00:00:00.64

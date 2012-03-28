@@ -10,7 +10,7 @@
 #include <cmath>
 #include "sparse_matrix.h"
 #include "blas_wrapper.h"
-
+#include "../glm/glm.hpp"
 //============================================================================
 // A simple compressed sparse column data structure (with separate diagonal)
 // for lower triangular matrices
