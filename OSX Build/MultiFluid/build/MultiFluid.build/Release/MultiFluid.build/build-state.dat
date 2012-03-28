@@ -1,0 +1,504 @@
+TMultiFluid
+v4
+r1
+cCheck dependencies
+cCompileC build/MultiFluid.build/Release/MultiFluid.build/Objects-normal/x86_64/main.o "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/main.cpp" normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler
+cCompileC build/MultiFluid.build/Release/MultiFluid.build/Objects-normal/x86_64/fluidsim.o "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/fluidsim.cpp" normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler
+cCompileC build/MultiFluid.build/Release/MultiFluid.build/Objects-normal/x86_64/levelset_util.o "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/levelset_util.cpp" normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler
+cCompileC build/MultiFluid.build/Release/MultiFluid.build/Objects-normal/x86_64/incomplete_qr.o "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/sparse/incomplete_qr.cpp" normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler
+cLd "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/Release/MultiFluid" normal x86_64
+cGenerateDSYMFile "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/Release/MultiFluid.dSYM" "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/Release/MultiFluid"
+
+N/Developer/SDKs/MacOSX10.7.sdk
+c000000004EC5FFE600000000000000EE
+t1321598950
+s238
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/array1.h
+c000000004EFB09BE0000000000004CBB
+t1325074878
+s19643
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/array3.h
+c000000004F7290A100000000000019D5
+t1332908193
+s6613
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/array3_utils.h
+c000000004F7291810000000000000750
+t1332908417
+s1872
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/fluidsim.cpp
+c000000004F72919800000000000054B3
+t1332908440
+s21683
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/fluidsim.h
+c000000004F729045000000000000059B
+t1332908101
+s1435
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/levelset_util.cpp
+c000000004EFB09BE0000000000000DA1
+t1325074878
+s3489
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/levelset_util.h
+c000000004EFB09BE00000000000000BF
+t1325074878
+s191
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/main.cpp
+c000000004F7298D90000000000000A0E
+t1332910297
+s2574
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/../glm/./core/_detail.hpp
+c000000004F0BB9910000000000001CA4
+t1326168465
+s7332
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/../glm/./core/func_common.hpp
+c000000004F0BB9910000000000003651
+t1326168465
+s13905
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/../glm/./core/func_exponential.hpp
+c000000004F0BB9910000000000000C90
+t1326168465
+s3216
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/../glm/./core/func_geometric.hpp
+c000000004F0BB9910000000000000F67
+t1326168465
+s3943
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/../glm/./core/func_integer.hpp
+c000000004F0BB9910000000000001A86
+t1326168465
+s6790
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/../glm/./core/func_matrix.hpp
+c000000004F0BB9910000000000001032
+t1326168465
+s4146
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/../glm/./core/func_noise.hpp
+c000000004F0BB9910000000000000904
+t1326168465
+s2308
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/../glm/./core/func_packing.hpp
+c000000004F0BB9910000000000001E4B
+t1326168465
+s7755
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/../glm/./core/func_trigonometric.hpp
+c000000004F0BB9910000000000001865
+t1326168465
+s6245
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/../glm/./core/func_vector_relational.hpp
+c000000004F0BB991000000000000224C
+t1326168465
+s8780
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/../glm/./core/type.hpp
+c000000004F0BB9910000000000002DB8
+t1326168465
+s11704
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/../glm/core/_fixes.hpp
+c000000004F0BB99100000000000002B6
+t1326168465
+s694
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/../glm/core/_swizzle.hpp
+c000000004F0BB991000000000000D012
+t1326168465
+s53266
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/../glm/core/func_common.inl
+c000000004F0BB9910000000000009456
+t1326168465
+s37974
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/../glm/core/func_exponential.inl
+c000000004F0BB9910000000000001E9D
+t1326168465
+s7837
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/../glm/core/func_geometric.inl
+c000000004F0BB9910000000000001E21
+t1326168465
+s7713
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/../glm/core/func_integer.inl
+c000000004F0BB9910000000000003A24
+t1326168465
+s14884
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/../glm/core/func_matrix.inl
+c000000004F0BB991000000000000426D
+t1326168465
+s17005
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/../glm/core/func_noise.inl
+c000000004F0BB99100000000000002B0
+t1326168465
+s688
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/../glm/core/func_packing.inl
+c000000004F0BB991000000000000124F
+t1326168465
+s4687
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/../glm/core/func_trigonometric.inl
+c000000004F0BB9910000000000003F62
+t1326168465
+s16226
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/../glm/core/func_vector_relational.inl
+c000000004F0BB99100000000000002D2
+t1326168465
+s722
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/../glm/core/setup.hpp
+c000000004F0BB9910000000000004272
+t1326168465
+s17010
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/../glm/core/type_float.hpp
+c000000004F0BB9910000000000000A71
+t1326168465
+s2673
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/../glm/core/type_gentype.hpp
+c000000004F0BB9910000000000000FBE
+t1326168465
+s4030
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/../glm/core/type_half.hpp
+c000000004F0BB991000000000000085C
+t1326168465
+s2140
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/../glm/core/type_half.inl
+c000000004F0BB9910000000000001F88
+t1326168465
+s8072
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/../glm/core/type_int.hpp
+c000000004F0BB99100000000000010DF
+t1326168465
+s4319
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/../glm/core/type_mat.hpp
+c000000004F0BB9910000000000000609
+t1326168465
+s1545
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/../glm/core/type_mat2x2.hpp
+c000000004F0BB991000000000000234E
+t1326168465
+s9038
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/../glm/core/type_mat2x2.inl
+c000000004F0BB9910000000000003699
+t1326168465
+s13977
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/../glm/core/type_mat2x3.hpp
+c000000004F0BB9910000000000001C70
+t1326168465
+s7280
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/../glm/core/type_mat2x3.inl
+c000000004F0BB991000000000000350B
+t1326168465
+s13579
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/../glm/core/type_mat2x4.hpp
+c000000004F0BB9910000000000001CA1
+t1326168465
+s7329
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/../glm/core/type_mat2x4.inl
+c000000004F0BB99100000000000039A0
+t1326168465
+s14752
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/../glm/core/type_mat3x2.hpp
+c000000004F0BB9910000000000001C8F
+t1326168465
+s7311
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/../glm/core/type_mat3x2.inl
+c000000004F0BB9910000000000003872
+t1326168465
+s14450
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/../glm/core/type_mat3x3.hpp
+c000000004F0BB9910000000000002475
+t1326168465
+s9333
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/../glm/core/type_mat3x3.inl
+c000000004F0BB9910000000000004890
+t1326168465
+s18576
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/../glm/core/type_mat3x4.hpp
+c000000004F0BB9910000000000001DAE
+t1326168465
+s7598
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/../glm/core/type_mat3x4.inl
+c000000004F0BB99100000000000041AC
+t1326168465
+s16812
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/../glm/core/type_mat4x2.hpp
+c000000004F0BB9910000000000001DC8
+t1326168465
+s7624
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/../glm/core/type_mat4x2.inl
+c000000004F0BB99100000000000040D7
+t1326168465
+s16599
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/../glm/core/type_mat4x3.hpp
+c000000004F0BB9910000000000001E90
+t1326168465
+s7824
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/../glm/core/type_mat4x3.inl
+c000000004F0BB99100000000000045CE
+t1326168465
+s17870
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/../glm/core/type_mat4x4.hpp
+c000000004F0BB991000000000000263F
+t1326168465
+s9791
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/../glm/core/type_mat4x4.inl
+c000000004F0BB991000000000000730A
+t1326168465
+s29450
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/../glm/core/type_size.hpp
+c000000004F0BB99100000000000002FD
+t1326168465
+s765
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/../glm/core/type_vec.hpp
+c000000004F0BB99100000000000002CA
+t1326168465
+s714
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/../glm/core/type_vec1.hpp
+c000000004F0BB991000000000000183D
+t1326168465
+s6205
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/../glm/core/type_vec1.inl
+c000000004F0BB99100000000000038A7
+t1326168465
+s14503
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/../glm/core/type_vec2.hpp
+c000000004F0BB99100000000000023B3
+t1326168465
+s9139
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/../glm/core/type_vec2.inl
+c000000004F0BB9910000000000003FA4
+t1326168465
+s16292
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/../glm/core/type_vec3.hpp
+c000000004F0BB991000000000000255E
+t1326168465
+s9566
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/../glm/core/type_vec3.inl
+c000000004F0BB99100000000000046D8
+t1326168465
+s18136
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/../glm/core/type_vec4.hpp
+c000000004F0BB9910000000000002909
+t1326168465
+s10505
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/../glm/core/type_vec4.inl
+c000000004F0BB99100000000000051A7
+t1326168465
+s20903
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/../glm/glm.hpp
+c000000004F0BB9910000000000000E9C
+t1326168465
+s3740
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/blas_wrapper.h
+c000000004EFB09BE00000000000005A0
+t1325074878
+s1440
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/pcg_solver.h
+c000000004F72905F0000000000002AE0
+t1332908127
+s10976
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/sparse_matrix.h
+c000000004F7298E80000000000001FB1
+t1332910312
+s8113
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/sparse/incomplete_qr.cpp
+c000000004EFB09BE00000000000011AF
+t1325074878
+s4527
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/sparse/incomplete_qr.h
+c000000004EFB09BE00000000000002B5
+t1325074878
+s693
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/util.h
+c000000004EFB09BE00000000000028E5
+t1325074878
+s10469
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/Objects-normal/x86_64/MultiFluid.LinkFileList
+c000000004F7298E0000000000000024E
+t1332910304
+s590
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/Objects-normal/x86_64/fluidsim.o
+t1332910314
+s403048
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/Objects-normal/x86_64/incomplete_qr.o
+t1332910304
+s89376
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/Objects-normal/x86_64/levelset_util.o
+t1332910304
+s6876
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/Objects-normal/x86_64/main.o
+t1332910314
+s211684
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/Release/MultiFluid
+t1332910314
+s94960
+
+N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/Release/MultiFluid.dSYM
+t1332910314
+s102
+
+CBuild AST from "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/fluidsim.cpp"
+r0
+
+CBuild AST from "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/levelset_util.cpp"
+r0
+
+CBuild AST from "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/main.cpp"
+r0
+
+CBuild AST from "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/sparse/incomplete_qr.cpp"
+r0
+
+CCheck dependencies
+r0
+lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection18"Check dependenciesd76c1570d022b541^e5971570d022b541^---0#1#0#--18"Check dependencies36"7F57E8CA-9279-4C57-AF4D-28B3E56B5CBD-
+
+CCompileC build/MultiFluid.build/Release/MultiFluid.build/Objects-normal/x86_64/fluidsim.o "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/fluidsim.cpp" normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler
+s354603113.605602
+e354603114.711762
+r1
+xCompileC
+xbuild/MultiFluid.build/Release/MultiFluid.build/Objects-normal/x86_64/fluidsim.o
+x/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/fluidsim.cpp
+xnormal
+xx86_64
+xc++
+xcom.apple.compilers.llvm.clang.1_0.compiler
+oIn file included from /Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/fluidsim.cpp:1:
+oIn file included from /Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/fluidsim.h:4:
+o/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/sparse_matrix.h:222:24:{222:24-222:58}{222:23-222:24}: warning: implicit conversion loses integer precision: 'unsigned long' to 'unsigned int' [-Wshorten-64-to-32,3]
+o          rowstart[i+1]=rowstart[i]+matrix.index[i].size();
+o                       ~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+o/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/pcg_solver.h:265:20: note: in instantiation of member function 'FixedSparseMatrix<double>::construct_from_matrix' requested here [3]
+o       fixed_matrix.construct_from_matrix(matrix);
+o                    ^
+o/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/fluidsim.cpp:502:26: note: in instantiation of member function 'PCGSolver<double>::solve' requested here [3]
+o    bool success = solver.solve(matrix, rhs, pressure, tolerance, iterations);
+o                          ^
+o1 warning generated.
+lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection96"Compile /Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/fluidsim.cpp08229b69d022b541^8335b66ad022b541^-1202"In file included from /Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/fluidsim.h:4:In file included from /Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/fluidsim.cpp:1:/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/sparse_matrix.h:222:24:{222:24-222:58}{222:23-222:24}: warning: implicit conversion loses integer precision: 'unsigned long' to 'unsigned int' [-Wshorten-64-to-32,3]          rowstart[i+1]=rowstart[i]+matrix.index[i].size();                       ~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/pcg_solver.h:265:20: note: in instantiation of member function 'FixedSparseMatrix<double>::construct_from_matrix' requested here [3]       fixed_matrix.construct_from_matrix(matrix);                    ^/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/fluidsim.cpp:502:26: note: in instantiation of member function 'PCGSolver<double>::solve' requested here [3]    bool success = solver.solve(matrix, rhs, pressure, tolerance, iterations);                          ^1 warning generated.1(21%IDEActivityLogMessage2@78"Implicit conversion loses integer precision: 'unsigned long' to 'unsigned int'-354603114#226#252#5(36%IDEActivityLogHeaderInclusionMessage3@111"In file included from /Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/fluidsim.h:4:-354603114#0#112#-0#-23%DVTTextDocumentLocation4@104"file://localhost/Users/karlli/Documents/Projects/MultiFluid/OSX%20Build/MultiFluid/MultiFluid/fluidsim.h0000000000000000^3#18446744073709551615#3#18446744073709551615#18446744073709551615#0#---3@113"In file included from /Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/fluidsim.cpp:1:-354603114#112#114#-0#-4@106"file://localhost/Users/karlli/Documents/Projects/MultiFluid/OSX%20Build/MultiFluid/MultiFluid/fluidsim.cpp0000000000000000^0#18446744073709551615#0#18446744073709551615#18446744073709551615#0#---2@183"Implicit conversion loses integer precision: 'unsigned long' to 'unsigned int' in /Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/sparse_matrix.h-354603114#18446744073709551615#0#-0#-4@119"file://localhost/Users/karlli/Documents/Projects/MultiFluid/OSX%20Build/MultiFluid/MultiFluid/pcgsolver/sparse_matrix.h0000000000000000^221#23#221#23#18446744073709551615#0#---2@101"In instantiation of member function 'FixedSparseMatrix<double>::construct_from_matrix' requested here-354603114#597#219#-0#-4@116"file://localhost/Users/karlli/Documents/Projects/MultiFluid/OSX%20Build/MultiFluid/MultiFluid/pcgsolver/pcg_solver.h0000000000000000^264#19#264#19#18446744073709551615#0#14"Semantic Issue--2@77"In instantiation of member function 'PCGSolver<double>::solve' requested here-354603114#889#185#-0#-4@106"file://localhost/Users/karlli/Documents/Projects/MultiFluid/OSX%20Build/MultiFluid/MultiFluid/fluidsim.cpp0000000000000000^501#25#501#25#18446744073709551615#0#14"Semantic Issue--1#-4@119"file://localhost/Users/karlli/Documents/Projects/MultiFluid/OSX%20Build/MultiFluid/MultiFluid/pcgsolver/sparse_matrix.h0000000000000000^221#23#221#23#18446744073709551615#0#14"Semantic Issue2(4@119"file://localhost/Users/karlli/Documents/Projects/MultiFluid/OSX%20Build/MultiFluid/MultiFluid/pcgsolver/sparse_matrix.h0000000000000000^221#23#221#57#18446744073709551615#0#4@119"file://localhost/Users/karlli/Documents/Projects/MultiFluid/OSX%20Build/MultiFluid/MultiFluid/pcgsolver/sparse_matrix.h0000000000000000^221#22#221#23#18446744073709551615#0#-0#0#0#-19%DVTDocumentLocation5@106"file://localhost/Users/karlli/Documents/Projects/MultiFluid/OSX%20Build/MultiFluid/MultiFluid/fluidsim.cpp0000000000000000^2273"CompileC build/MultiFluid.build/Release/MultiFluid.build/Objects-normal/x86_64/fluidsim.o MultiFluid/fluidsim.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler    cd "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid"    setenv LANG en_US.US-ASCII    /Developer/usr/bin/clang -x c++ -arch x86_64 -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -Wno-trigraphs -fpascal-strings -Os -Wmissing-prototypes -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wshorten-64-to-32 -Wc++0x-extensions -isysroot /Developer/SDKs/MacOSX10.7.sdk -fasm-blocks -mmacosx-version-min=10.7 -gdwarf-2 -fvisibility=hidden -fvisibility-inlines-hidden -Wno-sign-conversion -iquote "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/MultiFluid-generated-files.hmap" "-I/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/MultiFluid-own-target-headers.hmap" "-I/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/MultiFluid-all-target-headers.hmap" -iquote "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/MultiFluid-project-headers.hmap" "-I/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/Release/include" "-I/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/DerivedSources/x86_64" "-I/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/DerivedSources" "-F/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/Release" -MMD -MT dependencies -MF "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/Objects-normal/x86_64/fluidsim.d" -c "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/fluidsim.cpp" -o "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/Objects-normal/x86_64/fluidsim.o"36"5CF99334-70E6-4736-83BF-FD739382232D-
+
+CCompileC build/MultiFluid.build/Release/MultiFluid.build/Objects-normal/x86_64/incomplete_qr.o "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/sparse/incomplete_qr.cpp" normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler
+s354603104.676486
+e354603104.934808
+r1
+xCompileC
+xbuild/MultiFluid.build/Release/MultiFluid.build/Objects-normal/x86_64/incomplete_qr.o
+x/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/sparse/incomplete_qr.cpp
+xnormal
+xx86_64
+xc++
+xcom.apple.compilers.llvm.clang.1_0.compiler
+lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection108"Compile /Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/sparse/incomplete_qr.cpp4a43ad60d022b541^2252ef60d022b541^---0#0#0#-19%DVTDocumentLocation2@118"file://localhost/Users/karlli/Documents/Projects/MultiFluid/OSX%20Build/MultiFluid/MultiFluid/sparse/incomplete_qr.cpp0000000000000000^2312"CompileC build/MultiFluid.build/Release/MultiFluid.build/Objects-normal/x86_64/incomplete_qr.o MultiFluid/sparse/incomplete_qr.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler    cd "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid"    setenv LANG en_US.US-ASCII    /Developer/usr/bin/clang -x c++ -arch x86_64 -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -Wno-trigraphs -fpascal-strings -Os -Wmissing-prototypes -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wshorten-64-to-32 -Wc++0x-extensions -isysroot /Developer/SDKs/MacOSX10.7.sdk -fasm-blocks -mmacosx-version-min=10.7 -gdwarf-2 -fvisibility=hidden -fvisibility-inlines-hidden -Wno-sign-conversion -iquote "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/MultiFluid-generated-files.hmap" "-I/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/MultiFluid-own-target-headers.hmap" "-I/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/MultiFluid-all-target-headers.hmap" -iquote "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/MultiFluid-project-headers.hmap" "-I/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/Release/include" "-I/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/DerivedSources/x86_64" "-I/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/DerivedSources" "-F/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/Release" -MMD -MT dependencies -MF "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/Objects-normal/x86_64/incomplete_qr.d" -c "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/sparse/incomplete_qr.cpp" -o "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/Objects-normal/x86_64/incomplete_qr.o"36"740F35E1-B84B-4363-B1E4-FEFA6B4832C5-
+
+CCompileC build/MultiFluid.build/Release/MultiFluid.build/Objects-normal/x86_64/levelset_util.o "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/levelset_util.cpp" normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler
+s354603104.676345
+e354603104.711603
+r1
+xCompileC
+xbuild/MultiFluid.build/Release/MultiFluid.build/Objects-normal/x86_64/levelset_util.o
+x/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/levelset_util.cpp
+xnormal
+xx86_64
+xc++
+xcom.apple.compilers.llvm.clang.1_0.compiler
+lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection101"Compile /Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/levelset_util.cpp2f36ad60d022b541^132cb660d022b541^---0#0#0#-19%DVTDocumentLocation2@111"file://localhost/Users/karlli/Documents/Projects/MultiFluid/OSX%20Build/MultiFluid/MultiFluid/levelset_util.cpp0000000000000000^2298"CompileC build/MultiFluid.build/Release/MultiFluid.build/Objects-normal/x86_64/levelset_util.o MultiFluid/levelset_util.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler    cd "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid"    setenv LANG en_US.US-ASCII    /Developer/usr/bin/clang -x c++ -arch x86_64 -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -Wno-trigraphs -fpascal-strings -Os -Wmissing-prototypes -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wshorten-64-to-32 -Wc++0x-extensions -isysroot /Developer/SDKs/MacOSX10.7.sdk -fasm-blocks -mmacosx-version-min=10.7 -gdwarf-2 -fvisibility=hidden -fvisibility-inlines-hidden -Wno-sign-conversion -iquote "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/MultiFluid-generated-files.hmap" "-I/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/MultiFluid-own-target-headers.hmap" "-I/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/MultiFluid-all-target-headers.hmap" -iquote "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/MultiFluid-project-headers.hmap" "-I/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/Release/include" "-I/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/DerivedSources/x86_64" "-I/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/DerivedSources" "-F/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/Release" -MMD -MT dependencies -MF "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/Objects-normal/x86_64/levelset_util.d" -c "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/levelset_util.cpp" -o "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/Objects-normal/x86_64/levelset_util.o"36"BE5B0A1D-4876-47DF-A0D7-7CA4BD039D8A-
+
+CCompileC build/MultiFluid.build/Release/MultiFluid.build/Objects-normal/x86_64/main.o "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/main.cpp" normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler
+s354603113.605588
+e354603114.357386
+r1
+xCompileC
+xbuild/MultiFluid.build/Release/MultiFluid.build/Objects-normal/x86_64/main.o
+x/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/main.cpp
+xnormal
+xx86_64
+xc++
+xcom.apple.compilers.llvm.clang.1_0.compiler
+lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection92"Compile /Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/main.cppff1f9b69d022b541^897c5b6ad022b541^---0#0#0#-19%DVTDocumentLocation2@102"file://localhost/Users/karlli/Documents/Projects/MultiFluid/OSX%20Build/MultiFluid/MultiFluid/main.cpp0000000000000000^2253"CompileC build/MultiFluid.build/Release/MultiFluid.build/Objects-normal/x86_64/main.o MultiFluid/main.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler    cd "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid"    setenv LANG en_US.US-ASCII    /Developer/usr/bin/clang -x c++ -arch x86_64 -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -Wno-trigraphs -fpascal-strings -Os -Wmissing-prototypes -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wshorten-64-to-32 -Wc++0x-extensions -isysroot /Developer/SDKs/MacOSX10.7.sdk -fasm-blocks -mmacosx-version-min=10.7 -gdwarf-2 -fvisibility=hidden -fvisibility-inlines-hidden -Wno-sign-conversion -iquote "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/MultiFluid-generated-files.hmap" "-I/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/MultiFluid-own-target-headers.hmap" "-I/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/MultiFluid-all-target-headers.hmap" -iquote "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/MultiFluid-project-headers.hmap" "-I/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/Release/include" "-I/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/DerivedSources/x86_64" "-I/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/DerivedSources" "-F/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/Release" -MMD -MT dependencies -MF "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/Objects-normal/x86_64/main.d" -c "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/main.cpp" -o "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/Objects-normal/x86_64/main.o"36"5C4B1575-603E-41E7-9618-9FB91A9F5894-
+
+CGenerateDSYMFile "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/Release/MultiFluid.dSYM" "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/Release/MultiFluid"
+s354603114.750865
+e354603114.784613
+r1
+xGenerateDSYMFile
+x/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/Release/MultiFluid.dSYM
+x/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/Release/MultiFluid
+lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection105"Generating /Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/Release/MultiFluid.dSYM878bc06ad022b541^340ec96ad022b541^---0#0#0#-19%DVTDocumentLocation2@112"file://localhost/Users/karlli/Documents/Projects/MultiFluid/OSX%20Build/MultiFluid/build/Release/MultiFluid.dSYM00f42891deffdf42^370"GenerateDSYMFile build/Release/MultiFluid.dSYM build/Release/MultiFluid    cd "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid"    /Developer/usr/bin/dsymutil "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/Release/MultiFluid" -o "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/Release/MultiFluid.dSYM"36"E993AB7E-CAF2-4823-B145-452B0380EF9E-
+
+CLd "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/Release/MultiFluid" normal x86_64
+s354603114.718299
+e354603114.742555
+r1
+xLd
+x/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/Release/MultiFluid
+xnormal
+xx86_64
+lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection94"Link /Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/Release/MultiFluid17d3b86ad022b541^5918be6ad022b541^---0#0#0#--700"Ld build/Release/MultiFluid normal x86_64    cd "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid"    setenv MACOSX_DEPLOYMENT_TARGET 10.7    /Developer/usr/bin/clang++ -arch x86_64 -isysroot /Developer/SDKs/MacOSX10.7.sdk "-L/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/Release" "-F/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/Release" -filelist "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/Objects-normal/x86_64/MultiFluid.LinkFileList" -mmacosx-version-min=10.7 -o "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/Release/MultiFluid"36"B01521B6-A3A7-48FA-BAE5-50A3CB563839-
+

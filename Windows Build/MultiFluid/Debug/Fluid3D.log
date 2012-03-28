@@ -1,0 +1,17 @@
+﻿Build started 3/18/2012 4:50:15 PM.
+     1>Project "C:\Users\Karl\Dropbox\Documents\projects\MultiFluid\Windows Build\MultiFluid\Fluid3D.vcxproj" on node 2 (build target(s)).
+     1>InitializeBuildStatus:
+         Creating "Debug\Fluid3D.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       ClCompile:
+         All outputs are up-to-date.
+       Link:
+         All outputs are up-to-date.
+         Fluid3D.vcxproj -> C:\Users\Karl\Dropbox\Documents\projects\MultiFluid\Windows Build\MultiFluid\Debug\Fluid3D.exe
+       FinalizeBuildStatus:
+         Deleting file "Debug\Fluid3D.unsuccessfulbuild".
+         Touching "Debug\Fluid3D.lastbuildstate".
+     1>Done Building Project "C:\Users\Karl\Dropbox\Documents\projects\MultiFluid\Windows Build\MultiFluid\Fluid3D.vcxproj" (build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:00.04
