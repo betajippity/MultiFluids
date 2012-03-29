@@ -613,25 +613,28 @@ void extrapolate(Array3f& grid, Array3c& valid) {
 
 void FluidSim::draw() {
 
-	glEnable(GL_LIGHTING);
+//	glEnable(GL_LIGHTING);
    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-   set_lights_and_material(1); 
+  // set_lights_and_material(0); 
 	   //Draw the liquid particles as simple spheres for now.
    glPolygonMode(GL_FRONT_AND_BACK, GL_LINES);
    GLUquadric* particle_sphere;
    particle_sphere = gluNewQuadric();
    gluQuadricDrawStyle(particle_sphere, GLU_FILL );
    for(unsigned int p = 0; p < particles.size(); ++p) {
+	   
       glPushMatrix();
 	  glm::vec3 pos = particles[p];
       glTranslatef(pos[0], pos[1], pos[2]);
+	  gluQuadricNormals(particle_sphere, GLU_SMOOTH);
+	  glColor4f(1.0, 0.0, 0.0, 1.0);
       gluSphere(particle_sphere, particle_radius, 20, 20);
       glPopMatrix();   
    }
 
    //Draw the bound box for good measure
-   glDisable(GL_LIGHTING);
+  // glDisable(GL_LIGHTING);
    glColor3f(0,0,0);
    glBegin(GL_LINES);
    glVertex3f(0,0,0);
@@ -692,26 +695,26 @@ void FluidSim::set_lights_and_material(int object)
    glShadeModel(GL_SMOOTH);
 
    //Light #1
-   /*GLfloat color[4] = {1.0f, 1.0f, 1.0f, 1.0f};
+   GLfloat color[4] = {0.0f, 0.0f, 1.0f, 1.0f};
    GLfloat position[3] = {1.0f, 1.0f, 1.0f};
-   glLightfv(GL_LIGHT0, GL_SPECULAR, color);
+  // glLightfv(GL_LIGHT0, GL_SPECULAR, color);
    glLightfv(GL_LIGHT0, GL_DIFFUSE, color);
    glLightfv(GL_LIGHT0, GL_POSITION, position);
 
    //Light #2
-   GLfloat color2[4] = {1.0f, 1.0f, 1.0f, 1.0f};
+   GLfloat color2[4] = {0.0f, 0.0f, 1.0f, 1.0f};
    GLfloat position2[3] = {-1.0f, -1.0f, 1.0f};
-   glLightfv(GL_LIGHT1, GL_SPECULAR, color2);
+  // glLightfv(GL_LIGHT1, GL_SPECULAR, color2);
    glLightfv(GL_LIGHT1, GL_DIFFUSE, color2);
    glLightfv(GL_LIGHT1, GL_POSITION, position2);
 
    GLfloat obj_color[4] = {.2, .3, .7};
-   glMaterialfv (GL_FRONT, GL_AMBIENT, obj_color);
+  // glMaterialfv (GL_FRONT, GL_AMBIENT, obj_color);
    glMaterialfv (GL_FRONT, GL_DIFFUSE, obj_color);
 
-   GLfloat specular[4] = {.4, .2, .8};
-   glMaterialf (GL_FRONT, GL_SHININESS, 32);
-   glMaterialfv (GL_FRONT, GL_SPECULAR, specular);
+  // GLfloat specular[4] = {.4, .2, .8};
+  // glMaterialf (GL_FRONT, GL_SHININESS, 32);
+  // glMaterialfv (GL_FRONT, GL_SPECULAR, specular);
    glEnable(GL_LIGHT0);
-   glEnable(GL_LIGHT1);*/
+   glEnable(GL_LIGHT1);
 }
