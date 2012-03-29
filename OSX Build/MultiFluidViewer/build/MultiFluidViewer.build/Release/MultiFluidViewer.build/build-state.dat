@@ -2,10 +2,10 @@ TMultiFluidViewer
 v4
 r1
 cCheck dependencies
-cCompileC build/MultiFluidViewer.build/Release/MultiFluidViewer.build/Objects-normal/x86_64/main.o "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer/MultiFluidViewer/main.cpp" normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler
-cCompileC build/MultiFluidViewer.build/Release/MultiFluidViewer.build/Objects-normal/x86_64/gluvi.o "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer/MultiFluidViewer/gluvi.cpp" normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler
-cLd "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer/build/Release/MultiFluidViewer" normal x86_64
-cGenerateDSYMFile "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer/build/Release/MultiFluidViewer.dSYM" "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer/build/Release/MultiFluidViewer"
+cCompileC build/MultiFluidViewer.build/Release/MultiFluidViewer.build/Objects-normal/x86_64/main.o "/Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer/MultiFluidViewer/main.cpp" normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler
+cCompileC build/MultiFluidViewer.build/Release/MultiFluidViewer.build/Objects-normal/x86_64/gluvi.o "/Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer/MultiFluidViewer/gluvi.cpp" normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler
+cLd "/Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer/build/Release/MultiFluidViewer" normal x86_64
+cGenerateDSYMFile "/Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer/build/Release/MultiFluidViewer.dSYM" "/Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer/build/Release/MultiFluidViewer"
 
 N/Developer/SDKs/MacOSX10.7.sdk
 c000000004EC6017400000000000000EE
@@ -27,126 +27,126 @@ c000000004E7AD704000000000000A46C
 t1316673284
 s42092
 
-N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer/MultiFluidViewer/gluvi.cpp
-c000000004EFB09BE00000000000081C5
-t1325074878
+N/Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer/MultiFluidViewer/gluvi.cpp
+c000000004F734F7900000000000081C5
+t1332957049
 s33221
 
-N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer/MultiFluidViewer/gluvi.h
+N/Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer/MultiFluidViewer/gluvi.h
 c000000004EFB09BE0000000000001905
 t1325074878
 s6405
 
-N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer/MultiFluidViewer/main.cpp
-c000000004F71D47B0000000000002018
-t1332860027
-s8216
+N/Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer/MultiFluidViewer/main.cpp
+c000000004F7380D00000000000002042
+t1332969680
+s8258
 
-N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer/MultiFluidViewer/util.h
+N/Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer/MultiFluidViewer/util.h
 c000000004EFB09BE00000000000028E5
 t1325074878
 s10469
 
-N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer/MultiFluidViewer/vec.h
+N/Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer/MultiFluidViewer/vec.h
 c000000004EFB09BE0000000000002D75
 t1325074878
 s11637
 
-N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer/build/MultiFluidViewer.build/Release/MultiFluidViewer.build/Objects-normal/x86_64/MultiFluidViewer.LinkFileList
-c000000004F71D4460000000000000141
-t1332859974
-s321
+N/Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer/build/MultiFluidViewer.build/Release/MultiFluidViewer.build/Objects-normal/x86_64/MultiFluidViewer.LinkFileList
+c000000004F734F7E0000000000000143
+t1332957054
+s323
 
-N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer/build/MultiFluidViewer.build/Release/MultiFluidViewer.build/Objects-normal/x86_64/gluvi.o
-t1332859975
-s178212
+N/Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer/build/MultiFluidViewer.build/Release/MultiFluidViewer.build/Objects-normal/x86_64/gluvi.o
+t1332957056
+s178228
 
-N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer/build/MultiFluidViewer.build/Release/MultiFluidViewer.build/Objects-normal/x86_64/main.o
-t1332859975
-s154744
+N/Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer/build/MultiFluidViewer.build/Release/MultiFluidViewer.build/Objects-normal/x86_64/main.o
+t1332969668
+s155528
 
-N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer/build/Release/MultiFluidViewer
-t1332859975
-s74200
+N/Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer/build/Release/MultiFluidViewer
+t1332969668
+s74260
 
-N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer/build/Release/MultiFluidViewer.dSYM
-t1332859975
+N/Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer/build/Release/MultiFluidViewer.dSYM
+t1332969668
 s102
 
-CBuild AST from "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer/MultiFluidViewer/gluvi.cpp"
+CBuild AST from "/Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer/MultiFluidViewer/gluvi.cpp"
 r0
 
-CBuild AST from "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer/MultiFluidViewer/main.cpp"
+CBuild AST from "/Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer/MultiFluidViewer/main.cpp"
 r0
 
 CCheck dependencies
 r0
-lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection18"Check dependencies49ba5afc0b22b541^b9335bfc0b22b541^---0#1#0#--18"Check dependencies36"71AF8C9C-5086-44BD-8AA3-02EB505F0F24-
+lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection18"Check dependenciesa6985b53b823b541^70ce6053b823b541^---0#1#0#--18"Check dependencies36"6CF683CC-62D6-4058-8F59-56BEAD402C64-
 
-CCompileC build/MultiFluidViewer.build/Release/MultiFluidViewer.build/Objects-normal/x86_64/gluvi.o "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer/MultiFluidViewer/gluvi.cpp" normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler
-s354552774.370156
-e354552775.837057
+CCompileC build/MultiFluidViewer.build/Release/MultiFluidViewer.build/Objects-normal/x86_64/gluvi.o "/Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer/MultiFluidViewer/gluvi.cpp" normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler
+s354649854.812243
+e354649856.158524
 r1
 xCompileC
 xbuild/MultiFluidViewer.build/Release/MultiFluidViewer.build/Objects-normal/x86_64/gluvi.o
-x/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer/MultiFluidViewer/gluvi.cpp
+x/Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer/MultiFluidViewer/gluvi.cpp
 xnormal
 xx86_64
 xc++
 xcom.apple.compilers.llvm.clang.1_0.compiler
-lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection105"Compile /Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer/MultiFluidViewer/gluvi.cpp6ad95ec60b22b541^3a59d6c70b22b541^---0#0#0#-19%DVTDocumentLocation2@115"file://localhost/Users/karlli/Documents/Projects/MultiFluid/OSX%20Build/MultiFluidViewer/MultiFluidViewer/gluvi.cpp0000000000000000^2474"CompileC build/MultiFluidViewer.build/Release/MultiFluidViewer.build/Objects-normal/x86_64/gluvi.o MultiFluidViewer/gluvi.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler    cd "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer"    setenv LANG en_US.US-ASCII    /Developer/usr/bin/clang -x c++ -arch x86_64 -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -Wno-trigraphs -fpascal-strings -Os -Wmissing-prototypes -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wshorten-64-to-32 -Wc++0x-extensions -isysroot /Developer/SDKs/MacOSX10.7.sdk -fasm-blocks -mmacosx-version-min=10.7 -gdwarf-2 -fvisibility=hidden -fvisibility-inlines-hidden -Wno-sign-conversion -iquote "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer/build/MultiFluidViewer.build/Release/MultiFluidViewer.build/MultiFluidViewer-generated-files.hmap" "-I/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer/build/MultiFluidViewer.build/Release/MultiFluidViewer.build/MultiFluidViewer-own-target-headers.hmap" "-I/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer/build/MultiFluidViewer.build/Release/MultiFluidViewer.build/MultiFluidViewer-all-target-headers.hmap" -iquote "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer/build/MultiFluidViewer.build/Release/MultiFluidViewer.build/MultiFluidViewer-project-headers.hmap" "-I/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer/build/Release/include" "-I/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer/build/MultiFluidViewer.build/Release/MultiFluidViewer.build/DerivedSources/x86_64" "-I/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer/build/MultiFluidViewer.build/Release/MultiFluidViewer.build/DerivedSources" "-F/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer/build/Release" -MMD -MT dependencies -MF "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer/build/MultiFluidViewer.build/Release/MultiFluidViewer.build/Objects-normal/x86_64/gluvi.d" -c "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer/MultiFluidViewer/gluvi.cpp" -o "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer/build/MultiFluidViewer.build/Release/MultiFluidViewer.build/Objects-normal/x86_64/gluvi.o"36"619A3CF0-6FC7-483E-AA09-1CF128656EA5-
+lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection106"Compile /Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer/MultiFluidViewer/gluvi.cppf705d0fe8623b541^66a228008723b541^---0#0#0#-19%DVTDocumentLocation2@116"file://localhost/Users/karlli/Documents/Projects/MultiFluids/OSX%20Build/MultiFluidViewer/MultiFluidViewer/gluvi.cpp0000000000000000^2486"CompileC build/MultiFluidViewer.build/Release/MultiFluidViewer.build/Objects-normal/x86_64/gluvi.o MultiFluidViewer/gluvi.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler    cd "/Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer"    setenv LANG en_US.US-ASCII    /Developer/usr/bin/clang -x c++ -arch x86_64 -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -Wno-trigraphs -fpascal-strings -Os -Wmissing-prototypes -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wshorten-64-to-32 -Wc++0x-extensions -isysroot /Developer/SDKs/MacOSX10.7.sdk -fasm-blocks -mmacosx-version-min=10.7 -gdwarf-2 -fvisibility=hidden -fvisibility-inlines-hidden -Wno-sign-conversion -iquote "/Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer/build/MultiFluidViewer.build/Release/MultiFluidViewer.build/MultiFluidViewer-generated-files.hmap" "-I/Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer/build/MultiFluidViewer.build/Release/MultiFluidViewer.build/MultiFluidViewer-own-target-headers.hmap" "-I/Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer/build/MultiFluidViewer.build/Release/MultiFluidViewer.build/MultiFluidViewer-all-target-headers.hmap" -iquote "/Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer/build/MultiFluidViewer.build/Release/MultiFluidViewer.build/MultiFluidViewer-project-headers.hmap" "-I/Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer/build/Release/include" "-I/Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer/build/MultiFluidViewer.build/Release/MultiFluidViewer.build/DerivedSources/x86_64" "-I/Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer/build/MultiFluidViewer.build/Release/MultiFluidViewer.build/DerivedSources" "-F/Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer/build/Release" -MMD -MT dependencies -MF "/Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer/build/MultiFluidViewer.build/Release/MultiFluidViewer.build/Objects-normal/x86_64/gluvi.d" -c "/Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer/MultiFluidViewer/gluvi.cpp" -o "/Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer/build/MultiFluidViewer.build/Release/MultiFluidViewer.build/Objects-normal/x86_64/gluvi.o"36"96391776-C413-4C54-B1F5-C302B32E78A1-
 
-CCompileC build/MultiFluidViewer.build/Release/MultiFluidViewer.build/Objects-normal/x86_64/main.o "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer/MultiFluidViewer/main.cpp" normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler
-s354552828.358155
-e354552829.881717
+CCompileC build/MultiFluidViewer.build/Release/MultiFluidViewer.build/Objects-normal/x86_64/main.o "/Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer/MultiFluidViewer/main.cpp" normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler
+s354662483.412445
+e354662484.430846
 r1
 xCompileC
 xbuild/MultiFluidViewer.build/Release/MultiFluidViewer.build/Objects-normal/x86_64/main.o
-x/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer/MultiFluidViewer/main.cpp
+x/Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer/MultiFluidViewer/main.cpp
 xnormal
 xx86_64
 xc++
 xcom.apple.compilers.llvm.clang.1_0.compiler
-o/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer/MultiFluidViewer/main.cpp:36:6: warning: no previous prototype for function 'read_frame' [-Wmissing-prototypes,3]
+o/Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer/MultiFluidViewer/main.cpp:36:6: warning: no previous prototype for function 'read_frame' [-Wmissing-prototypes,3]
 o bool read_frame(int newframe)
 o      ^
-o/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer/MultiFluidViewer/main.cpp:74:6: warning: no previous prototype for function 'set_view' [-Wmissing-prototypes,3]
+o/Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer/MultiFluidViewer/main.cpp:74:6: warning: no previous prototype for function 'set_view' [-Wmissing-prototypes,3]
 o void set_view(Gluvi::Target3D &cam)
 o      ^
-o/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer/MultiFluidViewer/main.cpp:79:6: warning: no previous prototype for function 'set_lights_and_material' [-Wmissing-prototypes,3]
+o/Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer/MultiFluidViewer/main.cpp:79:6: warning: no previous prototype for function 'set_lights_and_material' [-Wmissing-prototypes,3]
 o void set_lights_and_material(int object)
 o      ^
-o/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer/MultiFluidViewer/main.cpp:112:6: warning: no previous prototype for function 'timer' [-Wmissing-prototypes,3]
+o/Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer/MultiFluidViewer/main.cpp:112:6: warning: no previous prototype for function 'timer' [-Wmissing-prototypes,3]
 o void timer(int value)
 o      ^
-o/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer/MultiFluidViewer/main.cpp:135:6: warning: no previous prototype for function 'display' [-Wmissing-prototypes,3]
+o/Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer/MultiFluidViewer/main.cpp:135:6: warning: no previous prototype for function 'display' [-Wmissing-prototypes,3]
 o void display(void)
 o      ^
-o/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer/MultiFluidViewer/main.cpp:263:6: warning: no previous prototype for function 'keyPress' [-Wmissing-prototypes,3]
+o/Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer/MultiFluidViewer/main.cpp:263:6: warning: no previous prototype for function 'keyPress' [-Wmissing-prototypes,3]
 o void keyPress(unsigned char key, int x, int y) {
 o      ^
-o/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer/MultiFluidViewer/main.cpp:292:6: warning: no previous prototype for function 'special_key_handler' [-Wmissing-prototypes,3]
+o/Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer/MultiFluidViewer/main.cpp:292:6: warning: no previous prototype for function 'special_key_handler' [-Wmissing-prototypes,3]
 o void special_key_handler(int key, int x, int y)
 o      ^
 o7 warnings generated.
-lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection104"Compile /Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer/MultiFluidViewer/main.cpp8cd85bfc0b22b541^a3c9e1fd0b22b541^-1639"/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer/MultiFluidViewer/main.cpp:36:6: warning: no previous prototype for function 'read_frame' [-Wmissing-prototypes,3] bool read_frame(int newframe)      ^/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer/MultiFluidViewer/main.cpp:74:6: warning: no previous prototype for function 'set_view' [-Wmissing-prototypes,3] void set_view(Gluvi::Target3D &cam)      ^/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer/MultiFluidViewer/main.cpp:79:6: warning: no previous prototype for function 'set_lights_and_material' [-Wmissing-prototypes,3] void set_lights_and_material(int object)      ^/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer/MultiFluidViewer/main.cpp:112:6: warning: no previous prototype for function 'timer' [-Wmissing-prototypes,3] void timer(int value)      ^/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer/MultiFluidViewer/main.cpp:135:6: warning: no previous prototype for function 'display' [-Wmissing-prototypes,3] void display(void)      ^/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer/MultiFluidViewer/main.cpp:263:6: warning: no previous prototype for function 'keyPress' [-Wmissing-prototypes,3] void keyPress(unsigned char key, int x, int y) {      ^/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer/MultiFluidViewer/main.cpp:292:6: warning: no previous prototype for function 'special_key_handler' [-Wmissing-prototypes,3] void special_key_handler(int key, int x, int y)      ^7 warnings generated.7(21%IDEActivityLogMessage2@47"No previous prototype for function 'read_frame'-354552829#0#185#-1#-23%DVTTextDocumentLocation3@114"file://localhost/Users/karlli/Documents/Projects/MultiFluid/OSX%20Build/MultiFluidViewer/MultiFluidViewer/main.cpp0000000000000000^35#5#35#5#18446744073709551615#0#14"Semantic Issue--2@45"No previous prototype for function 'set_view'-354552829#224#183#-1#-3@114"file://localhost/Users/karlli/Documents/Projects/MultiFluid/OSX%20Build/MultiFluidViewer/MultiFluidViewer/main.cpp0000000000000000^73#5#73#5#18446744073709551615#0#14"Semantic Issue--2@60"No previous prototype for function 'set_lights_and_material'-354552829#452#198#-1#-3@114"file://localhost/Users/karlli/Documents/Projects/MultiFluid/OSX%20Build/MultiFluidViewer/MultiFluidViewer/main.cpp0000000000000000^78#5#78#5#18446744073709551615#0#14"Semantic Issue--2@42"No previous prototype for function 'timer'-354552829#700#181#-1#-3@114"file://localhost/Users/karlli/Documents/Projects/MultiFluid/OSX%20Build/MultiFluidViewer/MultiFluidViewer/main.cpp0000000000000000^111#5#111#5#18446744073709551615#0#14"Semantic Issue--2@44"No previous prototype for function 'display'-354552829#912#183#-1#-3@114"file://localhost/Users/karlli/Documents/Projects/MultiFluid/OSX%20Build/MultiFluidViewer/MultiFluidViewer/main.cpp0000000000000000^134#5#134#5#18446744073709551615#0#14"Semantic Issue--2@45"No previous prototype for function 'keyPress'-354552829#1123#184#-1#-3@114"file://localhost/Users/karlli/Documents/Projects/MultiFluid/OSX%20Build/MultiFluidViewer/MultiFluidViewer/main.cpp0000000000000000^262#5#262#5#18446744073709551615#0#14"Semantic Issue--2@56"No previous prototype for function 'special_key_handler'-354552829#1365#195#-1#-3@114"file://localhost/Users/karlli/Documents/Projects/MultiFluid/OSX%20Build/MultiFluidViewer/MultiFluidViewer/main.cpp0000000000000000^291#5#291#5#18446744073709551615#0#14"Semantic Issue--0#0#0#-19%DVTDocumentLocation4@114"file://localhost/Users/karlli/Documents/Projects/MultiFluid/OSX%20Build/MultiFluidViewer/MultiFluidViewer/main.cpp0000000000000000^2469"CompileC build/MultiFluidViewer.build/Release/MultiFluidViewer.build/Objects-normal/x86_64/main.o MultiFluidViewer/main.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler    cd "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer"    setenv LANG en_US.US-ASCII    /Developer/usr/bin/clang -x c++ -arch x86_64 -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -Wno-trigraphs -fpascal-strings -Os -Wmissing-prototypes -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wshorten-64-to-32 -Wc++0x-extensions -isysroot /Developer/SDKs/MacOSX10.7.sdk -fasm-blocks -mmacosx-version-min=10.7 -gdwarf-2 -fvisibility=hidden -fvisibility-inlines-hidden -Wno-sign-conversion -iquote "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer/build/MultiFluidViewer.build/Release/MultiFluidViewer.build/MultiFluidViewer-generated-files.hmap" "-I/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer/build/MultiFluidViewer.build/Release/MultiFluidViewer.build/MultiFluidViewer-own-target-headers.hmap" "-I/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer/build/MultiFluidViewer.build/Release/MultiFluidViewer.build/MultiFluidViewer-all-target-headers.hmap" -iquote "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer/build/MultiFluidViewer.build/Release/MultiFluidViewer.build/MultiFluidViewer-project-headers.hmap" "-I/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer/build/Release/include" "-I/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer/build/MultiFluidViewer.build/Release/MultiFluidViewer.build/DerivedSources/x86_64" "-I/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer/build/MultiFluidViewer.build/Release/MultiFluidViewer.build/DerivedSources" "-F/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer/build/Release" -MMD -MT dependencies -MF "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer/build/MultiFluidViewer.build/Release/MultiFluidViewer.build/Objects-normal/x86_64/main.d" -c "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer/MultiFluidViewer/main.cpp" -o "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer/build/MultiFluidViewer.build/Release/MultiFluidViewer.build/Objects-normal/x86_64/main.o"36"7B42ACE8-8DF6-4BE1-83D1-17DBD95AA5B9-
+lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection105"Compile /Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer/MultiFluidViewer/main.cpp45b86953b823b541^74996e54b823b541^-1646"/Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer/MultiFluidViewer/main.cpp:36:6: warning: no previous prototype for function 'read_frame' [-Wmissing-prototypes,3] bool read_frame(int newframe)      ^/Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer/MultiFluidViewer/main.cpp:74:6: warning: no previous prototype for function 'set_view' [-Wmissing-prototypes,3] void set_view(Gluvi::Target3D &cam)      ^/Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer/MultiFluidViewer/main.cpp:79:6: warning: no previous prototype for function 'set_lights_and_material' [-Wmissing-prototypes,3] void set_lights_and_material(int object)      ^/Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer/MultiFluidViewer/main.cpp:112:6: warning: no previous prototype for function 'timer' [-Wmissing-prototypes,3] void timer(int value)      ^/Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer/MultiFluidViewer/main.cpp:135:6: warning: no previous prototype for function 'display' [-Wmissing-prototypes,3] void display(void)      ^/Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer/MultiFluidViewer/main.cpp:263:6: warning: no previous prototype for function 'keyPress' [-Wmissing-prototypes,3] void keyPress(unsigned char key, int x, int y) {      ^/Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer/MultiFluidViewer/main.cpp:292:6: warning: no previous prototype for function 'special_key_handler' [-Wmissing-prototypes,3] void special_key_handler(int key, int x, int y)      ^7 warnings generated.7(21%IDEActivityLogMessage2@47"No previous prototype for function 'read_frame'-354662484#0#186#-1#-23%DVTTextDocumentLocation3@115"file://localhost/Users/karlli/Documents/Projects/MultiFluids/OSX%20Build/MultiFluidViewer/MultiFluidViewer/main.cpp0000000000000000^35#5#35#5#18446744073709551615#0#14"Semantic Issue--2@45"No previous prototype for function 'set_view'-354662484#225#184#-1#-3@115"file://localhost/Users/karlli/Documents/Projects/MultiFluids/OSX%20Build/MultiFluidViewer/MultiFluidViewer/main.cpp0000000000000000^73#5#73#5#18446744073709551615#0#14"Semantic Issue--2@60"No previous prototype for function 'set_lights_and_material'-354662484#454#199#-1#-3@115"file://localhost/Users/karlli/Documents/Projects/MultiFluids/OSX%20Build/MultiFluidViewer/MultiFluidViewer/main.cpp0000000000000000^78#5#78#5#18446744073709551615#0#14"Semantic Issue--2@42"No previous prototype for function 'timer'-354662484#703#182#-1#-3@115"file://localhost/Users/karlli/Documents/Projects/MultiFluids/OSX%20Build/MultiFluidViewer/MultiFluidViewer/main.cpp0000000000000000^111#5#111#5#18446744073709551615#0#14"Semantic Issue--2@44"No previous prototype for function 'display'-354662484#916#184#-1#-3@115"file://localhost/Users/karlli/Documents/Projects/MultiFluids/OSX%20Build/MultiFluidViewer/MultiFluidViewer/main.cpp0000000000000000^134#5#134#5#18446744073709551615#0#14"Semantic Issue--2@45"No previous prototype for function 'keyPress'-354662484#1128#185#-1#-3@115"file://localhost/Users/karlli/Documents/Projects/MultiFluids/OSX%20Build/MultiFluidViewer/MultiFluidViewer/main.cpp0000000000000000^262#5#262#5#18446744073709551615#0#14"Semantic Issue--2@56"No previous prototype for function 'special_key_handler'-354662484#1371#196#-1#-3@115"file://localhost/Users/karlli/Documents/Projects/MultiFluids/OSX%20Build/MultiFluidViewer/MultiFluidViewer/main.cpp0000000000000000^291#5#291#5#18446744073709551615#0#14"Semantic Issue--0#0#0#-19%DVTDocumentLocation4@115"file://localhost/Users/karlli/Documents/Projects/MultiFluids/OSX%20Build/MultiFluidViewer/MultiFluidViewer/main.cpp0000000000000000^2481"CompileC build/MultiFluidViewer.build/Release/MultiFluidViewer.build/Objects-normal/x86_64/main.o MultiFluidViewer/main.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler    cd "/Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer"    setenv LANG en_US.US-ASCII    /Developer/usr/bin/clang -x c++ -arch x86_64 -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -Wno-trigraphs -fpascal-strings -Os -Wmissing-prototypes -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wshorten-64-to-32 -Wc++0x-extensions -isysroot /Developer/SDKs/MacOSX10.7.sdk -fasm-blocks -mmacosx-version-min=10.7 -gdwarf-2 -fvisibility=hidden -fvisibility-inlines-hidden -Wno-sign-conversion -iquote "/Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer/build/MultiFluidViewer.build/Release/MultiFluidViewer.build/MultiFluidViewer-generated-files.hmap" "-I/Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer/build/MultiFluidViewer.build/Release/MultiFluidViewer.build/MultiFluidViewer-own-target-headers.hmap" "-I/Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer/build/MultiFluidViewer.build/Release/MultiFluidViewer.build/MultiFluidViewer-all-target-headers.hmap" -iquote "/Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer/build/MultiFluidViewer.build/Release/MultiFluidViewer.build/MultiFluidViewer-project-headers.hmap" "-I/Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer/build/Release/include" "-I/Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer/build/MultiFluidViewer.build/Release/MultiFluidViewer.build/DerivedSources/x86_64" "-I/Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer/build/MultiFluidViewer.build/Release/MultiFluidViewer.build/DerivedSources" "-F/Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer/build/Release" -MMD -MT dependencies -MF "/Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer/build/MultiFluidViewer.build/Release/MultiFluidViewer.build/Objects-normal/x86_64/main.d" -c "/Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer/MultiFluidViewer/main.cpp" -o "/Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer/build/MultiFluidViewer.build/Release/MultiFluidViewer.build/Objects-normal/x86_64/main.o"36"0C8D96BD-5951-4790-BAC4-7F32A842BF02-
 
-CGenerateDSYMFile "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer/build/Release/MultiFluidViewer.dSYM" "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer/build/Release/MultiFluidViewer"
-s354552830.004565
-e354552830.057645
+CGenerateDSYMFile "/Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer/build/Release/MultiFluidViewer.dSYM" "/Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer/build/Release/MultiFluidViewer"
+s354662484.733894
+e354662484.925946
 r1
 xGenerateDSYMFile
-x/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer/build/Release/MultiFluidViewer.dSYM
-x/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer/build/Release/MultiFluidViewer
-lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection117"Generating /Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer/build/Release/MultiFluidViewer.dSYM103d01fe0b22b541^b9fc13fe0b22b541^---0#0#0#-19%DVTDocumentLocation2@125"file://localhost/Users/karlli/Documents/Projects/MultiFluid/OSX%20Build/MultiFluidViewer/build/Release/MultiFluidViewer.dSYM/0000000000000000^412"GenerateDSYMFile build/Release/MultiFluidViewer.dSYM build/Release/MultiFluidViewer    cd "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer"    /Developer/usr/bin/dsymutil "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer/build/Release/MultiFluidViewer" -o "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer/build/Release/MultiFluidViewer.dSYM"36"F015E761-8742-4607-9932-621D6B31AC61-
+x/Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer/build/Release/MultiFluidViewer.dSYM
+x/Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer/build/Release/MultiFluidViewer
+lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection118"Generating /Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer/build/Release/MultiFluidViewer.dSYM0ff1bb54b823b541^28b9ef54b823b541^---0#0#0#-19%DVTDocumentLocation2@126"file://localhost/Users/karlli/Documents/Projects/MultiFluids/OSX%20Build/MultiFluidViewer/build/Release/MultiFluidViewer.dSYM/0000000000000000^415"GenerateDSYMFile build/Release/MultiFluidViewer.dSYM build/Release/MultiFluidViewer    cd "/Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer"    /Developer/usr/bin/dsymutil "/Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer/build/Release/MultiFluidViewer" -o "/Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer/build/Release/MultiFluidViewer.dSYM"36"2DFF8072-05F3-4538-B012-A8903AEB3A0D-
 
-CLd "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer/build/Release/MultiFluidViewer" normal x86_64
-s354552829.888905
-e354552829.996966
+CLd "/Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer/build/Release/MultiFluidViewer" normal x86_64
+s354662484.438093
+e354662484.723843
 r1
 xLd
-x/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer/build/Release/MultiFluidViewer
+x/Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer/build/Release/MultiFluidViewer
 xnormal
 xx86_64
-lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection106"Link /Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer/build/Release/MultiFluidViewer37a6e3fd0b22b541^0c3cfffd0b22b541^---0#0#0#--812"Ld build/Release/MultiFluidViewer normal x86_64    cd "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer"    setenv MACOSX_DEPLOYMENT_TARGET 10.7    /Developer/usr/bin/clang++ -arch x86_64 -isysroot /Developer/SDKs/MacOSX10.7.sdk "-L/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer/build/Release" "-F/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer/build/Release" -filelist "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer/build/MultiFluidViewer.build/Release/MultiFluidViewer.build/Objects-normal/x86_64/MultiFluidViewer.LinkFileList" -mmacosx-version-min=10.7 -framework Carbon -framework OpenGL -framework GLUT -o "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluidViewer/build/Release/MultiFluidViewer"36"BB1ED500-B30F-488C-AC81-0AEA4CBDC6B2-
+lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection107"Link /Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer/build/Release/MultiFluidViewereb3a7054b823b541^0569c254b823b541^---0#0#0#--817"Ld build/Release/MultiFluidViewer normal x86_64    cd "/Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer"    setenv MACOSX_DEPLOYMENT_TARGET 10.7    /Developer/usr/bin/clang++ -arch x86_64 -isysroot /Developer/SDKs/MacOSX10.7.sdk "-L/Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer/build/Release" "-F/Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer/build/Release" -filelist "/Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer/build/MultiFluidViewer.build/Release/MultiFluidViewer.build/Objects-normal/x86_64/MultiFluidViewer.LinkFileList" -mmacosx-version-min=10.7 -framework Carbon -framework OpenGL -framework GLUT -o "/Users/karlli/Documents/Projects/MultiFluids/OSX Build/MultiFluidViewer/build/Release/MultiFluidViewer"36"A8B73B0F-E6F0-4AED-BECB-1FB3F3577A8C-
 

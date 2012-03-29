@@ -124,11 +124,11 @@ void timer(int value)
 
 
    if(running) {
+    cout << "i am running" << endl;
       read_frame(frame+1);
       glutTimerFunc(1, timer, 0);
       glutPostRedisplay();
    }
-
 }
 
 
@@ -165,7 +165,7 @@ void display(void)
    //Draw the bound box for good measure
    glDisable(GL_LIGHTING);
    glColor3f(0,0,0);
-   glBegin(GL_LINES);
+   /*glBegin(GL_LINES);
    glVertex3f(0,0,0);
    glVertex3f(0,0,1);
 
@@ -202,7 +202,7 @@ void display(void)
    glVertex3f(0,0,1);
    glVertex3f(0,1,1);
 
-   glEnd();
+   glEnd();*/
    
    //Draw wireframe sphere geometry (specific to this scene).
    glColor3f(0,0,0);
