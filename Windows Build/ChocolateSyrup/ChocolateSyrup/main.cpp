@@ -6,6 +6,7 @@
 #include <cfloat>
 #include <stdio.h>
 #include <cmath>
+#include <string>
 
 #include "camera.h"
 #include "fps.h"
@@ -19,11 +20,15 @@
 
 using namespace std;
 
-int grid_resolution = 10;
+string outpath;
+
+int grid_resolution = 20;
 float timestep = 0.01f;
 int frame = 0;
 
 float grid_width = 1;
+
+bool textOutput = false;
 
 FluidSim sim;
 
@@ -55,17 +60,25 @@ float boundary_phi(const glm::vec3& position) {
 
 float liquid_phi(const glm::vec3& position);
 float liquid_phi(const glm::vec3& position) {
+	
    return sphere_phi(position, glm::vec3(0.55f, 0.55f, 0.4f), 0.23f);
+   
 }
 
 void initCamera()
 {
-   theCamera.dfltEye[0] = 0;
-   theCamera.dfltEye[1] = 0;
-   theCamera.dfltEye[2] = 0;
-   theCamera.dfltLook[0] = 0.5;
-   theCamera.dfltLook[1] = 0.5;
-   theCamera.dfltLook[2] = 0.5;
+   double w = theDim[0]*theCellSize;   
+   double h = theDim[1]*theCellSize;   
+   double d = theDim[2]*theCellSize;   
+   double angle = 0.5*theCamera.dfltVfov*BasicMath::PI/180.0;
+   double dist;
+   if (w > h) dist = w*0.5/std::tan(angle);  // aspect is 1, so i can do this
+   else dist = h*0.5/std::tan(angle);
+  // theCamera.dfltEye = glm::vec3(w*0.5, h*0.5, -(dist+d*0.5));
+
+   theCamera.dfltEye = glm::vec3(0,0,1);
+   //theCamera.dfltLook = glm::vec3(w*0.5, h*0.5, 0.0);
+   theCamera.dfltLook = glm::vec3(0, 0, 0.0);
    theCamera.reset();
 }
 
@@ -85,8 +98,8 @@ void onMouseMotionCb(int x, int y)
    }
    else if (theButtonState == GLUT_MIDDLE_BUTTON) // Zoom
    {
-      if (moveUpDown && deltaY > 0) theCamera.moveForward(deltaY);
-      else if (moveUpDown && deltaY < 0) theCamera.moveBack(-deltaY);
+   //   if (moveUpDown && deltaY > 0) theCamera.moveForward(deltaY);
+    //  else if (moveUpDown && deltaY < 0) theCamera.moveBack(-deltaY);
    }    
 
    if (theModifierState & GLUT_ACTIVE_ALT) // camera move
@@ -131,12 +144,14 @@ void onKeyboardCb(unsigned char key, int x, int y)
    //else if (key == '0') MACGrid::theRenderMode = MACGrid::CUBES;
    //else if (key == '1') MACGrid::theRenderMode = MACGrid::SHEETS;
    //else if (key == 'v') MACGrid::theDisplayVel = !MACGrid::theDisplayVel;
-   //else if (key == 'r') theSmokeSim.setRecording(!theSmokeSim.isRecording(), savedWidth, savedHeight);
-   //else if (key == '>') isRunning = true;
-   //else if (key == '=') isRunning = false;
-   //else if (key == '<') theSmokeSim.reset();
-   //else if (key == 't') MACGrid::theRenderType = MACGrid::TEMPERATURE;
-   //else if (key == 'd') MACGrid::theRenderType = MACGrid::DENSITY;
+   else if (key == 'r') sim.setRecording(!sim.isRecording(), savedWidth, savedHeight);
+   else if (key == '>') isRunning = true;
+   else if (key == '=') isRunning = false;
+   else if (key == '<') sim.reset(grid_width, grid_resolution, grid_resolution, grid_resolution, liquid_phi);
+   else if (key == 'q') sim.set_liquid(liquid_phi);
+   else if (key == 'w') sim.setTransparentRender(!sim.isTransparentRender());
+   else if (key == 'e') sim.setVerbose(!sim.isVerbose());
+   else if (key == 't') textOutput = !textOutput;
    else if (key == 27) exit(0); // ESC Key
    glutPostRedisplay();
 }
@@ -155,9 +170,38 @@ void onKeyboardSpecialCb(int key, int x, int y)
 {
 }
 
+void export_particles(string path, int frame, const std::vector<glm::vec3>& particles, float radius) {
+   //Write the output
+   
+   std::stringstream strout;
+   strout << path << "particles_" << frame << ".txt";
+   string filepath = strout.str();
+   
+   ofstream outfile(filepath.c_str());
+   //write vertex count and particle radius
+   outfile << particles.size() << " " << radius << std::endl;
+   //write vertices
+   for(unsigned int i = 0; i < particles.size(); ++i)
+      outfile << particles[i][0] << " " << particles[i][1] << " " << particles[i][2] << std::endl;
+   outfile.close();
+}
+
 void onTimerCb(int value)
 {
-   if (isRunning) sim.advance(timestep);
+	if(sim.isVerbose()){
+		printf("--------------------\nFrame %d\n", sim.getTotalFrames());
+		printf("Simulating liquid\n");
+   }
+   if (isRunning){
+	   sim.advance(timestep);
+   }
+   if(textOutput){
+	   export_particles(outpath, sim.getTotalFrames(), sim.particles, sim.particle_radius);
+	   if(sim.isVerbose()){
+			printf("Exporting particle data\n");
+	   }
+   }
+
    glutTimerFunc(theMillisecondsPerFrame, onTimerCb, 0);
    glutPostRedisplay();
 }
@@ -190,12 +234,12 @@ void drawOverlay()
 
      glMatrixMode(GL_MODELVIEW);
      glLoadIdentity();
-     glRasterPos2f(0.01, 0.01);
+     glRasterPos2f(0.01, 0.01); 
      
      char info[1024];
-     //sprintf(info, "Framerate: %3.1f  |  Frame: %u  |  %s", 
-     //    theFpsTracker.fpsAverage(), theSmokeSim.getTotalFrames(),
-     //    theSmokeSim.isRecording()? "Recording..." : "");
+     sprintf(info, "CHOCOLATE SYRUP | Framerate: %3.1f  |  Frame: %u  |  %s", 
+         theFpsTracker.fpsAverage(), sim.getTotalFrames(),//,
+         sim.isRecording()? "Recording..." : "");
  
      for (unsigned int i = 0; i < strlen(info); i++)
      {
@@ -229,7 +273,7 @@ void drawAxes()
 void onDrawCb()
 {
 	// Keep track of time
-	//theFpsTracker.timestamp();
+	theFpsTracker.timestamp();
 
 	// Draw Scene and overlay
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -243,7 +287,7 @@ void onDrawCb()
 void init(void)
 {
     initCamera();
-    glClearColor(1, 1, 1, 1.0);
+    glClearColor(.4, .4, .4, 1.0);
 
     glEnable(GL_BLEND);
     glEnable(GL_ALPHA_TEST);
@@ -260,6 +304,16 @@ void init(void)
 
 int main(int argc, char **argv)
 {
+
+	if(argc!=2){
+      cerr << "The first parameter should be the folder to write the output liquid meshes into. (eg. c:\\output\\)" << endl;
+      return 1;
+   }
+
+   string output(argv[1]);
+
+   outpath = output;
+
    sim.initialize(grid_width, grid_resolution, grid_resolution, grid_resolution);
    sim.set_boundary(boundary_phi);
    sim.set_liquid(liquid_phi);

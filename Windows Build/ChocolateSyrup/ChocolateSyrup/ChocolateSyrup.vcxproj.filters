@@ -411,6 +411,12 @@
     <ClInclude Include="custom_output.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="stb_image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="stb_image_write.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -432,6 +438,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="basic_math.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="stb_image.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="stb_image_write.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

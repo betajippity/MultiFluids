@@ -3,16 +3,13 @@
 
 #pragma once
 
-// WINDOWS:
+#ifdef __APPLE__
+#include <OpenGL/gl.h>
+#include <OpenGL/glu.h>
+#include <GLUT/glut.h>
+#else
 #include <windows.h>
 #include <gl/GL.h>
 #include <gl/GLU.h>
 #include <gl/glut.h>
-
-/*
-// MAC:
-#include <OpenGL/gl.h>
-#include <OpenGL/glu.h>
-#include <GLUT/glut.h>
-*/
-
+#endif

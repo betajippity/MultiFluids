@@ -2,5 +2,7 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ShowAllFiles>true</ShowAllFiles>
+    <LocalDebuggerCommandArguments Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">../output/text/</LocalDebuggerCommandArguments>
+    <DebuggerFlavor Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
 </Project>

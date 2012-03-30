@@ -48,6 +48,19 @@ public:
 
     glm::vec3 get_velocity(const glm::vec3& position);
 
+	int getTotalFrames();
+	bool isRecording();
+	void setRecording(bool on, int width, int height);
+	void grabScreen();
+	void reset(float width, int ni_, int nj_, int nk_, float (*phi)(const glm::vec3&));
+	void setTransparentRender(bool set);
+	bool isTransparentRender();
+	void setVerbose(bool set);
+	bool isVerbose();
+
+	bool verbose;
+	bool transparentRender;
+
 private:
 
    glm::vec3 trace_rk2(const glm::vec3& position, float dt);
@@ -65,8 +78,11 @@ private:
    void solve_pressure(float dt);
    void compute_phi();
 
-
-
+   int mTotalFrameNum;
+   bool mRecordEnabled;
+   int mFrameNum;
+   int recordWidth;
+	int recordHeight;
 };
 
 

@@ -624,7 +624,7 @@ void FluidSim::draw() {
 //	glEnable(GL_LIGHTING);
    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-  // set_lights_and_material(0); 
+//   set_lights_and_material(0); 
 	   //Draw the liquid particles as simple spheres for now.
    glPolygonMode(GL_FRONT_AND_BACK, GL_LINES);
    GLUquadric* particle_sphere;
@@ -636,7 +636,7 @@ void FluidSim::draw() {
 	  glm::vec3 pos = particles[p];
       glTranslatef(pos[0], pos[1], pos[2]);
 	  gluQuadricNormals(particle_sphere, GLU_SMOOTH);
-	  glColor4f(1.0, 0.0, 0.0, 1.0);
+	  glColor4f(0.0, 0.0, 1.0, 1.0);
       gluSphere(particle_sphere, particle_radius, 20, 20);
       glPopMatrix();   
    }

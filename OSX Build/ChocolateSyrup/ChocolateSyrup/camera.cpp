@@ -54,6 +54,7 @@ void Camera::draw()
    glLoadIdentity();
    gluPerspective(mVfov, mAspect, mNear, mFar);
 
+    
    float m[16];
    m[0] = v[0]; m[4] = v[1]; m[8] = v[2];  m[12] = -glm::dot(eye, v); 
    m[1] = u[0]; m[5] = u[1]; m[9] = u[2];  m[13] = -glm::dot(eye, u); 
