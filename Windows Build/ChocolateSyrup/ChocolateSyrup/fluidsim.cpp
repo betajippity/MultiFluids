@@ -21,7 +21,8 @@ void FluidSim::reset(float width, int ni_, int nj_, int nk_, float (*phi)(const 
 {
    initialize(width, ni_, nj_, nk_);
    particles.clear();
-   set_liquid(phi);
+   colors.clear();
+   set_liquid(phi, glm::vec3(0,0,1));
 	mTotalFrameNum = 0;
 }
 
@@ -60,7 +61,7 @@ void FluidSim::grabScreen()
 		glReadPixels(0,i,recordWidth,1,GL_RGB, GL_UNSIGNED_BYTE, 
 			bitmapData + (recordWidth * 3 * ((recordHeight-1)-i)));
 	}
-
+	 
 	char anim_filename[2048];
 	sprintf_s(anim_filename, 2048, "../output/images/fluid_%04d.png", mFrameNum); 
 	
@@ -121,7 +122,7 @@ void FluidSim::set_boundary(float (*phi)(const glm::vec3&)) {
 
 }
 
-void FluidSim::set_liquid(float (*phi)(const glm::vec3&)) {
+void FluidSim::set_liquid(float (*phi)(const glm::vec3&), glm::vec3& color) {
    //surface.reset_phi(phi, dx, Vec3f(0.5f*dx,0.5f*dx,0.5f*dx), ni, nj, nk);
    
    //initialize particles
@@ -137,6 +138,7 @@ void FluidSim::set_liquid(float (*phi)(const glm::vec3&)) {
          float solid_phi =  interpolate_value<glm::vec3>(posdividedbydx, nodal_solid_phi);
          if(solid_phi >= 0)
             particles.push_back(pos);
+			colors.push_back(color);
       }
    }
 }
@@ -195,8 +197,9 @@ float FluidSim::cfl() {
    return dx / maxvel;
 }
 
-void FluidSim::add_particle(const glm::vec3& pos) {
+void FluidSim::add_particle(const glm::vec3& pos, const glm::vec3& color) {
    particles.push_back(pos);
+   colors.push_back(color);
 }
 
 void FluidSim::add_force(float dt) {
@@ -729,9 +732,9 @@ void FluidSim::draw() {
       glTranslatef(pos[0]-.5, pos[1]-.5, pos[2]-.5);
 	  gluQuadricNormals(particle_sphere, GLU_SMOOTH);
 	  if(transparentRender){
-		   glColor4f(0.0, 0.0, 1.0, 0.3);
+		   glColor4f(colors[p][0], colors[p][1], colors[p][2], 0.2);
 	  }else{
-		   glColor4f(0.0, 0.0, 1.0, 1.0);
+		   glColor4f(colors[p][0], colors[p][1], colors[p][2], 1.0);
 	  }
 	 
       gluSphere(particle_sphere, particle_radius, 20, 20);

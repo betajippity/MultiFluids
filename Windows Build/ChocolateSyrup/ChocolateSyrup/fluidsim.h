@@ -8,11 +8,13 @@
 
 class FluidSim {
 
+
+
 public:
     void initialize(float width, int ni_, int nj_, int nk_);
     void set_boundary(float (*phi)(const glm::vec3&));
-    void set_liquid(float (*phi)(const glm::vec3&));
-    void add_particle(const glm::vec3& pos);
+    void set_liquid(float (*phi)(const glm::vec3&), glm::vec3& color);
+    void add_particle(const glm::vec3& pos, const glm::vec3& color);
 
     void advance(float dt);
 
@@ -33,6 +35,8 @@ public:
     Array3c u_valid, v_valid, w_valid;
 
     std::vector<glm::vec3> particles;
+	std::vector<glm::vec3> colors;
+
     float particle_radius;
 
     Array3f liquid_phi;

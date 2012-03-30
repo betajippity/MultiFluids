@@ -22,7 +22,7 @@ using namespace std;
 
 string outpath;
 
-int grid_resolution = 20;
+int grid_resolution = 60;
 float timestep = 0.01f;
 int frame = 0;
 
@@ -148,7 +148,7 @@ void onKeyboardCb(unsigned char key, int x, int y)
    else if (key == '>') isRunning = true;
    else if (key == '=') isRunning = false;
    else if (key == '<') sim.reset(grid_width, grid_resolution, grid_resolution, grid_resolution, liquid_phi);
-   else if (key == 'q') sim.set_liquid(liquid_phi);
+   else if (key == 'q') sim.set_liquid(liquid_phi, glm::vec3(1,0,0));
    else if (key == 'w') sim.setTransparentRender(!sim.isTransparentRender());
    else if (key == 'e') sim.setVerbose(!sim.isVerbose());
    else if (key == 't') textOutput = !textOutput;
@@ -316,11 +316,11 @@ int main(int argc, char **argv)
 
    sim.initialize(grid_width, grid_resolution, grid_resolution, grid_resolution);
    sim.set_boundary(boundary_phi);
-   sim.set_liquid(liquid_phi);
+   sim.set_liquid(liquid_phi, glm::vec3(0,0,1));
 
    glutInit(&argc, argv);
    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
-   glutInitWindowSize(640, 480);
+   glutInitWindowSize(1280, 720);
    glutInitWindowPosition(100, 100);
    glutCreateWindow("Chocolate Syrup - CIS563");
    glutDisplayFunc(onDrawCb);
