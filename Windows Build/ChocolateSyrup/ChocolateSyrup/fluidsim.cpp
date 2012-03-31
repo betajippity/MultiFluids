@@ -635,7 +635,7 @@ void FluidSim::solve_pressure(float dt) {
 
    w_valid.assign(0);
    #pragma omp parallel for
-   for(int k = 0; k < w.nk; ++k) for(int j = 0; j < w.nj; ++j) for(int i = 1; i < w.ni-1; ++i) {
+   for(int k = 1; k < w.nk-1; ++k) for(int j = 0; j < w.nj; ++j) for(int i = 0; i < w.ni; ++i) {
       int index = i + j*ni + k*ni*nj;
       if(w_weights(i,j,k) > 0 && (liquid_phi(i,j,k) < 0 || liquid_phi(i,j,k-1) < 0)) {
          float theta = 1;
