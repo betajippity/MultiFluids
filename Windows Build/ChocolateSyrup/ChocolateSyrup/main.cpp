@@ -45,6 +45,13 @@ bool isRunning = true;
 int savedWidth = 0;
 int savedHeight = 0;
 
+float ground_height = 0.2f;
+
+float ground_phi(const glm::vec3& position, float height);
+float ground_phi(const glm::vec3& position, float height) {
+  return height - position.y;
+}
+
 float sphere_phi(const glm::vec3& position, const glm::vec3& centre, float radius);
 float sphere_phi(const glm::vec3& position, const glm::vec3& centre, float radius) {
     return (glm::length(position-centre) - radius);
@@ -55,6 +62,11 @@ float rad0 = 0.35f;
 
 float boundary_phi(const glm::vec3& position);
 float boundary_phi(const glm::vec3& position) {
+
+   // Using the ground constraint.
+   // return -ground_phi(position, ground_height);
+
+   // Using the sphere constraint. 
    return -sphere_phi(position, c0, rad0);
 }
 
