@@ -57,6 +57,15 @@ float sphere_phi(const glm::vec3& position, const glm::vec3& centre, float radiu
     return (glm::length(position-centre) - radius);
 }
 
+float box_phi(const glm::vec3& position, const glm::vec3& centre, glm::vec3 halfDim);
+float box_phi(const glm::vec3& position, const glm::vec3& centre, glm::vec3 halfDim) {
+    float distX = abs(position.x - centre.x) - halfDim.x;
+    float distY = abs(position.y - centre.y) - halfDim.y;
+    float distZ = abs(position.z - centre.z) - halfDim.z;
+
+    return max(distX, max(distY, distZ));
+}
+
 glm::vec3 c0(0.5f,0.5f,0.5f);
 float rad0 = 0.35f;
 
@@ -65,6 +74,9 @@ float boundary_phi(const glm::vec3& position) {
 
    // Using the ground constraint.
    // return -ground_phi(position, ground_height);
+
+   // Using the box constraint.
+   // return -box_phi(position, c0, glm::vec3(rad0, rad0, rad0));
 
    // Using the sphere constraint. 
    return -sphere_phi(position, c0, rad0);
