@@ -69,8 +69,20 @@ float box_phi(const glm::vec3& position, const glm::vec3& centre, glm::vec3 half
 glm::vec3 c0(0.5f,0.5f,0.5f);
 float rad0 = 0.35f;
 
+float sphereInBox_phi(const glm::vec3& position, glm::vec3& centre);
+float sphereInBox_phi(const glm::vec3& position, glm::vec3& centre) {
+  float box = box_phi(position, centre, glm::vec3(rad0, rad0, rad0));
+
+  float sphere = -sphere_phi(position, centre, 0.3f);
+
+  return max(box, sphere);
+}
+
 float boundary_phi(const glm::vec3& position);
 float boundary_phi(const glm::vec3& position) {
+
+   // Using the sphere in box constraint. 
+   return sphereInBox_phi(position, c0);
 
    // Using the ground constraint.
    // return -ground_phi(position, ground_height);
@@ -79,7 +91,7 @@ float boundary_phi(const glm::vec3& position) {
    // return -box_phi(position, c0, glm::vec3(rad0, rad0, rad0));
 
    // Using the sphere constraint. 
-   return -sphere_phi(position, c0, rad0);
+   //return -sphere_phi(position, c0, rad0);
 }
 
 float liquid_phi(const glm::vec3& position);
