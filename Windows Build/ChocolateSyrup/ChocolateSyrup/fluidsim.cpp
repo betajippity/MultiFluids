@@ -12,8 +12,7 @@
 #include <GL/glut.h>
 #endif
 
-
-
+struct particle;
 
 void extrapolate(Array3f& grid, Array3c& valid);
 
@@ -21,7 +20,6 @@ void FluidSim::reset(float width, int ni_, int nj_, int nk_, float (*phi)(const 
 {
    initialize(width, ni_, nj_, nk_);
    particles.clear();
-   colors.clear();
    set_liquid(phi, glm::vec3(0,0,1));
 	mTotalFrameNum = 0;
 }
@@ -136,9 +134,14 @@ void FluidSim::set_liquid(float (*phi)(const glm::vec3&), glm::vec3& color) {
          glm::vec3 posdividedbydx = pos/dx;
          
          float solid_phi =  interpolate_value<glm::vec3>(posdividedbydx, nodal_solid_phi);
-         if(solid_phi >= 0)
-            particles.push_back(pos);
-			colors.push_back(color);
+         if(solid_phi >= 0){
+			particle* pt = new particle();
+			pt->position = pos;
+			pt->color = color;
+			particles.push_back(pt);		 
+			//particles.push_back(pos);
+			//colors.push_back(color);
+		 }
       }
    }
 }
@@ -198,8 +201,12 @@ float FluidSim::cfl() {
 }
 
 void FluidSim::add_particle(const glm::vec3& pos, const glm::vec3& color) {
-   particles.push_back(pos);
-   colors.push_back(color);
+	particle* pt = new particle();
+	pt->position = pos;
+	pt->color = color;
+	particles.push_back(pt);
+	//particles.push_back(pos);
+	//colors.push_back(color);
 }
 
 void FluidSim::add_force(float dt) {
@@ -281,16 +288,16 @@ void FluidSim::constrain_velocity() {
 
 void FluidSim::advect_particles(float dt) { 
    for(unsigned int p = 0; p < particles.size(); ++p) {
-      particles[p] = trace_rk2(particles[p], dt);
+      particles[p]->position = trace_rk2(particles[p]->position, dt);
    
       //check boundaries and project exterior particles back in
-      float phi_val = interpolate_value<glm::vec3>(particles[p]/dx, nodal_solid_phi); 
+      float phi_val = interpolate_value<glm::vec3>(particles[p]->position/dx, nodal_solid_phi); 
       if(phi_val < 0) {
          glm::vec3 grad;
-         interpolate_gradient<glm::vec3>(grad, particles[p]/dx, nodal_solid_phi);
+         interpolate_gradient<glm::vec3>(grad, particles[p]->position/dx, nodal_solid_phi);
           if(glm::length(grad) > 0)
             grad = glm::normalize(grad);
-         particles[p] -= phi_val * grad;
+         particles[p]->position -= phi_val * grad;
       }
    }
    
@@ -339,12 +346,12 @@ void FluidSim::compute_phi() {
    //grab from particles
    liquid_phi.assign(3*dx);
    for(unsigned int p = 0; p < particles.size(); ++p) {
-      glm::vec3 cell_ind(particles[p] / dx);
+      glm::vec3 cell_ind(particles[p]->position / dx);
       for(int k = max((float)0,(float)cell_ind[2] - 1); k <= min((float)cell_ind[2]+1,(float)nk-1); ++k) {
          for(int j = max((float)0,(float)cell_ind[1] - 1); j <= min((float)cell_ind[1]+1,(float)nj-1); ++j) {
             for(int i = max((float)0,(float)cell_ind[0] - 1); i <= min((float)cell_ind[0]+1,(float)ni-1); ++i) {
                glm::vec3 sample_pos((i+0.5f)*dx, (j+0.5f)*dx,(k+0.5f)*dx);
-                float test_val = glm::length(sample_pos-particles[p]) - particle_radius;
+                float test_val = glm::length(sample_pos-particles[p]->position) - particle_radius;
                if(test_val < liquid_phi(i,j,k))
                   liquid_phi(i,j,k) = test_val;
             }
@@ -728,13 +735,13 @@ void FluidSim::draw() {
    for(unsigned int p = 0; p < particles.size(); ++p) {
 	   
       glPushMatrix();
-	  glm::vec3 pos = particles[p];
+	  glm::vec3 pos = particles[p]->position;
       glTranslatef(pos[0]-.5, pos[1]-.5, pos[2]-.5);
 	  gluQuadricNormals(particle_sphere, GLU_SMOOTH);
 	  if(transparentRender){
-		   glColor4f(colors[p][0], colors[p][1], colors[p][2], 0.2);
+		   glColor4f(particles[p]->color[0], particles[p]->color[1], particles[p]->color[2], 0.2);
 	  }else{
-		   glColor4f(colors[p][0], colors[p][1], colors[p][2], 1.0);
+		   glColor4f(particles[p]->color[0], particles[p]->color[1], particles[p]->color[2], 1.0);
 	  }
 	 
       gluSphere(particle_sphere, particle_radius, 20, 20);

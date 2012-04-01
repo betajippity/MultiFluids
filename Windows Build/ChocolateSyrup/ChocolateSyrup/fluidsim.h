@@ -6,6 +6,16 @@
 #include "array3_utils.h"
 #include <vector>
 
+struct particle{
+	glm::vec3 position;
+	glm::vec3 color;
+
+	particle(){
+		position = glm::vec3(0,0,0);
+		color = glm::vec3(0,0,0);
+	}
+};
+
 class FluidSim {
 
 
@@ -34,8 +44,10 @@ public:
     Array3f u_weights, v_weights, w_weights;
     Array3c u_valid, v_valid, w_valid;
 
-    std::vector<glm::vec3> particles;
-	std::vector<glm::vec3> colors;
+
+	std::vector<particle*> particles;
+    //std::vector<glm::vec3> particles;
+	//std::vector<glm::vec3> colors;
 
     float particle_radius;
 

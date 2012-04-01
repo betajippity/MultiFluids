@@ -22,7 +22,7 @@ using namespace std;
 
 string outpath;
 
-int grid_resolution = 60;
+int grid_resolution = 10;
 float timestep = 0.01f;
 int frame = 0;
 
@@ -182,7 +182,7 @@ void onKeyboardSpecialCb(int key, int x, int y)
 {
 }
 
-void export_particles(string path, int frame, const std::vector<glm::vec3>& particles, float radius) {
+void export_particles(string path, int frame, const std::vector<particle*>& particles, float radius) {
    //Write the output
    
    std::stringstream strout;
@@ -194,7 +194,7 @@ void export_particles(string path, int frame, const std::vector<glm::vec3>& part
    outfile << particles.size() << " " << radius << std::endl;
    //write vertices
    for(unsigned int i = 0; i < particles.size(); ++i)
-      outfile << particles[i][0] << " " << particles[i][1] << " " << particles[i][2] << std::endl;
+      outfile << particles[i]->position[0] << " " << particles[i]->position[1] << " " << particles[i]->position[2] << std::endl;
    outfile.close();
 }
 
