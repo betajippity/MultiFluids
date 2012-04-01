@@ -52,22 +52,21 @@ float ground_phi(const glm::vec3& position, float height) {
   return height - position.y;
 }
 
+float rad0 = 0.35f;
+
+float box_phi(const glm::vec3& position, glm::vec3& centre, glm::vec3 halfDim);
+float box_phi(const glm::vec3& position, glm::vec3& centre, glm::vec3 halfDim) {
+  float distX = abs(position.x - centre.x) - halfDim.x;
+  float distY = abs(position.y - centre.y) - halfDim.y;
+  float distZ = abs(position.z - centre.z) - halfDim.z;
+
+  return max(distX, max(distY, distZ));
+}
+
 float sphere_phi(const glm::vec3& position, const glm::vec3& centre, float radius);
 float sphere_phi(const glm::vec3& position, const glm::vec3& centre, float radius) {
     return (glm::length(position-centre) - radius);
 }
-
-float box_phi(const glm::vec3& position, const glm::vec3& centre, glm::vec3 halfDim);
-float box_phi(const glm::vec3& position, const glm::vec3& centre, glm::vec3 halfDim) {
-    float distX = abs(position.x - centre.x) - halfDim.x;
-    float distY = abs(position.y - centre.y) - halfDim.y;
-    float distZ = abs(position.z - centre.z) - halfDim.z;
-
-    return max(distX, max(distY, distZ));
-}
-
-glm::vec3 c0(0.5f,0.5f,0.5f);
-float rad0 = 0.35f;
 
 float sphereInBox_phi(const glm::vec3& position, glm::vec3& centre);
 float sphereInBox_phi(const glm::vec3& position, glm::vec3& centre) {
@@ -78,26 +77,30 @@ float sphereInBox_phi(const glm::vec3& position, glm::vec3& centre) {
   return max(box, sphere);
 }
 
+
+
+glm::vec3 c0(0.5f,0.5f,0.5f);
+
+
 float boundary_phi(const glm::vec3& position);
 float boundary_phi(const glm::vec3& position) {
 
-   // Using the sphere in box constraint. 
-   return sphereInBox_phi(position, c0);
+   return -sphereInBox_phi(position, c0);
 
    // Using the ground constraint.
    // return -ground_phi(position, ground_height);
 
    // Using the box constraint.
-   // return -box_phi(position, c0, glm::vec3(rad0, rad0, rad0));
+   //return -box_phi(position, c0, glm::vec3(rad0, rad0, rad0));
 
    // Using the sphere constraint. 
-   //return -sphere_phi(position, c0, rad0);
+   return sphere_phi(position, c0, rad0);
 }
 
 float liquid_phi(const glm::vec3& position);
 float liquid_phi(const glm::vec3& position) {
-	
-   return sphere_phi(position, glm::vec3(0.55f, 0.55f, 0.4f), 0.23f);
+  
+   return sphere_phi(position, glm::vec3(0.55f, 0.7f, 0.4f), 0.23f);
    
 }
 
@@ -224,18 +227,18 @@ void export_particles(string path, int frame, const std::vector<particle*>& part
 
 void onTimerCb(int value)
 {
-	if(sim.isVerbose()){
-		printf("--------------------\nFrame %d\n", sim.getTotalFrames());
-		printf("Simulating liquid\n");
+  if(sim.isVerbose()){
+    printf("--------------------\nFrame %d\n", sim.getTotalFrames());
+    printf("Simulating liquid\n");
    }
    if (isRunning){
-	   sim.advance(timestep);
+     sim.advance(timestep);
    }
    if(textOutput){
-	   export_particles(outpath, sim.getTotalFrames(), sim.particles, sim.particle_radius);
-	   if(sim.isVerbose()){
-			printf("Exporting particle data\n");
-	   }
+     export_particles(outpath, sim.getTotalFrames(), sim.particles, sim.particle_radius);
+     if(sim.isVerbose()){
+      printf("Exporting particle data\n");
+     }
    }
 
    glutTimerFunc(theMillisecondsPerFrame, onTimerCb, 0);
@@ -244,10 +247,10 @@ void onTimerCb(int value)
 
 void onResizeCb(int width, int height)
 {
-	// Save the width and height:
-	savedWidth = width;
-	savedHeight = height;
-	
+  // Save the width and height:
+  savedWidth = width;
+  savedHeight = height;
+  
    // Update viewport
    glViewport(0, 0, width, height);
 
@@ -286,38 +289,38 @@ void drawOverlay()
 
 void drawAxes()
 {
-	glPushAttrib(GL_LIGHTING_BIT | GL_LINE_BIT);
-		glDisable(GL_LIGHTING);
+  glPushAttrib(GL_LIGHTING_BIT | GL_LINE_BIT);
+    glDisable(GL_LIGHTING);
 
-		glLineWidth(2.0); 
-		glBegin(GL_LINES);
-			glColor3f(1.0, 0.0, 0.0);
-			glVertex3f(0.0, 0.0, 0.0);
-			glVertex3f(1.0, 0.0, 0.0);
+    glLineWidth(2.0); 
+    glBegin(GL_LINES);
+      glColor3f(1.0, 0.0, 0.0);
+      glVertex3f(0.0, 0.0, 0.0);
+      glVertex3f(1.0, 0.0, 0.0);
 
-			glColor3f(0.0, 1.0, 0.0);
-			glVertex3f(0.0, 0.0, 0.0);
-			glVertex3f(0.0, 1.0, 0.0);
+      glColor3f(0.0, 1.0, 0.0);
+      glVertex3f(0.0, 0.0, 0.0);
+      glVertex3f(0.0, 1.0, 0.0);
 
-			glColor3f(0.0, 0.0, 1.0);
-			glVertex3f(0.0, 0.0, 0.0);
-			glVertex3f(0.0, 0.0, 1.0);
-		glEnd();
-	glPopAttrib();
+      glColor3f(0.0, 0.0, 1.0);
+      glVertex3f(0.0, 0.0, 0.0);
+      glVertex3f(0.0, 0.0, 1.0);
+    glEnd();
+  glPopAttrib();
 }
 
 void onDrawCb()
 {
-	// Keep track of time
-	theFpsTracker.timestamp();
+  // Keep track of time
+  theFpsTracker.timestamp();
 
-	// Draw Scene and overlay
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	theCamera.draw();
-	drawAxes();
-	sim.draw();
-	drawOverlay();
-	glutSwapBuffers();
+  // Draw Scene and overlay
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+  theCamera.draw();
+  drawAxes();
+  sim.draw();
+  drawOverlay();
+  glutSwapBuffers();
 }
 
 void init(void)
@@ -341,7 +344,7 @@ void init(void)
 int main(int argc, char **argv)
 {
 
-	if(argc!=2){
+  if(argc!=2){
       cerr << "The first parameter should be the folder to write the output liquid meshes into. (eg. c:\\output\\)" << endl;
       return 1;
    }
@@ -371,8 +374,8 @@ int main(int argc, char **argv)
     glutAddMenuEntry("Toggle velocities\t'v'", 'v');
     glutAddMenuEntry("Render density as cubes\t'0'", '0');
     glutAddMenuEntry("Render density as sheets\t'1'", '1');
-	glutAddMenuEntry("Render color from density\t'd'", '2');
-	glutAddMenuEntry("Render color from temperature\t't'", '3');
+  glutAddMenuEntry("Render color from density\t'd'", '2');
+  glutAddMenuEntry("Render color from temperature\t't'", '3');
 
     theMenu = glutCreateMenu(onMenuCb);
     glutAddMenuEntry("Start\t'>'", '>');
