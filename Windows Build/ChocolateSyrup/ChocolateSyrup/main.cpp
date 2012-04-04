@@ -22,7 +22,7 @@ using namespace std;
 
 string outpath;
 
-int grid_resolution = 10;
+int grid_resolution = 60;
 float timestep = 0.01f;
 int frame = 0;
 
@@ -72,7 +72,7 @@ float sphereInBox_phi(const glm::vec3& position, glm::vec3& centre);
 float sphereInBox_phi(const glm::vec3& position, glm::vec3& centre) {
   float box = box_phi(position, centre, glm::vec3(rad0, rad0, rad0));
 
-  float sphere = -sphere_phi(position, centre, 0.3f);
+  float sphere = -sphere_phi(position, centre, 0.30f);
 
   return max(box, sphere);
 }
@@ -100,7 +100,7 @@ float boundary_phi(const glm::vec3& position) {
 float liquid_phi(const glm::vec3& position);
 float liquid_phi(const glm::vec3& position) {
   
-   return sphere_phi(position, glm::vec3(0.55f, 0.7f, 0.4f), 0.23f);
+   return sphere_phi(position, glm::vec3(0.55f, 0.8f, 0.4f), 0.23f);
    
 }
 
@@ -188,6 +188,8 @@ void onKeyboardCb(unsigned char key, int x, int y)
    else if (key == '=') isRunning = false;
    else if (key == '<') sim.reset(grid_width, grid_resolution, grid_resolution, grid_resolution, liquid_phi);
    else if (key == 'q') sim.set_liquid(liquid_phi, glm::vec3(1,0,0));
+   else if (key == 'p') sim.set_liquid(liquid_phi, glm::vec3(0,1,0));
+   else if (key == 'l') sim.set_liquid(liquid_phi, glm::vec3(0,0,1));
    else if (key == 'w') sim.setTransparentRender(!sim.isTransparentRender());
    else if (key == 'e') sim.setVerbose(!sim.isVerbose());
    else if (key == 't') textOutput = !textOutput;

@@ -752,41 +752,41 @@ void FluidSim::draw() {
   // glDisable(GL_LIGHTING);
 	glColor3f(0,0,0);
 	glBegin(GL_LINES);
-	glVertex3f(-.5,-.5,-.5);
-	glVertex3f(-.5,-.5,.5);
+	glVertex3f(-.35,-.35,-.35);
+	glVertex3f(-.35,-.35,.35);
 
-	glVertex3f(-.5,-.5,-.5);
-	glVertex3f(-.5,.5,-.5);
+	glVertex3f(-.35,-.35,-.35);
+	glVertex3f(-.35,.35,-.35);
 
-	glVertex3f(-.5,-.5,-.5);
-	glVertex3f(.5,-.5,-.5);
+	glVertex3f(-.35,-.35,-.35);
+	glVertex3f(.35,-.35,-.35);
 
-	glVertex3f(-.5,.5,-.5);
-	glVertex3f(.5,.5,-.5);
+	glVertex3f(-.35,.35,-.35);
+	glVertex3f(.35,.35,-.35);
 
-	glVertex3f(.5,.5,-.5);
-	glVertex3f(.5,-.5,-.5);
+	glVertex3f(.35,.35,-.35);
+	glVertex3f(.35,-.35,-.35);
 
-	glVertex3f(.5,-.5,-.5);
-	glVertex3f(.5,-.5,.5);
+	glVertex3f(.35,-.35,-.35);
+	glVertex3f(.35,-.35,.35);
 
-	glVertex3f(-.5,.5,-.5);
-	glVertex3f(-.5,.5,.5);
+	glVertex3f(-.35,.35,-.35);
+	glVertex3f(-.35,.35,.35);
 
-	glVertex3f(.5,.5,-.5);
-	glVertex3f(.5,.5,.5);
+	glVertex3f(.35,.35,-.35);
+	glVertex3f(.35,.35,.35);
 
-	glVertex3f(-.5,.5,.5);
-	glVertex3f(.5,.5,.5);
+	glVertex3f(-.35,.35,.35);
+	glVertex3f(.35,.35,.35);
 
-	glVertex3f(.5,-.5,.5);
-	glVertex3f(.5,.5,.5);
+	glVertex3f(.35,-.35,.35);
+	glVertex3f(.35,.35,.35);
 
-	glVertex3f(-.5,-.5,.5);
-	glVertex3f(.5,-.5,.5);
+	glVertex3f(-.35,-.35,.35);
+	glVertex3f(.35,-.35,.35);
 
-	glVertex3f(-.5,-.5,.5);
-	glVertex3f(-.5,.5,.5);
+	glVertex3f(-.35,-.35,.35);
+	glVertex3f(-.35,.35,.35);
 	glEnd();
    
    //Draw wireframe sphere geometry (specific to this scene).
@@ -797,7 +797,7 @@ void FluidSim::draw() {
    gluQuadricDrawStyle(sphere, GLU_LINE );
    glPushMatrix();
    glTranslatef(0.0f, 0.0f,0.0f);
-   gluSphere(sphere, 0.35, 20, 20);
+   gluSphere(sphere, 0.30, 20, 20);
    glPopMatrix();
 
    if (mRecordEnabled) grabScreen();
