@@ -6,13 +6,30 @@
 #include "array3_utils.h"
 #include <vector>
 
+struct particle{
+	glm::vec3 position;
+	glm::vec3 color;
+
+	particle(){
+		position = glm::vec3(0,0,0);
+		color = glm::vec3(0,0,0);
+	}
+};
+
 class FluidSim {
 
+
+
 public:
+    
+    FluidSim();
+    ~FluidSim();
+    
+    
     void initialize(float width, int ni_, int nj_, int nk_);
     void set_boundary(float (*phi)(const glm::vec3&));
-    void set_liquid(float (*phi)(const glm::vec3&));
-    void add_particle(const glm::vec3& pos);
+    void set_liquid(float (*phi)(const glm::vec3&), glm::vec3 color);
+    void add_particle(const glm::vec3& pos, const glm::vec3& color);
 
     void advance(float dt);
 
@@ -32,7 +49,11 @@ public:
     Array3f u_weights, v_weights, w_weights;
     Array3c u_valid, v_valid, w_valid;
 
-    std::vector<glm::vec3> particles;
+
+	std::vector<particle*> particles;
+    //std::vector<glm::vec3> particles;
+	//std::vector<glm::vec3> colors;
+
     float particle_radius;
 
     Array3f liquid_phi;
@@ -47,6 +68,22 @@ public:
     std::vector<double> pressure;
 
     glm::vec3 get_velocity(const glm::vec3& position);
+
+	int getTotalFrames();
+	bool isRecording();
+	void setRecording(bool on, int width, int height);
+	void grabScreen();
+	void reset(float width, int ni_, int nj_, int nk_, float (*phi)(const glm::vec3&));
+	void setTransparentRender(bool set);
+	bool isTransparentRender();
+	void setVerbose(bool set);
+	bool isVerbose();
+
+	bool verbose;
+	bool transparentRender;
+
+	bool outputOBJ;
+	int frameNum;
 
 private:
 
@@ -65,8 +102,11 @@ private:
    void solve_pressure(float dt);
    void compute_phi();
 
-
-
+   int mTotalFrameNum;
+   bool mRecordEnabled;
+   int mFrameNum;
+   int recordWidth;
+	int recordHeight;
 };
 
 

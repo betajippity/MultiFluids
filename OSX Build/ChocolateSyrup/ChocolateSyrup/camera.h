@@ -81,6 +81,7 @@ protected:
    float mHeading, mPitch, mRadius;
    float mVfov, mAspect, mNear, mFar; // projection parameters
    
+
    // Basis of camera local coord system
    glm::vec3 u; // up
    glm::vec3 v; // v points right
@@ -97,6 +98,7 @@ public:
    static glm::vec3 dfltEye, dfltUp, dfltLook;
    static float dfltVfov, dfltAspect, dfltNear, dfltFar; 
    static float dfltSpeed, dfltTurnRate;
+   glm::mat4 lookMat;
 };
 
 #endif

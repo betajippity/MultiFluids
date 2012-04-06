@@ -3,6 +3,10 @@
 #include "pcgsolver/sparse_matrix.h"
 #include "pcgsolver/pcg_solver.h"
 #include "glm/glm.hpp"
+#include <omp.h>
+#include "stb_image_write.h"
+#include "marching_cubes.h"
+
 
 #ifdef __APPLE__
 #include <GLUT/glut.h>
@@ -10,12 +14,71 @@
 #include <GL/glut.h>
 #endif
 
-
-
+struct particle;
 
 void extrapolate(Array3f& grid, Array3c& valid);
 
+
+
+FluidSim::FluidSim(){
+
+}
+FluidSim::~FluidSim(){
+    
+}
+
+
+int FluidSim::getTotalFrames(){
+	return mTotalFrameNum;
+}
+
+bool FluidSim::isRecording()
+{
+   return mRecordEnabled;
+}
+
+void FluidSim::setRecording(bool on, int width, int height)
+{
+   if (on && ! mRecordEnabled)  // reset counter
+   {
+      mFrameNum = 0;
+   }
+   mRecordEnabled = on;
+	
+	recordWidth = width;
+	recordHeight = height;
+}
+
+void FluidSim::grabScreen()
+{
+	
+	if (mFrameNum > 9999) exit(0);
+	
+	// Save an image:
+
+	unsigned char* bitmapData = new unsigned char[3 * recordWidth * recordHeight];
+
+	for (int i=0; i<recordHeight; i++) 
+	{
+		glReadPixels(0,i,recordWidth,1,GL_RGB, GL_UNSIGNED_BYTE, 
+			bitmapData + (recordWidth * 3 * ((recordHeight-1)-i)));
+	}
+	 
+	char anim_filename[2048];
+	//sprintf_s(anim_filename, 2048, "../output/images/fluid_%04d.png", mFrameNum); 
+	sprintf(anim_filename, "../output/images/fluid_%04d.png", mFrameNum); 
+    
+	stbi_write_png(anim_filename, recordWidth, recordHeight, 3, bitmapData, recordWidth * 3);
+	
+	delete [] bitmapData;
+	
+	mFrameNum++;
+	 
+}
+
 void FluidSim::initialize(float width, int ni_, int nj_, int nk_) {
+	frameNum = 0;
+	outputOBJ = false;
    ni = ni_;
    nj = nj_;
    nk = nk_;
@@ -34,7 +97,24 @@ void FluidSim::initialize(float width, int ni_, int nj_, int nk_) {
    valid.resize(ni+1, nj+1, nk+1);
    old_valid.resize(ni+1, nj+1, nk+1);
    liquid_phi.resize(ni,nj,nk);
+   mRecordEnabled=false;
+   transparentRender=true;
+}
 
+void FluidSim::setVerbose(bool set){
+	verbose = set;
+}
+
+bool FluidSim::isVerbose(){
+	return verbose;
+}
+
+void FluidSim::setTransparentRender(bool set){
+	transparentRender = set;
+}
+
+bool FluidSim::isTransparentRender(){
+	return transparentRender;
 }
 
 //Initialize the grid-based signed distance field that dictates the position of the solid boundary
@@ -47,7 +127,7 @@ void FluidSim::set_boundary(float (*phi)(const glm::vec3&)) {
 
 }
 
-void FluidSim::set_liquid(float (*phi)(const glm::vec3&)) {
+void FluidSim::set_liquid(float (*phi)(const glm::vec3&), glm::vec3 color) {
    //surface.reset_phi(phi, dx, Vec3f(0.5f*dx,0.5f*dx,0.5f*dx), ni, nj, nk);
    
    //initialize particles
@@ -61,10 +141,24 @@ void FluidSim::set_liquid(float (*phi)(const glm::vec3&)) {
          glm::vec3 posdividedbydx = pos/dx;
          
          float solid_phi =  interpolate_value<glm::vec3>(posdividedbydx, nodal_solid_phi);
-         if(solid_phi >= 0)
-            particles.push_back(pos);
+         if(solid_phi >= 0){
+			particle* pt = new particle();
+			pt->position = pos;
+			pt->color = color;
+			particles.push_back(pt);		 
+			//particles.push_back(pos);
+			//colors.push_back(color);
+		 }
       }
    }
+}
+
+void FluidSim::reset(float width, int ni_, int nj_, int nk_, float (*phi)(const glm::vec3&))
+{
+    initialize(width, ni_, nj_, nk_);
+    particles.clear();
+    set_liquid(phi, glm::vec3(0,0,1));
+	mTotalFrameNum = 0;
 }
 
 //The main fluid simulation step
@@ -103,6 +197,8 @@ void FluidSim::advance(float dt) {
 
       t+=substep;
    }
+
+   mTotalFrameNum++;
 }
 
 
@@ -119,8 +215,13 @@ float FluidSim::cfl() {
    return dx / maxvel;
 }
 
-void FluidSim::add_particle(const glm::vec3& pos) {
-   particles.push_back(pos);
+void FluidSim::add_particle(const glm::vec3& pos, const glm::vec3& color) {
+	particle* pt = new particle();
+	pt->position = pos;
+	pt->color = color;
+	particles.push_back(pt);
+	//particles.push_back(pos);
+	//colors.push_back(color);
 }
 
 void FluidSim::add_force(float dt) {
@@ -146,6 +247,7 @@ void FluidSim::constrain_velocity() {
    //An exact normal would do better if we had it for the geometry.)
 
    //constrain u
+	#pragma omp parallel for
    for(int k = 0; k < u.nk;++k) for(int j = 0; j < u.nj; ++j) for(int i = 0; i < u.ni; ++i) {
       if(u_weights(i,j,k) == 0) {
          //apply constraint
@@ -161,6 +263,7 @@ void FluidSim::constrain_velocity() {
    }
 
    //constrain v
+   #pragma omp parallel for
    for(int k = 0; k < v.nk;++k) for(int j = 0; j < v.nj; ++j) for(int i = 0; i < v.ni; ++i) {
       if(v_weights(i,j,k) == 0) {
           //apply constraint
@@ -176,6 +279,7 @@ void FluidSim::constrain_velocity() {
    }
 
    //constrain w
+   #pragma omp parallel for
    for(int k = 0; k < w.nk;++k) for(int j = 0; j < w.nj; ++j) for(int i = 0; i < w.ni; ++i) {
       if(w_weights(i,j,k) == 0) {
          //apply constraint
@@ -199,16 +303,16 @@ void FluidSim::constrain_velocity() {
 
 void FluidSim::advect_particles(float dt) { 
    for(unsigned int p = 0; p < particles.size(); ++p) {
-      particles[p] = trace_rk2(particles[p], dt);
+      particles[p]->position = trace_rk2(particles[p]->position, dt);
    
       //check boundaries and project exterior particles back in
-      float phi_val = interpolate_value<glm::vec3>(particles[p]/dx, nodal_solid_phi); 
+      float phi_val = interpolate_value<glm::vec3>(particles[p]->position/dx, nodal_solid_phi); 
       if(phi_val < 0) {
          glm::vec3 grad;
-         interpolate_gradient<glm::vec3>(grad, particles[p]/dx, nodal_solid_phi);
+         interpolate_gradient<glm::vec3>(grad, particles[p]->position/dx, nodal_solid_phi);
           if(glm::length(grad) > 0)
             grad = glm::normalize(grad);
-         particles[p] -= phi_val * grad;
+         particles[p]->position -= phi_val * grad;
       }
    }
    
@@ -222,6 +326,7 @@ void FluidSim::advect(float dt) {
    temp_v.assign(0);
    temp_w.assign(0);
 
+   #pragma omp parallel for
    //semi-Lagrangian advection on u-component of velocity
    for(int k = 0; k < nk; ++k) for(int j = 0; j < nj; ++j) for(int i = 0; i < ni+1; ++i) {
        glm::vec3 pos(i*dx, (j+0.5f)*dx, (k+0.5f)*dx);
@@ -229,6 +334,7 @@ void FluidSim::advect(float dt) {
        temp_u(i,j,k) = get_velocity(pos)[0];  
    }
 
+   #pragma omp parallel for
    //semi-Lagrangian advection on v-component of velocity
    for(int k = 0; k < nk; ++k) for(int j = 0; j < nj+1; ++j) for(int i = 0; i < ni; ++i) {
        glm::vec3 pos((i+0.5f)*dx, j*dx, (k+0.5f)*dx);
@@ -236,6 +342,7 @@ void FluidSim::advect(float dt) {
        temp_v(i,j,k) = get_velocity(pos)[1];
    }
 
+   #pragma omp parallel for
    //semi-Lagrangian advection on w-component of velocity
    for(int k = 0; k < nk+1; ++k) for(int j = 0; j < nj; ++j) for(int i = 0; i < ni; ++i) {
        glm::vec3 pos((i+0.5f)*dx, (j+0.5f)*dx, k*dx);
@@ -254,12 +361,12 @@ void FluidSim::compute_phi() {
    //grab from particles
    liquid_phi.assign(3*dx);
    for(unsigned int p = 0; p < particles.size(); ++p) {
-      glm::vec3 cell_ind(particles[p] / dx);
+      glm::vec3 cell_ind(particles[p]->position / dx);
       for(int k = max((float)0,(float)cell_ind[2] - 1); k <= min((float)cell_ind[2]+1,(float)nk-1); ++k) {
          for(int j = max((float)0,(float)cell_ind[1] - 1); j <= min((float)cell_ind[1]+1,(float)nj-1); ++j) {
             for(int i = max((float)0,(float)cell_ind[0] - 1); i <= min((float)cell_ind[0]+1,(float)ni-1); ++i) {
                glm::vec3 sample_pos((i+0.5f)*dx, (j+0.5f)*dx,(k+0.5f)*dx);
-                float test_val = glm::length(sample_pos-particles[p]) - particle_radius;
+                float test_val = glm::length(sample_pos-particles[p]->position) - particle_radius;
                if(test_val < liquid_phi(i,j,k))
                   liquid_phi(i,j,k) = test_val;
             }
@@ -269,6 +376,7 @@ void FluidSim::compute_phi() {
    
    //extend phi slightly into solids (this is a simple, naive approach, but works reasonably well)
    Array3f phi_temp = liquid_phi;
+   #pragma omp parallel for
    for(int k = 0; k < nk; ++k) {
       for(int j = 0; j < nj; ++j) {
          for(int i = 0; i < ni; ++i) {
@@ -328,6 +436,7 @@ glm::vec3 FluidSim::get_velocity(const glm::vec3& position) {
 void FluidSim::compute_weights() {
 
    //Compute face area fractions (using marching squares cases).
+	#pragma omp parallel for
    for(int k = 0; k < nk; ++k) for(int j = 0; j < nj; ++j) for(int i = 0; i < ni+1; ++i) {
       u_weights(i,j,k) = 1 - fraction_inside(nodal_solid_phi(i,j,  k),
                                              nodal_solid_phi(i,j+1,k),
@@ -335,6 +444,7 @@ void FluidSim::compute_weights() {
                                              nodal_solid_phi(i,j+1,k+1));
       u_weights(i,j,k) = clamp(u_weights(i,j,k),0.0f,1.0f);
    }
+   #pragma omp parallel for
    for(int k = 0; k < nk; ++k) for(int j = 0; j < nj+1; ++j) for(int i = 0; i < ni; ++i) {
       v_weights(i,j,k) = 1 - fraction_inside(nodal_solid_phi(i,  j,k),
                                              nodal_solid_phi(i,  j,k+1),
@@ -342,6 +452,7 @@ void FluidSim::compute_weights() {
                                              nodal_solid_phi(i+1,j,k+1));
       v_weights(i,j,k) = clamp(v_weights(i,j,k),0.0f,1.0f);
    }
+   #pragma omp parallel for
    for(int k = 0; k < nk+1; ++k) for(int j = 0; j < nj; ++j) for(int i = 0; i < ni; ++i) {
       w_weights(i,j,k) = 1 - fraction_inside(nodal_solid_phi(i,  j,  k),
                                              nodal_solid_phi(i,  j+1,k),
@@ -372,6 +483,7 @@ void FluidSim::solve_pressure(float dt) {
    rhs.assign(rhs.size(), 0);
    pressure.assign(pressure.size(), 0);
 
+   #pragma omp parallel for
    //Build the linear system for pressure
    for(int k = 1; k < nk-1; ++k) {
       for(int j = 1; j < nj-1; ++j) {
@@ -516,6 +628,7 @@ void FluidSim::solve_pressure(float dt) {
 
    //Apply the velocity update
    u_valid.assign(0);
+   #pragma omp parallel for
    for(int k = 0; k < u.nk; ++k) for(int j = 0; j < u.nj; ++j) for(int i = 1; i < u.ni-1; ++i) {
       int index = i + j*ni + k*ni*nj;
       if(u_weights(i,j,k) > 0 && (liquid_phi(i,j,k) < 0 || liquid_phi(i-1,j,k) < 0)) {
@@ -529,6 +642,7 @@ void FluidSim::solve_pressure(float dt) {
    }
    
    v_valid.assign(0);
+   #pragma omp parallel for
    for(int k = 0; k < v.nk; ++k) for(int j = 1; j < v.nj-1; ++j) for(int i = 0; i < v.ni; ++i) {
       int index = i + j*ni + k*ni*nj;
       if(v_weights(i,j,k) > 0 && (liquid_phi(i,j,k) < 0 || liquid_phi(i,j-1,k) < 0)) {
@@ -542,7 +656,8 @@ void FluidSim::solve_pressure(float dt) {
    }
 
    w_valid.assign(0);
-   for(int k = 0; k < w.nk; ++k) for(int j = 0; j < w.nj; ++j) for(int i = 1; i < w.ni-1; ++i) {
+   #pragma omp parallel for
+   for(int k = 1; k < w.nk-1; ++k) for(int j = 0; j < w.nj; ++j) for(int i = 0; i < w.ni; ++i) {
       int index = i + j*ni + k*ni*nj;
       if(w_weights(i,j,k) > 0 && (liquid_phi(i,j,k) < 0 || liquid_phi(i,j,k-1) < 0)) {
          float theta = 1;
@@ -554,6 +669,7 @@ void FluidSim::solve_pressure(float dt) {
       }
    }
  
+
    for(unsigned int i = 0; i < u_valid.a.size(); ++i)
       if(u_valid.a[i] == 0)
          u.a[i] = 0;
@@ -571,6 +687,7 @@ void extrapolate(Array3f& grid, Array3c& valid) {
 
    Array3f temp_grid = grid;
    Array3c old_valid(valid.ni,valid.nj,valid.nk);
+   #pragma omp parallel for
    for(int layers = 0; layers < 10; ++layers) {
       old_valid = valid;
       for(int k = 1; k < grid.nk-1; ++k) for(int j = 1; j < grid.nj-1; ++j) for(int i = 1; i < grid.ni-1; ++i) {
@@ -633,55 +750,59 @@ void FluidSim::draw() {
    for(unsigned int p = 0; p < particles.size(); ++p) {
 	   
       glPushMatrix();
-	  glm::vec3 pos = particles[p];
-      glTranslatef(pos[0], pos[1], pos[2]);
+	  glm::vec3 pos = particles[p]->position;
+      glTranslatef(pos[0]-.5, pos[1]-.5, pos[2]-.5);
 	  gluQuadricNormals(particle_sphere, GLU_SMOOTH);
-	  glColor4f(0.0, 0.0, 1.0, 1.0);
-      gluSphere(particle_sphere, particle_radius, 20, 20);
+	  if(transparentRender){
+		   glColor4f(particles[p]->color[0], particles[p]->color[1], particles[p]->color[2], 0.2);
+	  }else{
+		   glColor4f(particles[p]->color[0], particles[p]->color[1], particles[p]->color[2], 1.0);
+	  }
+	 
+      //gluSphere(particle_sphere, particle_radius, 20, 20);
       glPopMatrix();   
    }
 
    //Draw the bound box for good measure
   // glDisable(GL_LIGHTING);
-   glColor3f(0,0,0);
-   glBegin(GL_LINES);
-   glVertex3f(0,0,0);
-   glVertex3f(0,0,1);
+	glColor3f(0,0,0);
+	glBegin(GL_LINES);
+	glVertex3f(-.35,-.35,-.35);
+	glVertex3f(-.35,-.35,.35);
 
-   glVertex3f(0,0,0);
-   glVertex3f(0,1,0);
+	glVertex3f(-.35,-.35,-.35);
+	glVertex3f(-.35,.35,-.35);
 
-   glVertex3f(0,0,0);
-   glVertex3f(1,0,0);
+	glVertex3f(-.35,-.35,-.35);
+	glVertex3f(.35,-.35,-.35);
 
-   glVertex3f(0,1,0);
-   glVertex3f(1,1,0);
+	glVertex3f(-.35,.35,-.35);
+	glVertex3f(.35,.35,-.35);
 
-   glVertex3f(1,1,0);
-   glVertex3f(1,0,0);
+	glVertex3f(.35,.35,-.35);
+	glVertex3f(.35,-.35,-.35);
 
-   glVertex3f(1,0,0);
-   glVertex3f(1,0,1);
+	glVertex3f(.35,-.35,-.35);
+	glVertex3f(.35,-.35,.35);
 
-   glVertex3f(0,1,0);
-   glVertex3f(0,1,1);
+	glVertex3f(-.35,.35,-.35);
+	glVertex3f(-.35,.35,.35);
 
-   glVertex3f(1,1,0);
-   glVertex3f(1,1,1);
+	glVertex3f(.35,.35,-.35);
+	glVertex3f(.35,.35,.35);
 
-   glVertex3f(0,1,1);
-   glVertex3f(1,1,1);
+	glVertex3f(-.35,.35,.35);
+	glVertex3f(.35,.35,.35);
 
-   glVertex3f(1,0,1);
-   glVertex3f(1,1,1);
+	glVertex3f(.35,-.35,.35);
+	glVertex3f(.35,.35,.35);
 
-   glVertex3f(0,0,1);
-   glVertex3f(1,0,1);
+	glVertex3f(-.35,-.35,.35);
+	glVertex3f(.35,-.35,.35);
 
-   glVertex3f(0,0,1);
-   glVertex3f(0,1,1);
-
-   glEnd();
+	glVertex3f(-.35,-.35,.35);
+	glVertex3f(-.35,.35,.35);
+	glEnd();
    
    //Draw wireframe sphere geometry (specific to this scene).
    glColor3f(0,0,0);
@@ -690,9 +811,15 @@ void FluidSim::draw() {
    sphere = gluNewQuadric();
    gluQuadricDrawStyle(sphere, GLU_LINE );
    glPushMatrix();
-   glTranslatef(0.5f, 0.5f,0.5f);
-   gluSphere(sphere, 0.35, 20, 20);
+   glTranslatef(0.0f, 0.0f,0.0f);
+   gluSphere(sphere, 0.30, 20, 20);
    glPopMatrix();
+
+   MarchingCubes(liquid_phi, dx, frameNum, outputOBJ);
+
+   frameNum++;
+
+   if (mRecordEnabled) grabScreen();
 }
 
 void FluidSim::set_lights_and_material(int object)

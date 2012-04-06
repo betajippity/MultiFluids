@@ -1,160 +1,0 @@
-TMultiFluid
-v4
-r1
-cCheck dependencies
-cCompileC build/MultiFluid.build/Release/MultiFluid.build/Objects-normal/x86_64/fluidsim.o "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/fluidsim.cpp" normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler
-cCompileC build/MultiFluid.build/Release/MultiFluid.build/Objects-normal/x86_64/main.o "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/main.cpp" normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler
-cCompileC build/MultiFluid.build/Release/MultiFluid.build/Objects-normal/x86_64/levelset_util.o "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/levelset_util.cpp" normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler
-cCompileC build/MultiFluid.build/Release/MultiFluid.build/Objects-normal/x86_64/incomplete_qr.o "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/sparse/incomplete_qr.cpp" normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler
-
-N/Developer/SDKs/MacOSX10.7.sdk
-c000000004EC5FFE600000000000000EE
-t1321598950
-s238
-
-N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/fluidsim.cpp
-c000000004F72919800000000000054B3
-t1332908440
-s21683
-
-N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/levelset_util.cpp
-c000000004EFB09BE0000000000000DA1
-t1325074878
-s3489
-
-N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/main.cpp
-c000000004F7298D90000000000000A0E
-t1332910297
-s2574
-
-N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/sparse/incomplete_qr.cpp
-c000000004EFB09BE00000000000011AF
-t1325074878
-s4527
-
-N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/Objects-normal/x86_64/MultiFluid.LinkFileList
-c000000004F7298E0000000000000024E
-t1332910304
-s590
-
-N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/Objects-normal/x86_64/fluidsim.o
-t2
-s0
-
-N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/Objects-normal/x86_64/incomplete_qr.o
-t2
-s0
-
-N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/Objects-normal/x86_64/levelset_util.o
-t2
-s0
-
-N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/Objects-normal/x86_64/main.o
-t2
-s0
-
-N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/Release/MultiFluid
-t2
-s0
-
-N/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/Release/MultiFluid.dSYM
-t2
-s0
-
-CBuild AST from "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/fluidsim.cpp"
-r0
-
-CBuild AST from "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/levelset_util.cpp"
-r0
-
-CBuild AST from "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/main.cpp"
-r0
-
-CBuild AST from "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/sparse/incomplete_qr.cpp"
-r0
-
-CCheck dependencies
-r0
-lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection18"Check dependencies0cafa460d022b541^2fa3ac60d022b541^---0#1#0#--18"Check dependencies36"4F9AC09C-18D5-4CD0-8F01-E35F2538930F-
-
-CCompileC build/MultiFluid.build/Release/MultiFluid.build/Objects-normal/x86_64/fluidsim.o "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/fluidsim.cpp" normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler
-s354603104.676341
-e354603105.180086
-r0
-xCompileC
-xbuild/MultiFluid.build/Release/MultiFluid.build/Objects-normal/x86_64/fluidsim.o
-x/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/fluidsim.cpp
-xnormal
-xx86_64
-xc++
-xcom.apple.compilers.llvm.clang.1_0.compiler
-oIn file included from /Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/fluidsim.cpp:1:
-oIn file included from /Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/fluidsim.h:4:
-o/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/sparse_matrix.h:222:24:{222:24-222:58}{222:23-222:24}: warning: implicit conversion loses integer precision: 'unsigned long' to 'unsigned int' [-Wshorten-64-to-32,3]
-o          rowstart[i+1]=rowstart[i]+matrix.index[i].size();
-o                       ~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-o/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/pcg_solver.h:265:20: note: in instantiation of member function 'FixedSparseMatrix<double>::construct_from_matrix' requested here [3]
-o       fixed_matrix.construct_from_matrix(matrix);
-o                    ^
-o/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/fluidsim.cpp:502:26: note: in instantiation of member function 'PCGSolver<double>::solve' requested here [3]
-o    bool success = solver.solve(matrix, rhs, pressure, tolerance, iterations);
-o                          ^
-oIn file included from /Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/fluidsim.cpp:1:
-oIn file included from /Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/fluidsim.h:4:
-o/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/sparse_matrix.h:267:4: error: use of undeclared identifier 'assert' [3]
-o    assert(matrix.n==x.size());
-o    ^
-o/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/pcg_solver.h:268:10: note: in instantiation of function template specialization 'multiply<double>' requested here [3]
-o          multiply(fixed_matrix, s, z);
-o          ^
-o/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/fluidsim.cpp:502:26: note: in instantiation of member function 'PCGSolver<double>::solve' requested here [3]
-o    bool success = solver.solve(matrix, rhs, pressure, tolerance, iterations);
-o                          ^
-o1 warning and 1 error generated.
-lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection96"Compile /Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/fluidsim.cpp2f36ad60d022b541^87152e61d022b541^-2184"In file included from /Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/fluidsim.h:4:In file included from /Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/fluidsim.cpp:1:/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/sparse_matrix.h:222:24:{222:24-222:58}{222:23-222:24}: warning: implicit conversion loses integer precision: 'unsigned long' to 'unsigned int' [-Wshorten-64-to-32,3]          rowstart[i+1]=rowstart[i]+matrix.index[i].size();                       ~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/pcg_solver.h:265:20: note: in instantiation of member function 'FixedSparseMatrix<double>::construct_from_matrix' requested here [3]       fixed_matrix.construct_from_matrix(matrix);                    ^/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/fluidsim.cpp:502:26: note: in instantiation of member function 'PCGSolver<double>::solve' requested here [3]    bool success = solver.solve(matrix, rhs, pressure, tolerance, iterations);                          ^In file included from /Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/fluidsim.h:4:In file included from /Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/fluidsim.cpp:1:/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/sparse_matrix.h:267:4: error: use of undeclared identifier 'assert' [3]    assert(matrix.n==x.size());    ^/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/pcg_solver.h:268:10: note: in instantiation of function template specialization 'multiply<double>' requested here [3]          multiply(fixed_matrix, s, z);          ^/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/fluidsim.cpp:502:26: note: in instantiation of member function 'PCGSolver<double>::solve' requested here [3]    bool success = solver.solve(matrix, rhs, pressure, tolerance, iterations);                          ^1 warning and 1 error generated.2(21%IDEActivityLogMessage2@78"Implicit conversion loses integer precision: 'unsigned long' to 'unsigned int'-354603105#226#252#5(36%IDEActivityLogHeaderInclusionMessage3@111"In file included from /Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/fluidsim.h:4:-354603105#0#112#-0#-23%DVTTextDocumentLocation4@104"file://localhost/Users/karlli/Documents/Projects/MultiFluid/OSX%20Build/MultiFluid/MultiFluid/fluidsim.h0000000000000000^3#18446744073709551615#3#18446744073709551615#18446744073709551615#0#---3@113"In file included from /Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/fluidsim.cpp:1:-354603105#112#114#-0#-4@106"file://localhost/Users/karlli/Documents/Projects/MultiFluid/OSX%20Build/MultiFluid/MultiFluid/fluidsim.cpp0000000000000000^0#18446744073709551615#0#18446744073709551615#18446744073709551615#0#---2@183"Implicit conversion loses integer precision: 'unsigned long' to 'unsigned int' in /Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/sparse_matrix.h-354603105#18446744073709551615#0#-0#-4@119"file://localhost/Users/karlli/Documents/Projects/MultiFluid/OSX%20Build/MultiFluid/MultiFluid/pcgsolver/sparse_matrix.h0000000000000000^221#23#221#23#18446744073709551615#0#---2@101"In instantiation of member function 'FixedSparseMatrix<double>::construct_from_matrix' requested here-354603105#597#219#-0#-4@116"file://localhost/Users/karlli/Documents/Projects/MultiFluid/OSX%20Build/MultiFluid/MultiFluid/pcgsolver/pcg_solver.h0000000000000000^264#19#264#19#18446744073709551615#0#14"Semantic Issue--2@77"In instantiation of member function 'PCGSolver<double>::solve' requested here-354603105#889#185#-0#-4@106"file://localhost/Users/karlli/Documents/Projects/MultiFluid/OSX%20Build/MultiFluid/MultiFluid/fluidsim.cpp0000000000000000^501#25#501#25#18446744073709551615#0#14"Semantic Issue--1#-4@119"file://localhost/Users/karlli/Documents/Projects/MultiFluid/OSX%20Build/MultiFluid/MultiFluid/pcgsolver/sparse_matrix.h0000000000000000^221#23#221#23#18446744073709551615#0#14"Semantic Issue2(4@119"file://localhost/Users/karlli/Documents/Projects/MultiFluid/OSX%20Build/MultiFluid/MultiFluid/pcgsolver/sparse_matrix.h0000000000000000^221#23#221#57#18446744073709551615#0#4@119"file://localhost/Users/karlli/Documents/Projects/MultiFluid/OSX%20Build/MultiFluid/MultiFluid/pcgsolver/sparse_matrix.h0000000000000000^221#22#221#23#18446744073709551615#0#-2@37"Use of undeclared identifier 'assert'-354603105#1407#158#5(3@111"In file included from /Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/fluidsim.h:4:-354603105#1181#112#-0#-4@104"file://localhost/Users/karlli/Documents/Projects/MultiFluid/OSX%20Build/MultiFluid/MultiFluid/fluidsim.h0000000000000000^3#18446744073709551615#3#18446744073709551615#18446744073709551615#0#---3@113"In file included from /Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/fluidsim.cpp:1:-354603105#1293#114#-0#-4@106"file://localhost/Users/karlli/Documents/Projects/MultiFluid/OSX%20Build/MultiFluid/MultiFluid/fluidsim.cpp0000000000000000^0#18446744073709551615#0#18446744073709551615#18446744073709551615#0#---2@142"Use of undeclared identifier 'assert' in /Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/pcgsolver/sparse_matrix.h-354603105#18446744073709551615#0#-0#-4@119"file://localhost/Users/karlli/Documents/Projects/MultiFluid/OSX%20Build/MultiFluid/MultiFluid/pcgsolver/sparse_matrix.h0000000000000000^266#3#266#3#18446744073709551615#0#---2@86"In instantiation of function template specialization 'multiply<double>' requested here-354603105#1603#204#-0#-4@116"file://localhost/Users/karlli/Documents/Projects/MultiFluid/OSX%20Build/MultiFluid/MultiFluid/pcgsolver/pcg_solver.h0000000000000000^267#9#267#9#18446744073709551615#0#14"Semantic Issue--2@77"In instantiation of member function 'PCGSolver<double>::solve' requested here-354603105#1859#185#-0#-4@106"file://localhost/Users/karlli/Documents/Projects/MultiFluid/OSX%20Build/MultiFluid/MultiFluid/fluidsim.cpp0000000000000000^501#25#501#25#18446744073709551615#0#14"Semantic Issue--2#-4@119"file://localhost/Users/karlli/Documents/Projects/MultiFluid/OSX%20Build/MultiFluid/MultiFluid/pcgsolver/sparse_matrix.h0000000000000000^266#3#266#3#18446744073709551615#0#14"Semantic Issue--0#0#0#-19%DVTDocumentLocation5@106"file://localhost/Users/karlli/Documents/Projects/MultiFluid/OSX%20Build/MultiFluid/MultiFluid/fluidsim.cpp0000000000000000^2273"CompileC build/MultiFluid.build/Release/MultiFluid.build/Objects-normal/x86_64/fluidsim.o MultiFluid/fluidsim.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler    cd "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid"    setenv LANG en_US.US-ASCII    /Developer/usr/bin/clang -x c++ -arch x86_64 -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -Wno-trigraphs -fpascal-strings -Os -Wmissing-prototypes -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wshorten-64-to-32 -Wc++0x-extensions -isysroot /Developer/SDKs/MacOSX10.7.sdk -fasm-blocks -mmacosx-version-min=10.7 -gdwarf-2 -fvisibility=hidden -fvisibility-inlines-hidden -Wno-sign-conversion -iquote "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/MultiFluid-generated-files.hmap" "-I/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/MultiFluid-own-target-headers.hmap" "-I/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/MultiFluid-all-target-headers.hmap" -iquote "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/MultiFluid-project-headers.hmap" "-I/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/Release/include" "-I/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/DerivedSources/x86_64" "-I/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/DerivedSources" "-F/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/Release" -MMD -MT dependencies -MF "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/Objects-normal/x86_64/fluidsim.d" -c "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/fluidsim.cpp" -o "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/Objects-normal/x86_64/fluidsim.o"36"0A230012-C140-4924-829A-24FD97DB3527-
-
-CCompileC build/MultiFluid.build/Release/MultiFluid.build/Objects-normal/x86_64/incomplete_qr.o "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/sparse/incomplete_qr.cpp" normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler
-s354603104.676486
-e354603104.934808
-r1
-xCompileC
-xbuild/MultiFluid.build/Release/MultiFluid.build/Objects-normal/x86_64/incomplete_qr.o
-x/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/sparse/incomplete_qr.cpp
-xnormal
-xx86_64
-xc++
-xcom.apple.compilers.llvm.clang.1_0.compiler
-lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection108"Compile /Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/sparse/incomplete_qr.cpp4a43ad60d022b541^2252ef60d022b541^---0#0#0#-19%DVTDocumentLocation2@118"file://localhost/Users/karlli/Documents/Projects/MultiFluid/OSX%20Build/MultiFluid/MultiFluid/sparse/incomplete_qr.cpp0000000000000000^2312"CompileC build/MultiFluid.build/Release/MultiFluid.build/Objects-normal/x86_64/incomplete_qr.o MultiFluid/sparse/incomplete_qr.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler    cd "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid"    setenv LANG en_US.US-ASCII    /Developer/usr/bin/clang -x c++ -arch x86_64 -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -Wno-trigraphs -fpascal-strings -Os -Wmissing-prototypes -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wshorten-64-to-32 -Wc++0x-extensions -isysroot /Developer/SDKs/MacOSX10.7.sdk -fasm-blocks -mmacosx-version-min=10.7 -gdwarf-2 -fvisibility=hidden -fvisibility-inlines-hidden -Wno-sign-conversion -iquote "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/MultiFluid-generated-files.hmap" "-I/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/MultiFluid-own-target-headers.hmap" "-I/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/MultiFluid-all-target-headers.hmap" -iquote "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/MultiFluid-project-headers.hmap" "-I/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/Release/include" "-I/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/DerivedSources/x86_64" "-I/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/DerivedSources" "-F/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/Release" -MMD -MT dependencies -MF "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/Objects-normal/x86_64/incomplete_qr.d" -c "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/sparse/incomplete_qr.cpp" -o "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/Objects-normal/x86_64/incomplete_qr.o"36"740F35E1-B84B-4363-B1E4-FEFA6B4832C5-
-
-CCompileC build/MultiFluid.build/Release/MultiFluid.build/Objects-normal/x86_64/levelset_util.o "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/levelset_util.cpp" normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler
-s354603104.676345
-e354603104.711603
-r1
-xCompileC
-xbuild/MultiFluid.build/Release/MultiFluid.build/Objects-normal/x86_64/levelset_util.o
-x/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/levelset_util.cpp
-xnormal
-xx86_64
-xc++
-xcom.apple.compilers.llvm.clang.1_0.compiler
-lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection101"Compile /Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/levelset_util.cpp2f36ad60d022b541^132cb660d022b541^---0#0#0#-19%DVTDocumentLocation2@111"file://localhost/Users/karlli/Documents/Projects/MultiFluid/OSX%20Build/MultiFluid/MultiFluid/levelset_util.cpp0000000000000000^2298"CompileC build/MultiFluid.build/Release/MultiFluid.build/Objects-normal/x86_64/levelset_util.o MultiFluid/levelset_util.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler    cd "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid"    setenv LANG en_US.US-ASCII    /Developer/usr/bin/clang -x c++ -arch x86_64 -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -Wno-trigraphs -fpascal-strings -Os -Wmissing-prototypes -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wshorten-64-to-32 -Wc++0x-extensions -isysroot /Developer/SDKs/MacOSX10.7.sdk -fasm-blocks -mmacosx-version-min=10.7 -gdwarf-2 -fvisibility=hidden -fvisibility-inlines-hidden -Wno-sign-conversion -iquote "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/MultiFluid-generated-files.hmap" "-I/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/MultiFluid-own-target-headers.hmap" "-I/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/MultiFluid-all-target-headers.hmap" -iquote "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/MultiFluid-project-headers.hmap" "-I/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/Release/include" "-I/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/DerivedSources/x86_64" "-I/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/DerivedSources" "-F/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/Release" -MMD -MT dependencies -MF "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/Objects-normal/x86_64/levelset_util.d" -c "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/levelset_util.cpp" -o "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/Objects-normal/x86_64/levelset_util.o"36"BE5B0A1D-4876-47DF-A0D7-7CA4BD039D8A-
-
-CCompileC build/MultiFluid.build/Release/MultiFluid.build/Objects-normal/x86_64/main.o "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/main.cpp" normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler
-s354603104.676343
-e354603105.389530
-r1
-xCompileC
-xbuild/MultiFluid.build/Release/MultiFluid.build/Objects-normal/x86_64/main.o
-x/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/main.cpp
-xnormal
-xx86_64
-xc++
-xcom.apple.compilers.llvm.clang.1_0.compiler
-lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection92"Compile /Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/main.cppc939ad60d022b541^aaba6361d022b541^---0#0#0#-19%DVTDocumentLocation2@102"file://localhost/Users/karlli/Documents/Projects/MultiFluid/OSX%20Build/MultiFluid/MultiFluid/main.cpp0000000000000000^2253"CompileC build/MultiFluid.build/Release/MultiFluid.build/Objects-normal/x86_64/main.o MultiFluid/main.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler    cd "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid"    setenv LANG en_US.US-ASCII    /Developer/usr/bin/clang -x c++ -arch x86_64 -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -Wno-trigraphs -fpascal-strings -Os -Wmissing-prototypes -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wshorten-64-to-32 -Wc++0x-extensions -isysroot /Developer/SDKs/MacOSX10.7.sdk -fasm-blocks -mmacosx-version-min=10.7 -gdwarf-2 -fvisibility=hidden -fvisibility-inlines-hidden -Wno-sign-conversion -iquote "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/MultiFluid-generated-files.hmap" "-I/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/MultiFluid-own-target-headers.hmap" "-I/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/MultiFluid-all-target-headers.hmap" -iquote "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/MultiFluid-project-headers.hmap" "-I/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/Release/include" "-I/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/DerivedSources/x86_64" "-I/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/DerivedSources" "-F/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/Release" -MMD -MT dependencies -MF "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/Objects-normal/x86_64/main.d" -c "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/MultiFluid/main.cpp" -o "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/MultiFluid.build/Release/MultiFluid.build/Objects-normal/x86_64/main.o"36"A0750265-1E14-471D-977A-37556F4A2FA4-
-
-CGenerateDSYMFile "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/Release/MultiFluid.dSYM" "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/Release/MultiFluid"
-r0
-
-CLd "/Users/karlli/Documents/Projects/MultiFluid/OSX Build/MultiFluid/build/Release/MultiFluid" normal x86_64
-r0
-

@@ -7,8 +7,9 @@
 #include <time.h>
 #include "open_gl_headers.h"
 #include "basic_math.h"
-
+#include <iostream>
 #include "camera.h"
+#include "glm/gtx/transform2.hpp"
 
 glm::vec3  Camera::dfltEye(5.0, 1.0, -25.0);
 glm::vec3  Camera::dfltUp(0.0, 1.0, 0.0);
@@ -37,8 +38,6 @@ void Camera::reset()
    mNear = dfltNear;
    mFar = dfltFar;
 
-   mRadius = 1.5;
-
    // Calculate the initial heading & pitch
    // Note that  eye[0] = radius*cos(h)*cos(p); and  eye[1] = radius*sin(p);
    mPitch = -std::asin(dfltEye[1]/dfltEye.length());
@@ -54,19 +53,28 @@ void Camera::draw()
    glLoadIdentity();
    gluPerspective(mVfov, mAspect, mNear, mFar);
 
-    
+
    float m[16];
-   m[0] = v[0]; m[4] = v[1]; m[8] = v[2];  m[12] = -glm::dot(eye, v); 
+  /* m[0] = v[0]; m[4] = v[1]; m[8] = v[2];  m[12] = -glm::dot(eye, v); 
    m[1] = u[0]; m[5] = u[1]; m[9] = u[2];  m[13] = -glm::dot(eye, u); 
    m[2] = n[0]; m[6] = n[1]; m[10] = n[2]; m[14] = -glm::dot(eye, n); 
-   m[3] = 0.0;  m[7] = 0.0;  m[11] = 0.0;  m[15] = 1.0;
+   m[3] = 0.0;  m[7] = 0.0;  m[11] = 0.0;  m[15] = 1.0;*/
+
+
+
+   m[0] = lookMat[0][0]; m[4] = lookMat[1][0]; m[8]  = lookMat[2][0];  m[12] = lookMat[3][0];
+   m[1] = lookMat[0][1]; m[5] = lookMat[1][1]; m[9]  = lookMat[2][1];  m[13] = lookMat[3][1];
+   m[2] = lookMat[0][2]; m[6] = lookMat[1][2]; m[10] = lookMat[2][2];  m[14] = lookMat[3][2];
+   m[3] = lookMat[0][3]; m[7] = lookMat[1][3]; m[11] = lookMat[2][3];  m[15] = lookMat[3][3];
+
+
    glMatrixMode(GL_MODELVIEW);
    glLoadMatrixf(m); 
 
    glGetDoublev(GL_MODELVIEW_MATRIX, myModelMatrix);
    glGetDoublev(GL_PROJECTION_MATRIX, myProjMatrix);
    glGetIntegerv(GL_VIEWPORT, myViewport);
-}
+} 
 
 const glm::vec3& Camera::getUp() const
 {
@@ -138,8 +146,8 @@ void Camera::set(const glm::vec3& eyepos, const glm::vec3& look, const glm::vec3
 	n = eyepos - look;
 	v = glm::cross(up, n);
 	u = glm::cross(n, v);
-	mRadius = n.length(); // cache this distance
-
+	mRadius = n.length()/2; // cache this distance
+	lookMat = glm::gtx::transform2::lookAt(eyepos, look, up);
 	u = glm::normalize(u);
 	v = glm::normalize(v);
 	n = glm::normalize(n);
@@ -162,9 +170,11 @@ void Camera::orbit(float h, float p)
    rotatePt[2] = mRadius*std::sin(h)*std::cos(p);
 
    glm::vec3 lookAt = eye-n*mRadius;
+
+
    set(lookAt-rotatePt, lookAt /* look */, glm::vec3(0.0f, 1.0f, 0.0f) /* up Approx */);
 }
-
+  
 void Camera::orbitLeft(int scale) 
 {
    myTurnDir = TL;

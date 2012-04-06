@@ -20,6 +20,7 @@
 		6B2B8DAC1524DDC8003C54BD /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B2B8DAA1524DDC8003C54BD /* GLUT.framework */; };
 		6B2B8DAD1524DDC8003C54BD /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B2B8DAB1524DDC8003C54BD /* OpenGL.framework */; };
 		6B2B8DAF1524DDCD003C54BD /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B2B8DAE1524DDCD003C54BD /* Carbon.framework */; };
+		6B5D6242152F911F0027BE22 /* marching_cubes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6B5D6240152F911F0027BE22 /* marching_cubes.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -288,6 +289,8 @@
 		6B2B8DAA1524DDC8003C54BD /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
 		6B2B8DAB1524DDC8003C54BD /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		6B2B8DAE1524DDCD003C54BD /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
+		6B5D6240152F911F0027BE22 /* marching_cubes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = marching_cubes.cpp; sourceTree = "<group>"; };
+		6B5D6241152F911F0027BE22 /* marching_cubes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = marching_cubes.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -336,6 +339,8 @@
 				6B2B8CA91524DDAE003C54BD /* camera.cpp */,
 				6B2B8CAA1524DDAE003C54BD /* camera.h */,
 				6B2B8CAB1524DDAE003C54BD /* clock.h */,
+				6B5D6240152F911F0027BE22 /* marching_cubes.cpp */,
+				6B5D6241152F911F0027BE22 /* marching_cubes.h */,
 				6B2B8CAC1524DDAE003C54BD /* constants.cpp */,
 				6B2B8CAD1524DDAE003C54BD /* constants.h */,
 				6B2B8CAE1524DDAE003C54BD /* custom_output.h */,
@@ -694,6 +699,7 @@
 				6B2B8DA61524DDAE003C54BD /* levelset_util.cpp in Sources */,
 				6B2B8DA71524DDAE003C54BD /* stb_image_write.c in Sources */,
 				6B2B8DA81524DDAE003C54BD /* stb_image.c in Sources */,
+				6B5D6242152F911F0027BE22 /* marching_cubes.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -707,6 +713,7 @@
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = NO;
+				ENABLE_OPENMP_SUPPORT = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
@@ -716,7 +723,7 @@
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -735,9 +742,10 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_OPENMP_SUPPORT = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
