@@ -5,6 +5,7 @@
 #include "glm/glm.hpp"
 #include <omp.h>
 #include "stb_image_write.h"
+#include "marching_cubes.h"
 
 #ifdef __APPLE__
 #include <GLUT/glut.h>
@@ -72,6 +73,8 @@ void FluidSim::grabScreen()
 }
 
 void FluidSim::initialize(float width, int ni_, int nj_, int nk_) {
+	frameNum = 0;
+	outputOBJ = false;
    ni = ni_;
    nj = nj_;
    nk = nk_;
@@ -744,7 +747,7 @@ void FluidSim::draw() {
 		   glColor4f(particles[p]->color[0], particles[p]->color[1], particles[p]->color[2], 1.0);
 	  }
 	 
-      gluSphere(particle_sphere, particle_radius, 20, 20);
+      //gluSphere(particle_sphere, particle_radius, 20, 20);
       glPopMatrix();   
    }
 
@@ -799,6 +802,10 @@ void FluidSim::draw() {
    glTranslatef(0.0f, 0.0f,0.0f);
    gluSphere(sphere, 0.30, 20, 20);
    glPopMatrix();
+
+   MarchingCubes(liquid_phi, dx, frameNum, outputOBJ);
+
+   frameNum++;
 
    if (mRecordEnabled) grabScreen();
 }

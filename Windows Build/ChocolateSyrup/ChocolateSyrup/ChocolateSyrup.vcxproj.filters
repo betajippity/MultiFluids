@@ -417,6 +417,9 @@
     <ClInclude Include="stb_image_write.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="marching_cubes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -444,6 +447,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="stb_image_write.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="marching_cubes.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

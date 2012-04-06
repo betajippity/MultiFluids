@@ -77,6 +77,9 @@ public:
 	bool verbose;
 	bool transparentRender;
 
+	bool outputOBJ;
+	int frameNum;
+
 private:
 
    glm::vec3 trace_rk2(const glm::vec3& position, float dt);

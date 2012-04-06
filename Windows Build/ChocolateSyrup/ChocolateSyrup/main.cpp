@@ -22,7 +22,7 @@ using namespace std;
 
 string outpath;
 
-int grid_resolution = 60;
+int grid_resolution = 120;
 float timestep = 0.01f;
 int frame = 0;
 
@@ -193,6 +193,7 @@ void onKeyboardCb(unsigned char key, int x, int y)
    else if (key == 'w') sim.setTransparentRender(!sim.isTransparentRender());
    else if (key == 'e') sim.setVerbose(!sim.isVerbose());
    else if (key == 't') textOutput = !textOutput;
+   else if (key == 'v') sim.outputOBJ = !sim.outputOBJ;
    else if (key == 27) exit(0); // ESC Key
    glutPostRedisplay();
 }
