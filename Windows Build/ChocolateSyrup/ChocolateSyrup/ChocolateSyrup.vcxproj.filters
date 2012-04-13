@@ -420,6 +420,18 @@
     <ClInclude Include="marching_cubes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="makelevelset3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="objsdf.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="timer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="clock.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -450,6 +462,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="marching_cubes.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="makelevelset3.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="objsdf.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

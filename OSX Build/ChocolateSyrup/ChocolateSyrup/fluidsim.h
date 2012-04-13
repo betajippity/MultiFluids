@@ -39,7 +39,8 @@ public:
     //Grid dimensions
     int ni,nj,nk;
     float dx;
-
+    float grid_width;
+    
     //Fluid velocity
     Array3f u, v, w;
     Array3f temp_u, temp_v, temp_w;

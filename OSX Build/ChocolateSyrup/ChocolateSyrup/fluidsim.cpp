@@ -83,6 +83,8 @@ void FluidSim::initialize(float width, int ni_, int nj_, int nk_) {
    nj = nj_;
    nk = nk_;
    dx = width / (float)ni;
+    grid_width = width; 
+    
    u.resize(ni+1,nj,nk); temp_u.resize(ni+1,nj,nk); u_weights.resize(ni+1,nj,nk); u_valid.resize(ni+1,nj,nk);
    v.resize(ni,nj+1,nk); temp_v.resize(ni,nj+1,nk); v_weights.resize(ni,nj+1,nk); v_valid.resize(ni,nj+1,nk);
    w.resize(ni,nj,nk+1); temp_w.resize(ni,nj,nk+1); w_weights.resize(ni,nj,nk+1); w_valid.resize(ni,nj,nk+1);
@@ -742,16 +744,22 @@ void FluidSim::draw() {
    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 //   set_lights_and_material(0); 
-	   //Draw the liquid particles as simple spheres for now.
+    
+    //-------------------------------------------------------------
+    //-------------------DRAW FLUID PARTICLES----------------------
+    //-------------------------------------------------------------
+    
+    
    glPolygonMode(GL_FRONT_AND_BACK, GL_LINES);
    GLUquadric* particle_sphere;
    particle_sphere = gluNewQuadric();
    gluQuadricDrawStyle(particle_sphere, GLU_FILL );
+    std::cout << particles.size() << std::endl;
    for(unsigned int p = 0; p < particles.size(); ++p) {
 	   
       glPushMatrix();
 	  glm::vec3 pos = particles[p]->position;
-      glTranslatef(pos[0]-.5, pos[1]-.5, pos[2]-.5);
+      glTranslatef(pos[0]-(.5*grid_width), pos[1]-(.5*grid_width), pos[2]-(.5*grid_width));
 	  gluQuadricNormals(particle_sphere, GLU_SMOOTH);
 	  if(transparentRender){
 		   glColor4f(particles[p]->color[0], particles[p]->color[1], particles[p]->color[2], 0.2);
@@ -759,49 +767,55 @@ void FluidSim::draw() {
 		   glColor4f(particles[p]->color[0], particles[p]->color[1], particles[p]->color[2], 1.0);
 	  }
 	 
-      //gluSphere(particle_sphere, particle_radius, 20, 20);
+      gluSphere(particle_sphere, particle_radius, 20, 20);
       glPopMatrix();   
    }
 
-   //Draw the bound box for good measure
+    //-------------------------------------------------------------
+    //-----------------DRAW GRID BOUNDING BOX----------------------
+    //-------------------------------------------------------------
+    
+    //calculate boundary points
+    float p = .5 * grid_width;
+    
   // glDisable(GL_LIGHTING);
 	glColor3f(0,0,0);
 	glBegin(GL_LINES);
-	glVertex3f(-.35,-.35,-.35);
-	glVertex3f(-.35,-.35,.35);
-
-	glVertex3f(-.35,-.35,-.35);
-	glVertex3f(-.35,.35,-.35);
-
-	glVertex3f(-.35,-.35,-.35);
-	glVertex3f(.35,-.35,-.35);
-
-	glVertex3f(-.35,.35,-.35);
-	glVertex3f(.35,.35,-.35);
-
-	glVertex3f(.35,.35,-.35);
-	glVertex3f(.35,-.35,-.35);
-
-	glVertex3f(.35,-.35,-.35);
-	glVertex3f(.35,-.35,.35);
-
-	glVertex3f(-.35,.35,-.35);
-	glVertex3f(-.35,.35,.35);
-
-	glVertex3f(.35,.35,-.35);
-	glVertex3f(.35,.35,.35);
-
-	glVertex3f(-.35,.35,.35);
-	glVertex3f(.35,.35,.35);
-
-	glVertex3f(.35,-.35,.35);
-	glVertex3f(.35,.35,.35);
-
-	glVertex3f(-.35,-.35,.35);
-	glVertex3f(.35,-.35,.35);
-
-	glVertex3f(-.35,-.35,.35);
-	glVertex3f(-.35,.35,.35);
+	glVertex3f(-p,-p,-p);
+	glVertex3f(-p,-p,p);
+    
+	glVertex3f(-p,-p,-p);
+	glVertex3f(-p,p,-p);
+    
+	glVertex3f(-p,-p,-p);
+	glVertex3f(p,-p,-p);
+    
+	glVertex3f(-p,p,-p);
+	glVertex3f(p,p,-p);
+    
+	glVertex3f(p,p,-p);
+	glVertex3f(p,-p,-p);
+    
+	glVertex3f(p,-p,-p);
+	glVertex3f(p,-p,p);
+    
+	glVertex3f(-p,p,-p);
+	glVertex3f(-p,p,p);
+    
+	glVertex3f(p,p,-p);
+	glVertex3f(p,p,p);
+    
+	glVertex3f(-p,p,p);
+	glVertex3f(p,p,p);
+    
+	glVertex3f(p,-p,p);
+	glVertex3f(p,p,p);
+    
+	glVertex3f(-p,-p,p);
+	glVertex3f(p,-p,p);
+    
+	glVertex3f(-p,-p,p);
+	glVertex3f(-p,p,p);
 	glEnd();
    
    //Draw wireframe sphere geometry (specific to this scene).
@@ -814,8 +828,9 @@ void FluidSim::draw() {
    glTranslatef(0.0f, 0.0f,0.0f);
    gluSphere(sphere, 0.30, 20, 20);
    glPopMatrix();
-
-   MarchingCubes(liquid_phi, dx, frameNum, outputOBJ);
+    
+   //run marching cubes for mesh reconstruction
+   //MarchingCubes(liquid_phi, dx, frameNum, outputOBJ);
 
    frameNum++;
 

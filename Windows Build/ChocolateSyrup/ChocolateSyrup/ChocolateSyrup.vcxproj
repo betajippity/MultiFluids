@@ -69,6 +69,7 @@
     <ClInclude Include="array3_utils.h" />
     <ClInclude Include="basic_math.h" />
     <ClInclude Include="camera.h" />
+    <ClInclude Include="clock.h" />
     <ClInclude Include="constants.h" />
     <ClInclude Include="custom_output.h" />
     <ClInclude Include="fluidsim.h" />
@@ -189,13 +190,16 @@
     <ClInclude Include="glm\virtrev\xstream.hpp" />
     <ClInclude Include="gl\glut.h" />
     <ClInclude Include="levelset_util.h" />
+    <ClInclude Include="makelevelset3.h" />
     <ClInclude Include="marching_cubes.h" />
+    <ClInclude Include="objsdf.h" />
     <ClInclude Include="open_gl_headers.h" />
     <ClInclude Include="pcgsolver\blas_wrapper.h" />
     <ClInclude Include="pcgsolver\pcg_solver.h" />
     <ClInclude Include="pcgsolver\sparse_matrix.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="stb_image_write.h" />
+    <ClInclude Include="timer.h" />
     <ClInclude Include="util.h" />
   </ItemGroup>
   <ItemGroup>
@@ -206,7 +210,9 @@
     <ClCompile Include="fps.cpp" />
     <ClCompile Include="levelset_util.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="makelevelset3.cpp" />
     <ClCompile Include="marching_cubes.cpp" />
+    <ClCompile Include="objsdf.cpp" />
     <ClCompile Include="stb_image.c" />
     <ClCompile Include="stb_image_write.c" />
   </ItemGroup>

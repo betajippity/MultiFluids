@@ -4,7 +4,11 @@
 #include "array3_utils.h"
 
 #include <math.h>
+#ifdef __APPLE__
+#include <GLUT/glut.h>
+#else
 #include <GL/glut.h>
+#endif
 
 #include "glm/glm.hpp"
 #include <iostream> 
@@ -379,7 +383,7 @@ void MarchingCubes(const Array3f& liquid, float dx, int frameNum, bool outputOBJ
 
 
 
-   if(outputOBJ){
+   if(1==1){
 	vector<glm::vec3> vertices;
 	vector<vector<int> > indices;
 	//this is terrible, but good enough for now
@@ -412,7 +416,7 @@ void MarchingCubes(const Array3f& liquid, float dx, int frameNum, bool outputOBJ
 		ss << "C:/Users/karl/Desktop/meshes/mesh" << ZeroPadNumber(frameNum) << ".obj";
 		std::string s = ss.str();
 
-		ofstream outfile (s);
+		ofstream outfile (s.c_str());
 		if(outfile.is_open()){
 			for(int i=0; i<vertices.size(); i++){
 				outfile << "v " << vertices[i][0] << " " << vertices[i][1] << " " << vertices[i][2] << "\n";

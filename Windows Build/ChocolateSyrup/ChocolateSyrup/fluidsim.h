@@ -5,6 +5,7 @@
 #include "pcgsolver/pcg_solver.h"
 #include "array3_utils.h"
 #include <vector>
+#include "objsdf.h"
 
 struct particle{
 	glm::vec3 position;
@@ -21,9 +22,15 @@ class FluidSim {
 
 
 public:
+    
+    FluidSim();
+    ~FluidSim();
+    
+    objsdf* mesh;
+
     void initialize(float width, int ni_, int nj_, int nk_);
     void set_boundary(float (*phi)(const glm::vec3&));
-    void set_liquid(float (*phi)(const glm::vec3&), glm::vec3& color);
+    void set_liquid(float (*phi)(const glm::vec3&), glm::vec3 color);
     void add_particle(const glm::vec3& pos, const glm::vec3& color);
 
     void advance(float dt);
@@ -34,7 +41,8 @@ public:
     //Grid dimensions
     int ni,nj,nk;
     float dx;
-
+    float grid_width;
+    
     //Fluid velocity
     Array3f u, v, w;
     Array3f temp_u, temp_v, temp_w;

@@ -17,20 +17,28 @@
 #include "glm/glm.hpp"
 #include "open_gl_headers.h"
 #include "basic_math.h"
+#include "objsdf.h"
 
 using namespace std;
 
+//-------------------------------------------------------------
+//----------------------SET UP STUFF---------------------------
+//-------------------------------------------------------------
+
 string outpath;
+
 
 int grid_resolution = 120;
 float timestep = 0.01f;
 int frame = 0;
 
-float grid_width = 1;
+float grid_width = 1;		//the grid width shall always be 1.
 
 bool textOutput = false;
 
 FluidSim sim;
+objsdf* mesh = new objsdf("C:/Users/Karl/Dropbox/Documents/Projects/SDFGen/dragon.obj");
+
 
 Camera theCamera;
 mmc::FpsTracker theFpsTracker;
@@ -47,28 +55,29 @@ int savedHeight = 0;
 
 float ground_height = 0.2f;
 
-float ground_phi(const glm::vec3& position, float height);
+
+//-------------------------------------------------------------
+//-------------------BOUNDARY CONDITIONS-----------------------
+//-------------------------------------------------------------
+
 float ground_phi(const glm::vec3& position, float height) {
   return height - position.y;
 }
 
-float rad0 = 0.35f;
+float rad0 = 0.45f;
 
-float box_phi(const glm::vec3& position, glm::vec3& centre, glm::vec3 halfDim);
 float box_phi(const glm::vec3& position, glm::vec3& centre, glm::vec3 halfDim) {
   float distX = abs(position.x - centre.x) - halfDim.x;
   float distY = abs(position.y - centre.y) - halfDim.y;
   float distZ = abs(position.z - centre.z) - halfDim.z;
 
-  return max(distX, max(distY, distZ));
+    return max(distX, max(distY, distZ));
 }
 
-float sphere_phi(const glm::vec3& position, const glm::vec3& centre, float radius);
 float sphere_phi(const glm::vec3& position, const glm::vec3& centre, float radius) {
     return (glm::length(position-centre) - radius);
 }
 
-float sphereInBox_phi(const glm::vec3& position, glm::vec3& centre);
 float sphereInBox_phi(const glm::vec3& position, glm::vec3& centre) {
   float box = box_phi(position, centre, glm::vec3(rad0, rad0, rad0));
 
@@ -77,32 +86,63 @@ float sphereInBox_phi(const glm::vec3& position, glm::vec3& centre) {
   return max(box, sphere);
 }
 
-
-
-glm::vec3 c0(0.5f,0.5f,0.5f);
-
-
-float boundary_phi(const glm::vec3& position);
-float boundary_phi(const glm::vec3& position) {
-
-   return -sphereInBox_phi(position, c0);
-
-   // Using the ground constraint.
-   // return -ground_phi(position, ground_height);
-
-   // Using the box constraint.
-   //return -box_phi(position, c0, glm::vec3(rad0, rad0, rad0));
-
-   // Using the sphere constraint. 
-   return sphere_phi(position, c0, rad0);
+float obj_phi(const glm::vec3& position){
+	return mesh->getSignedDistanceAtCellWorldSpace(position.x-.5, position.y-.5, position.z-.5);
 }
 
-float liquid_phi(const glm::vec3& position);
+
+float boundary_phi(const glm::vec3& position) {
+    
+    glm::vec3 c0(0.5f,0.5f,0.5f);
+    
+	//std::cout << obj_phi(position) << std::endl;
+
+    //Using OBJ SDF constraint
+    //return -obj_phi(position);
+    
+    //Using the sphere in box constraint
+    //return -sphereInBox_phi(position, c0);
+
+    // Using the ground constraint.
+    //return -ground_phi(position, ground_height);
+
+    // Using the box constraint.
+    return -box_phi(position, c0, glm::vec3(rad0, rad0, rad0));
+
+    // Using the sphere constraint. 
+    //return sphere_phi(position, c0, rad0);
+}
+
 float liquid_phi(const glm::vec3& position) {
-  
-   return sphere_phi(position, glm::vec3(0.55f, 0.8f, 0.4f), 0.23f);
+	return obj_phi(position);
+   //return sphere_phi(position, glm::vec3(0.55f, 0.8f, 0.4f), 0.15f);
+	//return sphere_phi(position, glm::vec3(0.5f,0.5f,0.5f), 0.1f);
    
 }
+
+//-------------------------------------------------------------
+//----------------------OUTPUT STUFF---------------------------
+//-------------------------------------------------------------
+
+void export_particles(string path, int frame, const std::vector<particle*>& particles, float radius) {
+    //Write the output
+    
+    std::stringstream strout;
+    strout << path << "particles_" << frame << ".txt";
+    string filepath = strout.str();
+    
+    ofstream outfile(filepath.c_str());
+    //write vertex count and particle radius
+    outfile << particles.size() << " " << radius << std::endl;
+    //write vertices
+    for(unsigned int i = 0; i < particles.size(); ++i)
+        outfile << particles[i]->position[0] << " " << particles[i]->position[1] << " " << particles[i]->position[2] << std::endl;
+    outfile.close();
+}
+
+//-------------------------------------------------------------
+//----------------------OPENGL STUFF---------------------------
+//-------------------------------------------------------------
 
 void initCamera()
 {
@@ -210,22 +250,6 @@ void onMenuCb(int value)
 
 void onKeyboardSpecialCb(int key, int x, int y)
 {
-}
-
-void export_particles(string path, int frame, const std::vector<particle*>& particles, float radius) {
-   //Write the output
-   
-   std::stringstream strout;
-   strout << path << "particles_" << frame << ".txt";
-   string filepath = strout.str();
-   
-   ofstream outfile(filepath.c_str());
-   //write vertex count and particle radius
-   outfile << particles.size() << " " << radius << std::endl;
-   //write vertices
-   for(unsigned int i = 0; i < particles.size(); ++i)
-      outfile << particles[i]->position[0] << " " << particles[i]->position[1] << " " << particles[i]->position[2] << std::endl;
-   outfile.close();
 }
 
 void onTimerCb(int value)
@@ -357,6 +381,7 @@ int main(int argc, char **argv)
    outpath = output;
 
    sim.initialize(grid_width, grid_resolution, grid_resolution, grid_resolution);
+   sim.mesh = mesh;
    sim.set_boundary(boundary_phi);
    sim.set_liquid(liquid_phi, glm::vec3(0,0,1));
 

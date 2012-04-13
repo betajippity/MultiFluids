@@ -8,9 +8,6 @@
 #include "open_gl_headers.h"
 #include "glm/glm.hpp"
 
-//#include "vec.h"
-//#include "matrix.h"
-
 class Camera
 {
 public:

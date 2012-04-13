@@ -7,6 +7,7 @@
 #include "stb_image_write.h"
 #include "marching_cubes.h"
 
+
 #ifdef __APPLE__
 #include <GLUT/glut.h>
 #else
@@ -17,13 +18,16 @@ struct particle;
 
 void extrapolate(Array3f& grid, Array3c& valid);
 
-void FluidSim::reset(float width, int ni_, int nj_, int nk_, float (*phi)(const glm::vec3&))
-{
-   initialize(width, ni_, nj_, nk_);
-   particles.clear();
-   set_liquid(phi, glm::vec3(0,0,1));
-	mTotalFrameNum = 0;
+
+
+FluidSim::FluidSim(){
+	//mesh = new objsdf("C:/Users/Karl/Dropbox/Documents/Projects/SDFGen/cow.obj");
+	//mesh = new objsdf("C:/Users/Karl/Dropbox/Documents/Projects/SDFGen/bunny_watertight.obj");
 }
+FluidSim::~FluidSim(){
+    
+}
+
 
 int FluidSim::getTotalFrames(){
 	return mTotalFrameNum;
@@ -62,8 +66,9 @@ void FluidSim::grabScreen()
 	}
 	 
 	char anim_filename[2048];
-	sprintf_s(anim_filename, 2048, "../output/images/fluid_%04d.png", mFrameNum); 
-	
+	//sprintf_s(anim_filename, 2048, "../output/images/fluid_%04d.png", mFrameNum); 
+	sprintf(anim_filename, "../output/images/fluid_%04d.png", mFrameNum); 
+    
 	stbi_write_png(anim_filename, recordWidth, recordHeight, 3, bitmapData, recordWidth * 3);
 	
 	delete [] bitmapData;
@@ -79,6 +84,8 @@ void FluidSim::initialize(float width, int ni_, int nj_, int nk_) {
    nj = nj_;
    nk = nk_;
    dx = width / (float)ni;
+    grid_width = width; 
+    
    u.resize(ni+1,nj,nk); temp_u.resize(ni+1,nj,nk); u_weights.resize(ni+1,nj,nk); u_valid.resize(ni+1,nj,nk);
    v.resize(ni,nj+1,nk); temp_v.resize(ni,nj+1,nk); v_weights.resize(ni,nj+1,nk); v_valid.resize(ni,nj+1,nk);
    w.resize(ni,nj,nk+1); temp_w.resize(ni,nj,nk+1); w_weights.resize(ni,nj,nk+1); w_valid.resize(ni,nj,nk+1);
@@ -123,7 +130,7 @@ void FluidSim::set_boundary(float (*phi)(const glm::vec3&)) {
 
 }
 
-void FluidSim::set_liquid(float (*phi)(const glm::vec3&), glm::vec3& color) {
+void FluidSim::set_liquid(float (*phi)(const glm::vec3&), glm::vec3 color) {
    //surface.reset_phi(phi, dx, Vec3f(0.5f*dx,0.5f*dx,0.5f*dx), ni, nj, nk);
    
    //initialize particles
@@ -147,6 +154,14 @@ void FluidSim::set_liquid(float (*phi)(const glm::vec3&), glm::vec3& color) {
 		 }
       }
    }
+}
+
+void FluidSim::reset(float width, int ni_, int nj_, int nk_, float (*phi)(const glm::vec3&))
+{
+    initialize(width, ni_, nj_, nk_);
+    particles.clear();
+    set_liquid(phi, glm::vec3(0,0,1));
+	mTotalFrameNum = 0;
 }
 
 //The main fluid simulation step
@@ -730,16 +745,22 @@ void FluidSim::draw() {
    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 //   set_lights_and_material(0); 
-	   //Draw the liquid particles as simple spheres for now.
-   glPolygonMode(GL_FRONT_AND_BACK, GL_LINES);
+    
+    //-------------------------------------------------------------
+    //-------------------DRAW FLUID PARTICLES----------------------
+    //-------------------------------------------------------------
+    
+    
+  /* glPolygonMode(GL_FRONT_AND_BACK, GL_LINES);
    GLUquadric* particle_sphere;
    particle_sphere = gluNewQuadric();
    gluQuadricDrawStyle(particle_sphere, GLU_FILL );
+
    for(unsigned int p = 0; p < particles.size(); ++p) {
 	   
       glPushMatrix();
 	  glm::vec3 pos = particles[p]->position;
-      glTranslatef(pos[0]-.5, pos[1]-.5, pos[2]-.5);
+      glTranslatef(pos[0]-(.5*grid_width), pos[1]-(.5*grid_width), pos[2]-(.5*grid_width));
 	  gluQuadricNormals(particle_sphere, GLU_SMOOTH);
 	  if(transparentRender){
 		   glColor4f(particles[p]->color[0], particles[p]->color[1], particles[p]->color[2], 0.2);
@@ -747,49 +768,55 @@ void FluidSim::draw() {
 		   glColor4f(particles[p]->color[0], particles[p]->color[1], particles[p]->color[2], 1.0);
 	  }
 	 
-      //gluSphere(particle_sphere, particle_radius, 20, 20);
+      gluSphere(particle_sphere, particle_radius, 20, 20);
       glPopMatrix();   
-   }
+   }*/
 
-   //Draw the bound box for good measure
+    //-------------------------------------------------------------
+    //-----------------DRAW GRID BOUNDING BOX----------------------
+    //-------------------------------------------------------------
+    
+    //calculate boundary points
+    float p = .5 * grid_width;
+    
   // glDisable(GL_LIGHTING);
 	glColor3f(0,0,0);
 	glBegin(GL_LINES);
-	glVertex3f(-.35,-.35,-.35);
-	glVertex3f(-.35,-.35,.35);
-
-	glVertex3f(-.35,-.35,-.35);
-	glVertex3f(-.35,.35,-.35);
-
-	glVertex3f(-.35,-.35,-.35);
-	glVertex3f(.35,-.35,-.35);
-
-	glVertex3f(-.35,.35,-.35);
-	glVertex3f(.35,.35,-.35);
-
-	glVertex3f(.35,.35,-.35);
-	glVertex3f(.35,-.35,-.35);
-
-	glVertex3f(.35,-.35,-.35);
-	glVertex3f(.35,-.35,.35);
-
-	glVertex3f(-.35,.35,-.35);
-	glVertex3f(-.35,.35,.35);
-
-	glVertex3f(.35,.35,-.35);
-	glVertex3f(.35,.35,.35);
-
-	glVertex3f(-.35,.35,.35);
-	glVertex3f(.35,.35,.35);
-
-	glVertex3f(.35,-.35,.35);
-	glVertex3f(.35,.35,.35);
-
-	glVertex3f(-.35,-.35,.35);
-	glVertex3f(.35,-.35,.35);
-
-	glVertex3f(-.35,-.35,.35);
-	glVertex3f(-.35,.35,.35);
+	glVertex3f(-p,-p,-p);
+	glVertex3f(-p,-p,p);
+    
+	glVertex3f(-p,-p,-p);
+	glVertex3f(-p,p,-p);
+    
+	glVertex3f(-p,-p,-p);
+	glVertex3f(p,-p,-p);
+    
+	glVertex3f(-p,p,-p);
+	glVertex3f(p,p,-p);
+    
+	glVertex3f(p,p,-p);
+	glVertex3f(p,-p,-p);
+    
+	glVertex3f(p,-p,-p);
+	glVertex3f(p,-p,p);
+    
+	glVertex3f(-p,p,-p);
+	glVertex3f(-p,p,p);
+    
+	glVertex3f(p,p,-p);
+	glVertex3f(p,p,p);
+    
+	glVertex3f(-p,p,p);
+	glVertex3f(p,p,p);
+    
+	glVertex3f(p,-p,p);
+	glVertex3f(p,p,p);
+    
+	glVertex3f(-p,-p,p);
+	glVertex3f(p,-p,p);
+    
+	glVertex3f(-p,-p,p);
+	glVertex3f(-p,p,p);
 	glEnd();
    
    //Draw wireframe sphere geometry (specific to this scene).
@@ -799,10 +826,82 @@ void FluidSim::draw() {
    sphere = gluNewQuadric();
    gluQuadricDrawStyle(sphere, GLU_LINE );
    glPushMatrix();
-   glTranslatef(0.0f, 0.0f,0.0f);
-   gluSphere(sphere, 0.30, 20, 20);
+  // glTranslatef(0.0f, 0.0f,0.0f);
+	//gluSphere(sphere, 0.30, 20, 20);
+   //glTranslatef(0.55f-.5, 0.8f-.5, 0.4f-.5);
+   //gluSphere(sphere, 0.23f, 20, 20);
    glPopMatrix();
+    
 
+   
+   /*for(int x = 0; x<mesh->getObjBounds().x; x++) {
+	   for(int y = 0; y<mesh->getObjBounds().y; y++) {
+		   for(int z = 0; z<mesh->getObjBounds().z; z++) {
+			   
+			 if(mesh->getSignedDistanceAtCellObjSpace(x,y,z)<.0 && mesh->getSignedDistanceAtCellObjSpace(x,y,z)>-100){
+				   glColor3f(0,0,0);
+				glPolygonMode(GL_FRONT_AND_BACK, GL_LINES);
+				GLUquadric* sphere;
+				sphere = gluNewQuadric();
+				gluQuadricDrawStyle(sphere, GLU_LINE );
+				glPushMatrix();
+				float xt = ((x)-(.5*mesh->getObjBounds().x))/(mesh->getScaleFactor());
+				float yt = ((y)-(.5*mesh->getObjBounds().y))/(mesh->getScaleFactor());
+				float zt = ((z)-(.5*mesh->getObjBounds().z))/(mesh->getScaleFactor());
+				//std::cout << xt<< " " << yt<< " " << zt <<std::endl;
+				glTranslatef(xt, yt, zt);
+				gluSphere(sphere, 0.005, 2, 2);
+				glPopMatrix();
+			 }
+		   }
+	   }
+   }*/
+
+    /* for(int x = 0; x<mesh->getObjBounds().x; x++) {
+	   for(int y = 0; y<mesh->getObjBounds().y; y++) {
+		   for(int z = 0; z<mesh->getObjBounds().z; z++) {
+			   	float xt = ((x)-(.5*mesh->getObjBounds().x))/(mesh->getScaleFactor());
+				float yt = ((y)-(.5*mesh->getObjBounds().y))/(mesh->getScaleFactor());
+				float zt = ((z)-(.5*mesh->getObjBounds().z))/(mesh->getScaleFactor());
+			 if(mesh->getSignedDistanceAtCellWorldSpace(xt,yt,zt)<.03 && mesh->getSignedDistanceAtCellWorldSpace(xt,yt,zt)>-.03){
+				   glColor3f(1,0,0);
+				glPolygonMode(GL_FRONT_AND_BACK, GL_LINES);
+				GLUquadric* sphere;
+				sphere = gluNewQuadric();
+				gluQuadricDrawStyle(sphere, GLU_LINE );
+				glPushMatrix();
+
+				glTranslatef(xt, yt, zt);
+				gluSphere(sphere, 0.005, 2, 2);
+				glPopMatrix();
+			 }
+		   }
+	   }
+   }*/
+
+/*glPolygonMode(GL_FRONT_AND_BACK, GL_LINES);
+for(int i=0; i<mesh->faceList.size(); i++){
+	glm::vec3 face = mesh->faceList[i];
+	glBegin(GL_LINES);
+
+	glm::vec3 point0 = mesh->vertList[face[0]]-mesh->meshCenter ;
+	glm::vec3 point1 = mesh->vertList[face[1]]-mesh->meshCenter ;
+	glm::vec3 point2 = mesh->vertList[face[2]]-mesh->meshCenter ;
+
+	glVertex3f(point0[0],point0[1],point0[2]);
+	glVertex3f(point1[0],point1[1],point1[2]);
+
+	glVertex3f(point1[0],point1[1],point1[2]);
+	glVertex3f(point2[0],point2[1],point2[2]);
+
+	glVertex3f(point2[0],point2[1],point2[2]);
+	glVertex3f(point0[0],point0[1],point0[2]);
+	glEnd();
+}
+
+glPopMatrix();*/
+
+   //run marching cubes for mesh reconstruction
    MarchingCubes(liquid_phi, dx, frameNum, outputOBJ);
 
    frameNum++;

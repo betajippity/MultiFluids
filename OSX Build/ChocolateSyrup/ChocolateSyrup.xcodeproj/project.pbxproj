@@ -20,6 +20,8 @@
 		6B2B8DAC1524DDC8003C54BD /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B2B8DAA1524DDC8003C54BD /* GLUT.framework */; };
 		6B2B8DAD1524DDC8003C54BD /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B2B8DAB1524DDC8003C54BD /* OpenGL.framework */; };
 		6B2B8DAF1524DDCD003C54BD /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B2B8DAE1524DDCD003C54BD /* Carbon.framework */; };
+		6B3F77BF153377AA008BA309 /* makelevelset3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6B3F77BD153377A9008BA309 /* makelevelset3.cpp */; };
+		6B4C838015348ABA00AFA696 /* objsdf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6B4C837F15348ABA00AFA696 /* objsdf.cpp */; };
 		6B5D6242152F911F0027BE22 /* marching_cubes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6B5D6240152F911F0027BE22 /* marching_cubes.cpp */; };
 /* End PBXBuildFile section */
 
@@ -289,6 +291,10 @@
 		6B2B8DAA1524DDC8003C54BD /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
 		6B2B8DAB1524DDC8003C54BD /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		6B2B8DAE1524DDCD003C54BD /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
+		6B3F77BD153377A9008BA309 /* makelevelset3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = makelevelset3.cpp; sourceTree = "<group>"; };
+		6B3F77BE153377AA008BA309 /* makelevelset3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = makelevelset3.h; sourceTree = "<group>"; };
+		6B4C837E1534886900AFA696 /* objsdf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = objsdf.h; sourceTree = "<group>"; };
+		6B4C837F15348ABA00AFA696 /* objsdf.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = objsdf.cpp; sourceTree = "<group>"; };
 		6B5D6240152F911F0027BE22 /* marching_cubes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = marching_cubes.cpp; sourceTree = "<group>"; };
 		6B5D6241152F911F0027BE22 /* marching_cubes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = marching_cubes.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -330,17 +336,16 @@
 			isa = PBXGroup;
 			children = (
 				6B2B8CA21524DDAE003C54BD /* array1.h */,
-				6B2B8CA31524DDAE003C54BD /* array2_utils.h */,
 				6B2B8CA41524DDAE003C54BD /* array2.h */,
-				6B2B8CA51524DDAE003C54BD /* array3_utils.h */,
+				6B2B8CA31524DDAE003C54BD /* array2_utils.h */,
 				6B2B8CA61524DDAE003C54BD /* array3.h */,
+				6B2B8CA51524DDAE003C54BD /* array3_utils.h */,
 				6B2B8CA71524DDAE003C54BD /* basic_math.cpp */,
 				6B2B8CA81524DDAE003C54BD /* basic_math.h */,
 				6B2B8CA91524DDAE003C54BD /* camera.cpp */,
 				6B2B8CAA1524DDAE003C54BD /* camera.h */,
+				6B2B8C931524DD44003C54BD /* ChocolateSyrup.1 */,
 				6B2B8CAB1524DDAE003C54BD /* clock.h */,
-				6B5D6240152F911F0027BE22 /* marching_cubes.cpp */,
-				6B5D6241152F911F0027BE22 /* marching_cubes.h */,
 				6B2B8CAC1524DDAE003C54BD /* constants.cpp */,
 				6B2B8CAD1524DDAE003C54BD /* constants.h */,
 				6B2B8CAE1524DDAE003C54BD /* custom_output.h */,
@@ -352,16 +357,21 @@
 				6B2B8CB51524DDAE003C54BD /* glm */,
 				6B2B8D931524DDAE003C54BD /* levelset_util.cpp */,
 				6B2B8D941524DDAE003C54BD /* levelset_util.h */,
+				6B2B8C911524DD44003C54BD /* main.cpp */,
+				6B4C837E1534886900AFA696 /* objsdf.h */,
+				6B4C837F15348ABA00AFA696 /* objsdf.cpp */,
+				6B3F77BD153377A9008BA309 /* makelevelset3.cpp */,
+				6B3F77BE153377AA008BA309 /* makelevelset3.h */,
+				6B5D6240152F911F0027BE22 /* marching_cubes.cpp */,
+				6B5D6241152F911F0027BE22 /* marching_cubes.h */,
 				6B2B8D951524DDAE003C54BD /* open_gl_headers.h */,
 				6B2B8D961524DDAE003C54BD /* pcgsolver */,
-				6B2B8D9A1524DDAE003C54BD /* stb_image_write.c */,
-				6B2B8D9B1524DDAE003C54BD /* stb_image_write.h */,
 				6B2B8D9C1524DDAE003C54BD /* stb_image.c */,
 				6B2B8D9D1524DDAE003C54BD /* stb_image.h */,
+				6B2B8D9A1524DDAE003C54BD /* stb_image_write.c */,
+				6B2B8D9B1524DDAE003C54BD /* stb_image_write.h */,
 				6B2B8D9E1524DDAE003C54BD /* timer.h */,
 				6B2B8D9F1524DDAE003C54BD /* util.h */,
-				6B2B8C911524DD44003C54BD /* main.cpp */,
-				6B2B8C931524DD44003C54BD /* ChocolateSyrup.1 */,
 			);
 			path = ChocolateSyrup;
 			sourceTree = "<group>";
@@ -700,6 +710,8 @@
 				6B2B8DA71524DDAE003C54BD /* stb_image_write.c in Sources */,
 				6B2B8DA81524DDAE003C54BD /* stb_image.c in Sources */,
 				6B5D6242152F911F0027BE22 /* marching_cubes.cpp in Sources */,
+				6B3F77BF153377AA008BA309 /* makelevelset3.cpp in Sources */,
+				6B4C838015348ABA00AFA696 /* objsdf.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
