@@ -10,10 +10,12 @@
 struct particle{
 	glm::vec3 position;
 	glm::vec3 color;
+	double viscosity;
 
 	particle(){
 		position = glm::vec3(0,0,0);
 		color = glm::vec3(0,0,0);
+		viscosity = 0.0;
 	}
 };
 
@@ -30,7 +32,7 @@ public:
 
     void initialize(float width, int ni_, int nj_, int nk_);
     void set_boundary(float (*phi)(const glm::vec3&));
-    void set_liquid(float (*phi)(const glm::vec3&), glm::vec3 color);
+    void set_liquid(float (*phi)(const glm::vec3&), glm::vec3 color, double viscosityCoef);
     void add_particle(const glm::vec3& pos, const glm::vec3& color);
 
     void advance(float dt);
@@ -69,6 +71,24 @@ public:
     SparseMatrixd matrix;
     std::vector<double> rhs;
     std::vector<double> pressure;
+
+
+	// Viscosity Information
+	void apply_viscosity(float dt);
+	void compute_viscosity_weights(float dt);
+	void compute_volume_fractions(const Array3f& levelset, Array3f& fractions, glm::vec3 fraction_origin, int subdivision);
+	void solve_viscosity(float dt);
+
+	int u_ind(int i, int j, int k);
+	int v_ind(int i, int j, int k);
+	int w_ind(int i, int j, int k);
+
+	//Data for viscosity solve
+    Array3f u_vol, v_vol, w_vol, c_vol, n_vol;
+    Array3f viscosity;
+	SparseMatrixd vmatrix;
+    std::vector<double> vrhs;
+    std::vector<double> velocities;
 
     glm::vec3 get_velocity(const glm::vec3& position);
 

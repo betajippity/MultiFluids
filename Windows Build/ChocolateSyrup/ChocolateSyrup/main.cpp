@@ -28,7 +28,7 @@ using namespace std;
 string outpath;
 
 
-int grid_resolution = 120;
+int grid_resolution = 40;
 float timestep = 0.01f;
 int frame = 0;
 
@@ -37,7 +37,7 @@ float grid_width = 1;		//the grid width shall always be 1.
 bool textOutput = false;
 
 FluidSim sim;
-objsdf* mesh = new objsdf("C:/Users/Karl/Dropbox/Documents/Projects/SDFGen/dragon.obj");
+//objsdf* mesh = new objsdf("C:/Users/Karl/Dropbox/Documents/Projects/SDFGen/dragon.obj");
 
 
 Camera theCamera;
@@ -87,7 +87,7 @@ float sphereInBox_phi(const glm::vec3& position, glm::vec3& centre) {
 }
 
 float obj_phi(const glm::vec3& position){
-	return mesh->getSignedDistanceAtCellWorldSpace(position.x-.5, position.y-.5, position.z-.5);
+	//return mesh->getSignedDistanceAtCellWorldSpace(position.x-.5, position.y-.5, position.z-.5);
 }
 
 
@@ -114,8 +114,8 @@ float boundary_phi(const glm::vec3& position) {
 }
 
 float liquid_phi(const glm::vec3& position) {
-	return obj_phi(position);
-   //return sphere_phi(position, glm::vec3(0.55f, 0.8f, 0.4f), 0.15f);
+	//return obj_phi(position);
+   return sphere_phi(position, glm::vec3(0.55f, 0.8f, 0.4f), 0.15f);
 	//return sphere_phi(position, glm::vec3(0.5f,0.5f,0.5f), 0.1f);
    
 }
@@ -227,9 +227,9 @@ void onKeyboardCb(unsigned char key, int x, int y)
    else if (key == '>') isRunning = true;
    else if (key == '=') isRunning = false;
    else if (key == '<') sim.reset(grid_width, grid_resolution, grid_resolution, grid_resolution, liquid_phi);
-   else if (key == 'q') sim.set_liquid(liquid_phi, glm::vec3(1,0,0));
-   else if (key == 'p') sim.set_liquid(liquid_phi, glm::vec3(0,1,0));
-   else if (key == 'l') sim.set_liquid(liquid_phi, glm::vec3(0,0,1));
+   else if (key == 'q') sim.set_liquid(liquid_phi, glm::vec3(1,0,0), 0.0f);
+   else if (key == 'p') sim.set_liquid(liquid_phi, glm::vec3(0,1,0), 0.0f);
+   else if (key == 'l') sim.set_liquid(liquid_phi, glm::vec3(0,0,1), 0.0f);
    else if (key == 'w') sim.setTransparentRender(!sim.isTransparentRender());
    else if (key == 'e') sim.setVerbose(!sim.isVerbose());
    else if (key == 't') textOutput = !textOutput;
@@ -381,9 +381,9 @@ int main(int argc, char **argv)
    outpath = output;
 
    sim.initialize(grid_width, grid_resolution, grid_resolution, grid_resolution);
-   sim.mesh = mesh;
+   //sim.mesh = mesh;
    sim.set_boundary(boundary_phi);
-   sim.set_liquid(liquid_phi, glm::vec3(0,0,1));
+   sim.set_liquid(liquid_phi, glm::vec3(0,0,1), 0.0f);
 
    glutInit(&argc, argv);
    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);

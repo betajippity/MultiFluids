@@ -18,8 +18,6 @@ struct particle;
 
 void extrapolate(Array3f& grid, Array3c& valid);
 
-
-
 FluidSim::FluidSim(){
 	//mesh = new objsdf("C:/Users/Karl/Dropbox/Documents/Projects/SDFGen/cow.obj");
 	//mesh = new objsdf("C:/Users/Karl/Dropbox/Documents/Projects/SDFGen/bunny_watertight.obj");
@@ -87,8 +85,17 @@ void FluidSim::initialize(float width, int ni_, int nj_, int nk_) {
     grid_width = width; 
     
    u.resize(ni+1,nj,nk); temp_u.resize(ni+1,nj,nk); u_weights.resize(ni+1,nj,nk); u_valid.resize(ni+1,nj,nk);
+   u_vol.resize(ni+1, nj, nk);
    v.resize(ni,nj+1,nk); temp_v.resize(ni,nj+1,nk); v_weights.resize(ni,nj+1,nk); v_valid.resize(ni,nj+1,nk);
+   v_vol.resize(ni, nj+1, nk);
    w.resize(ni,nj,nk+1); temp_w.resize(ni,nj,nk+1); w_weights.resize(ni,nj,nk+1); w_valid.resize(ni,nj,nk+1);
+   w_vol.resize(ni, nj, nk+1);
+
+   c_vol.resize(ni, nj, nk);
+   n_vol.resize(ni+1, nj+1, nk+1);
+
+   viscosity.resize(ni, nj, nk);
+   viscosity.assign(0.0f);
 
    particle_radius = (float)(dx * 1.01*sqrt(3.0)/2.0); 
    //make the particles large enough so they always appear on the grid
@@ -130,7 +137,7 @@ void FluidSim::set_boundary(float (*phi)(const glm::vec3&)) {
 
 }
 
-void FluidSim::set_liquid(float (*phi)(const glm::vec3&), glm::vec3 color) {
+void FluidSim::set_liquid(float (*phi)(const glm::vec3&), glm::vec3 color, double viscosityCoef) {
    //surface.reset_phi(phi, dx, Vec3f(0.5f*dx,0.5f*dx,0.5f*dx), ni, nj, nk);
    
    //initialize particles
@@ -148,6 +155,7 @@ void FluidSim::set_liquid(float (*phi)(const glm::vec3&), glm::vec3 color) {
 			particle* pt = new particle();
 			pt->position = pos;
 			pt->color = color;
+			pt->viscosity = viscosityCoef;
 			particles.push_back(pt);		 
 			//particles.push_back(pos);
 			//colors.push_back(color);
@@ -160,7 +168,7 @@ void FluidSim::reset(float width, int ni_, int nj_, int nk_, float (*phi)(const 
 {
     initialize(width, ni_, nj_, nk_);
     particles.clear();
-    set_liquid(phi, glm::vec3(0,0,1));
+    set_liquid(phi, glm::vec3(0,0,1), 0.0f);
 	mTotalFrameNum = 0;
 }
 
@@ -181,6 +189,8 @@ void FluidSim::advance(float dt) {
       //Advance the velocity
       advect(substep);
       add_force(substep);
+
+	  //apply_viscosity(substep);
 
       //printf(" Pressure projection\n");
       project(substep); 
@@ -363,11 +373,17 @@ void FluidSim::compute_phi() {
    
    //grab from particles
    liquid_phi.assign(3*dx);
+   viscosity.assign(0.0f);
+   Array3f viscousCounts;
+   viscousCounts.resize(ni,nj,nk);
+   viscousCounts.assign(0);
    for(unsigned int p = 0; p < particles.size(); ++p) {
       glm::vec3 cell_ind(particles[p]->position / dx);
       for(int k = max((float)0,(float)cell_ind[2] - 1); k <= min((float)cell_ind[2]+1,(float)nk-1); ++k) {
          for(int j = max((float)0,(float)cell_ind[1] - 1); j <= min((float)cell_ind[1]+1,(float)nj-1); ++j) {
             for(int i = max((float)0,(float)cell_ind[0] - 1); i <= min((float)cell_ind[0]+1,(float)ni-1); ++i) {
+				viscosity(i,j,k) = (float)viscosity(i,j,k) + (float)particles[p]->viscosity;
+				viscousCounts(i,j,k) = viscousCounts(i,j,k) + 1;
                glm::vec3 sample_pos((i+0.5f)*dx, (j+0.5f)*dx,(k+0.5f)*dx);
                 float test_val = glm::length(sample_pos-particles[p]->position) - particle_radius;
                if(test_val < liquid_phi(i,j,k))
@@ -375,6 +391,15 @@ void FluidSim::compute_phi() {
             }
          }
       }
+   }
+
+    for(int k = 0; k < nk; ++k) {
+      for(int j = 0; j < nj; ++j) {
+         for(int i = 0; i < ni; ++i) {
+			 if(viscousCounts(i,j,k) != 0) viscosity(i,j,k) = viscosity(i,j,k) / viscousCounts(i,j,k);
+			 else viscosity(i,j,k) = 0;
+		 }
+	  }
    }
    
    //extend phi slightly into solids (this is a simple, naive approach, but works reasonably well)
@@ -397,7 +422,530 @@ void FluidSim::compute_phi() {
 
 }
 
+void FluidSim::apply_viscosity(float dt) {
+	compute_phi();
 
+	compute_viscosity_weights(dt);
+
+	//std::cout << "About to solve viscosity" << std::endl;
+	solve_viscosity(dt);
+	//std::cout << "Done solving viscosity" <<std::endl;
+}
+
+int FluidSim::u_ind(int i, int j, int k) {
+	return i + j*(ni+1) + (ni+1)*nj*k;
+}
+
+int FluidSim::v_ind(int i, int j, int k) {
+	return i + j*ni + ni*(nj+1)*k + (ni+1)*nj*nk;
+}
+
+int FluidSim::w_ind(int i, int j, int k) {
+	return i + j*ni + k*ni*nj + (ni+1)*nj*nk + ni*(nj+1)*nk;
+}
+
+void FluidSim::solve_viscosity(float dt) {
+   int ni = liquid_phi.ni;
+   int nj = liquid_phi.nj;
+   int nk = liquid_phi.nk;
+
+   float u_obj = 0;
+   float v_obj = 0;
+   float w_obj = 0;
+
+   Array3c u_state(ni+1,nj,nk,(const char&)0);
+   Array3c v_state(ni,nj+1,nk,(const char&)0);
+   Array3c w_state(ni,nj,nk+1,(const char&)0);
+   const int SOLID = 1;
+   const int FLUID = 0;
+
+   //printf("Determining states\n");
+
+   // Determine the solid boundaries for the x-faces.
+   #pragma omp parallel for
+   for(int k = 0; k < nk; ++k) {
+	   for(int j = 0; j < nj; ++j) {
+		  for(int i = 0; i < ni+1; ++i) {
+			 if(i < 1 || i >= ni || (nodal_solid_phi(i,j+1,k) + nodal_solid_phi(i,j,k)
+										+nodal_solid_phi(i,j+1,k+1) + nodal_solid_phi(i,j,k+1))/4.0 <= 0)
+				u_state(i,j,k) = SOLID;
+			 else
+				u_state(i,j,k) = FLUID;
+		  }
+	   }
+   }
+
+   // Determine the solid boundaries for the y-faces. 
+   #pragma omp parallel for
+   for(int k = 0; k < nk; ++k) {
+	   for(int j = 0; j < nj+1; ++j) {
+		  for(int i = 0; i < ni; ++i) {
+			 if(j < 1 || j >= nj || (nodal_solid_phi(i+1,j,k) + nodal_solid_phi(i,j,k)
+										+nodal_solid_phi(i+1,j,k+1) + nodal_solid_phi(i,j,k+1))/4.0 <= 0)
+				v_state(i,j,k) = SOLID;
+			 else
+				v_state(i,j,k) = FLUID;
+		  }
+	   }
+   }
+
+   // Determine the solid boundaries for the z-faces. 
+   #pragma omp parallel for
+   for(int k = 0; k < nk+1; ++k) {
+	   for(int j = 0; j < nj; ++j) {
+		  for(int i = 0; i < ni; ++i) {
+			 if(k < 1 || k >= nk || (nodal_solid_phi(i,j+1,k) + nodal_solid_phi(i,j,k)
+										+nodal_solid_phi(i+1,j+1,k) + nodal_solid_phi(i+1,j,k))/4.0 <= 0)
+				w_state(i,j,k) = SOLID;
+			 else
+				w_state(i,j,k) = FLUID;
+		  }
+	   }
+   }
+
+   //printf("Building matrix\n");
+   int elts = (ni+1)*nj*nk + ni*(nj+1)*nk + ni*nj*(nk+1);
+   if(vrhs.size() != elts) {
+      vrhs.resize(elts);
+      velocities.resize(elts);
+      vmatrix.resize(elts);
+   }
+   vmatrix.zero();
+   vrhs.assign(vrhs.size(), 0);
+   velocities.assign(velocities.size(), 0);
+
+   float factor = dt/sqr(dx);
+   #pragma omp parallel for
+   for(int k = 1; k < nk-1; ++k) for(int j = 1; j < nj-1; ++j) for(int i = 1; i < ni-1; ++i) {
+      if(u_state(i,j,k) == FLUID ) {
+         int index = u_ind(i,j,k);  
+         
+         vrhs[index] = u_vol(i,j,k) * u(i,j,k);
+         vmatrix.set_element(index,index,u_vol(i,j,k));
+         
+         //uxx terms
+         float visc_right = viscosity(i,j,k);
+         float visc_left = viscosity(i-1,j,k);
+         float vol_right = c_vol(i,j,k);
+         float vol_left = c_vol(i-1,j,k);
+
+        //u_x_right
+         vmatrix.add_to_element(index,index, 2*factor*visc_right*vol_right);
+         if(u_state(i+1,j,k) == FLUID)
+            vmatrix.add_to_element(index,u_ind(i+1, j,k), -2*factor*visc_right*vol_right);
+         else if(u_state(i+1,j,k) == SOLID)
+            vrhs[index] -= -2*factor*visc_right*vol_right*u_obj;
+
+         //u_x_left
+         vmatrix.add_to_element(index,index, 2*factor*visc_left*vol_left);
+         if(u_state(i-1,j,k) == FLUID)
+            vmatrix.add_to_element(index,u_ind(i-1,j,k), -2*factor*visc_left*vol_left);
+         else if(u_state(i-1,j,k) == SOLID)
+            vrhs[index] -= -2*factor*visc_left*vol_left*u_obj;
+         
+         //uyy terms
+         float visc_top = 0.25f*(viscosity(i-1,j+1,k) + viscosity(i-1,j,k) + viscosity(i,j+1,k) + viscosity(i,j,k));
+         float visc_bottom = 0.25f*(viscosity(i-1,j,k) + viscosity(i-1,j-1,k) + viscosity(i,j,k) + viscosity(i,j-1,k));
+         float vol_top = 0.5f * (n_vol(i,j+1,k) + n_vol(i, j+1, k+1));
+         float vol_bottom = 0.5f * (n_vol(i,j,k) + n_vol(i, j, k+1));
+
+         //u_y_top
+         vmatrix.add_to_element(index,index, +factor*visc_top*vol_top);
+         if(u_state(i,j+1,k) == FLUID)
+            vmatrix.add_to_element(index,u_ind(i, j+1, k), -factor*visc_top*vol_top);
+         else if(u_state(i,j+1,k) == SOLID)
+            vrhs[index] -= -u_obj*factor*visc_top*vol_top;
+      
+         //u_y_bottom
+         vmatrix.add_to_element(index,index, +factor*visc_bottom*vol_bottom);
+         if(u_state(i,j-1,k) == FLUID)
+            vmatrix.add_to_element(index,u_ind(i,j-1,k), -factor*visc_bottom*vol_bottom);
+         else if(u_state(i,j-1,k) == SOLID)
+            vrhs[index] -= -u_obj*factor*visc_bottom*vol_bottom;
+
+		 //uzz terms
+		 float visc_far = 0.25f*(viscosity(i-1,j,k+1) + viscosity(i-1,j,k) + viscosity(i,j,k+1) + viscosity(i,j,k));
+		 float visc_near = 0.25f*(viscosity(i-1,j,k) + viscosity(i-1,j,k-1) + viscosity(i,j,k) + viscosity(i,j,k-1));
+		 float vol_far = 0.5f * (n_vol(i,j,k+1) + n_vol(i, j+1, k+1));
+		 float vol_near = 0.5f * (n_vol(i,j,k) + n_vol(i, j+1, k));
+
+		  //u_z_far
+         vmatrix.add_to_element(index,index, +factor*visc_far*vol_far);
+         if(u_state(i,j,k+1) == FLUID)
+            vmatrix.add_to_element(index,u_ind(i,j,k+1), -factor*visc_far*vol_far);
+         else if(u_state(i,j,k+1) == SOLID)
+            vrhs[index] -= -u_obj*factor*visc_far*vol_far;
+      
+         //u_z_near
+         vmatrix.add_to_element(index,index, +factor*visc_near*vol_near);
+         if(u_state(i,j,k-1) == FLUID)
+            vmatrix.add_to_element(index,u_ind(i,j,k-1), -factor*visc_near*vol_near);
+         else if(u_state(i,j,k-1) == SOLID)
+            vrhs[index] -= -u_obj*factor*visc_near*vol_near;
+      
+         //vxy terms
+         //v_x_top
+         if(v_state(i,j+1,k) == FLUID)
+            vmatrix.add_to_element(index,v_ind(i,j+1,k), -factor*visc_top*vol_top);
+         else if(v_state(i,j+1,k) == SOLID)
+            vrhs[index] -= -v_obj*factor*visc_top*vol_top;
+         
+         if(v_state(i-1,j+1,k) == FLUID)
+            vmatrix.add_to_element(index,v_ind(i-1,j+1,k), factor*visc_top*vol_top);
+         else if(v_state(i-1,j+1,k) == SOLID)
+            vrhs[index] -= v_obj*factor*visc_top*vol_top;
+     
+         //v_x_bottom
+         if(v_state(i,j,k) == FLUID)
+            vmatrix.add_to_element(index,v_ind(i,j,k), +factor*visc_bottom*vol_bottom);
+         else if(v_state(i,j,k) == SOLID)
+            vrhs[index] -= v_obj*factor*visc_bottom*vol_bottom;
+         
+         if(v_state(i-1,j,k) == FLUID)
+            vmatrix.add_to_element(index,v_ind(i-1,j,k), -factor*visc_bottom*vol_bottom);
+         else if(v_state(i-1,j,k) == SOLID)
+            vrhs[index] -= -v_obj*factor*visc_bottom*vol_bottom;
+      
+		 //v_x_far
+         if(w_state(i,j,k+1) == FLUID)
+            vmatrix.add_to_element(index,w_ind(i,j,k+1), -factor*visc_far*vol_far);
+         else if(w_state(i,j,k+1) == SOLID)
+            vrhs[index] -= -w_obj*factor*visc_far*vol_far;
+         
+         if(w_state(i-1,j,k+1) == FLUID)
+            vmatrix.add_to_element(index,w_ind(i-1,j,k+1), factor*visc_far*vol_far);
+         else if(w_state(i-1,j,k+1) == SOLID)
+            vrhs[index] -= w_obj*factor*visc_far*vol_far;
+     
+         //v_x_near
+         if(w_state(i,j,k) == FLUID)
+            vmatrix.add_to_element(index,w_ind(i,j,k), +factor*visc_near*vol_near);
+         else if(w_state(i,j,k) == SOLID)
+            vrhs[index] -= w_obj*factor*visc_near*vol_near;
+         
+         if(w_state(i-1,j,k) == FLUID)
+            vmatrix.add_to_element(index,w_ind(i-1,j,k), -factor*visc_near*vol_near);
+         else if(w_state(i-1,j,k) == SOLID)
+            vrhs[index] -= -w_obj*factor*visc_near*vol_near;
+
+      }
+   }
+
+   #pragma omp parallel for
+   for(int k = 1; k < nk-1; ++k) for(int j = 1; j < nj-1; ++j) for(int i = 1; i < ni-1; ++i) {
+      if(v_state(i,j,k) == FLUID ) {
+         int index = v_ind(i,j,k);  
+         
+         vrhs[index] = v_vol(i,j,k) * v(i,j,k);
+         vmatrix.set_element(index,index,v_vol(i,j,k));
+         
+         //vyy terms
+         float visc_top = viscosity(i,j,k);
+         float visc_bottom = viscosity(i,j-1,k);
+         float vol_top = c_vol(i,j,k);
+         float vol_bottom = c_vol(i,j-1,k);
+
+        //v_y_top
+         vmatrix.add_to_element(index,index, 2*factor*visc_top*vol_top);
+         if(v_state(i,j+1,k) == FLUID)
+            vmatrix.add_to_element(index,v_ind(i, j+1,k), -2*factor*visc_top*vol_top);
+         else if(v_state(i,j+1,k) == SOLID)
+            vrhs[index] -= -2*factor*visc_top*vol_top*v_obj;
+
+         //v_y_bottom
+         vmatrix.add_to_element(index,index, 2*factor*visc_bottom*vol_bottom);
+         if(v_state(i,j-1,k) == FLUID)
+            vmatrix.add_to_element(index,v_ind(i,j-1,k), -2*factor*visc_bottom*vol_bottom);
+         else if(v_state(i,j-1,k) == SOLID)
+            vrhs[index] -= -2*factor*visc_bottom*vol_bottom*v_obj;
+         
+         //vxx terms
+         float visc_right = 0.25f*(viscosity(i+1,j-1,k) + viscosity(i,j-1,k) + viscosity(i+1,j,k) + viscosity(i,j,k));
+         float visc_left = 0.25f*(viscosity(i,j-1,k) + viscosity(i-1,j-1,k) + viscosity(i,j,k) + viscosity(i-1,j,k));
+         float vol_right = 0.5f * (n_vol(i+1,j,k) + n_vol(i+1, j, k+1));
+         float vol_left = 0.5f * (n_vol(i,j,k) + n_vol(i, j, k+1));
+
+         //v_x_right
+         vmatrix.add_to_element(index,index, +factor*visc_right*vol_right);
+         if(v_state(i+1,j,k) == FLUID)
+            vmatrix.add_to_element(index,v_ind(i+1, j, k), -factor*visc_right*vol_right);
+         else if(v_state(i+1,j,k) == SOLID)
+            vrhs[index] -= -v_obj*factor*visc_right*vol_right;
+      
+         //v_x_left
+         vmatrix.add_to_element(index,index, +factor*visc_left*vol_left);
+         if(v_state(i-1,j,k) == FLUID)
+            vmatrix.add_to_element(index,v_ind(i-1,j,k), -factor*visc_left*vol_left);
+         else if(v_state(i-1,j,k) == SOLID)
+            vrhs[index] -= -v_obj*factor*visc_left*vol_left;
+
+		 //vzz terms
+		 float visc_far = 0.25f*(viscosity(i,j-1,k) + viscosity(i,j-1,k+1) + viscosity(i,j,k) + viscosity(i,j,k+1));
+		 float visc_near = 0.25f*(viscosity(i,j-1,k) + viscosity(i,j-1,k-1) + viscosity(i,j,k) + viscosity(i,j,k-1));
+		 float vol_far = 0.5f * (n_vol(i,j,k+1) + n_vol(i+1, j, k+1));
+		 float vol_near = 0.5f * (n_vol(i,j,k) + n_vol(i+1, j, k));
+
+		  //u_z_far
+         vmatrix.add_to_element(index,index, +factor*visc_far*vol_far);
+         if(v_state(i,j,k+1) == FLUID)
+            vmatrix.add_to_element(index,v_ind(i,j,k+1), -factor*visc_far*vol_far);
+         else if(v_state(i,j,k+1) == SOLID)
+            vrhs[index] -= -u_obj*factor*visc_far*vol_far;
+      
+         //u_z_near
+         vmatrix.add_to_element(index,index, +factor*visc_near*vol_near);
+         if(v_state(i,j,k-1) == FLUID)
+            vmatrix.add_to_element(index,v_ind(i,j,k-1), -factor*visc_near*vol_near);
+         else if(v_state(i,j,k-1) == SOLID)
+            vrhs[index] -= -u_obj*factor*visc_near*vol_near;
+      
+         //vxy terms
+         //right
+         if(u_state(i+1,j,k) == FLUID)
+            vmatrix.add_to_element(index,u_ind(i+1,j,k), -factor*visc_right*vol_right);
+         else if(u_state(i+1,j,k) == SOLID)
+            vrhs[index] -= -u_obj*factor*visc_right*vol_right;
+         
+         if(u_state(i+1,j-1,k) == FLUID)
+            vmatrix.add_to_element(index,u_ind(i+1,j-1,k), factor*visc_right*vol_right);
+         else if(u_state(i+1,j-1,k) == SOLID)
+            vrhs[index] -= u_obj*factor*visc_right*vol_right;
+     
+         //left
+         if(u_state(i,j,k) == FLUID)
+            vmatrix.add_to_element(index,u_ind(i,j,k), +factor*visc_left*vol_left);
+         else if(u_state(i,j,k) == SOLID)
+            vrhs[index] -= u_obj*factor*visc_left*vol_left;
+         
+         if(u_state(i,j-1,k) == FLUID)
+            vmatrix.add_to_element(index,u_ind(i,j-1,k), -factor*visc_left*vol_left);
+         else if(u_state(i,j-1,k) == SOLID)
+            vrhs[index] -= -u_obj*factor*visc_left*vol_left;
+      
+		 //v_far
+         if(w_state(i,j,k+1) == FLUID)
+            vmatrix.add_to_element(index,w_ind(i,j,k+1), -factor*visc_far*vol_far);
+         else if(w_state(i,j,k+1) == SOLID)
+            vrhs[index] -= -w_obj*factor*visc_far*vol_far;
+         
+         if(w_state(i,j-1,k+1) == FLUID)
+            vmatrix.add_to_element(index,w_ind(i,j-1,k+1), factor*visc_far*vol_far);
+         else if(w_state(i,j-1,k+1) == SOLID)
+            vrhs[index] -= w_obj*factor*visc_far*vol_far;
+     
+         //near
+         if(w_state(i,j,k) == FLUID)
+            vmatrix.add_to_element(index,w_ind(i,j,k), +factor*visc_near*vol_near);
+         else if(w_state(i,j,k) == SOLID)
+            vrhs[index] -= w_obj*factor*visc_near*vol_near;
+         
+         if(w_state(i,j-1,k) == FLUID)
+            vmatrix.add_to_element(index,w_ind(i,j-1,k), -factor*visc_near*vol_near);
+         else if(w_state(i,j-1,k) == SOLID)
+            vrhs[index] -= -w_obj*factor*visc_near*vol_near;
+
+      }
+   }
+
+   #pragma omp parallel for
+   for(int k = 1; k < nk-1; ++k) for(int j = 1; j < nj-1; ++j) for(int i = 1; i < ni-1; ++i) {
+      if(w_state(i,j,k) == FLUID ) {
+         int index = w_ind(i,j,k);  
+         
+         vrhs[index] = w_vol(i,j,k) * w(i,j,k);
+         vmatrix.set_element(index,index,w_vol(i,j,k));
+         
+         //vyy terms
+         float visc_far = viscosity(i,j,k);
+         float visc_near = viscosity(i,j,k-1);
+         float vol_far = c_vol(i,j,k);
+         float vol_near = c_vol(i,j,k-1);
+
+        //v_y_top
+         vmatrix.add_to_element(index,index, 2*factor*visc_far*vol_far);
+         if(w_state(i,j,k+1) == FLUID)
+            vmatrix.add_to_element(index,w_ind(i, j,k+1), -2*factor*visc_far*vol_far);
+         else if(w_state(i,j,k+1) == SOLID)
+            vrhs[index] -= -2*factor*visc_far*vol_far*w_obj;
+
+         //v_y_bottom
+         vmatrix.add_to_element(index,index, 2*factor*visc_near*vol_near);
+         if(w_state(i,j,k-1) == FLUID)
+            vmatrix.add_to_element(index,w_ind(i,j,k-1), -2*factor*visc_near*vol_near);
+         else if(w_state(i,j,k-1) == SOLID)
+            vrhs[index] -= -2*factor*visc_near*vol_near*w_obj;
+         
+         //vxx terms
+         float visc_right = 0.25f*(viscosity(i,j,k-1) + viscosity(i+1,j,k-1) + viscosity(i,j,k) + viscosity(i+1,j,k));
+         float visc_left = 0.25f*(viscosity(i,j,k-1) + viscosity(i-1,j,k-1) + viscosity(i,j,k) + viscosity(i-1,j,k));
+         float vol_right = 0.5f * (n_vol(i+1,j,k) + n_vol(i+1, j+1, k));
+         float vol_left = 0.5f * (n_vol(i,j,k) + n_vol(i, j+1, k));
+
+         //v_x_right
+         vmatrix.add_to_element(index,index, +factor*visc_right*vol_right);
+         if(w_state(i+1,j,k) == FLUID)
+            vmatrix.add_to_element(index,w_ind(i+1, j, k), -factor*visc_right*vol_right);
+         else if(w_state(i+1,j,k) == SOLID)
+            vrhs[index] -= -w_obj*factor*visc_right*vol_right;
+      
+         //v_x_left
+         vmatrix.add_to_element(index,index, +factor*visc_left*vol_left);
+         if(w_state(i-1,j,k) == FLUID)
+            vmatrix.add_to_element(index,w_ind(i-1,j,k), -factor*visc_left*vol_left);
+         else if(w_state(i-1,j,k) == SOLID)
+            vrhs[index] -= -w_obj*factor*visc_left*vol_left;
+
+		 //vzz terms
+		 float visc_top = 0.25f*(viscosity(i,j,k-1) + viscosity(i,j+1,k-1) + viscosity(i,j,k) + viscosity(i,j+1,k));
+		 float visc_bottom = 0.25f*(viscosity(i,j,k-1) + viscosity(i,j-1,k-1) + viscosity(i,j,k) + viscosity(i,j-1,k));
+		 float vol_top = 0.5f * (n_vol(i,j+1,k) + n_vol(i+1, j+1, k));
+		 float vol_bottom = 0.5f * (n_vol(i,j,k) + n_vol(i+1, j, k));
+
+		  //u_z_far
+         vmatrix.add_to_element(index,index, +factor*visc_top*vol_top);
+         if(w_state(i,j+1,k) == FLUID)
+            vmatrix.add_to_element(index,w_ind(i,j+1,k), -factor*visc_top*vol_top);
+         else if(w_state(i,j+1,k) == SOLID)
+            vrhs[index] -= -w_obj*factor*visc_top*vol_top;
+      
+         //u_z_near
+         vmatrix.add_to_element(index,index, +factor*visc_bottom*vol_bottom);
+         if(w_state(i,j-1,k) == FLUID)
+            vmatrix.add_to_element(index,w_ind(i,j-1,k), -factor*visc_bottom*vol_bottom);
+         else if(w_state(i,j-1,k) == SOLID)
+            vrhs[index] -= -w_obj*factor*visc_bottom*vol_bottom;
+      
+         //vxy terms
+         //top
+         if(v_state(i,j+1,k) == FLUID)
+            vmatrix.add_to_element(index,v_ind(i,j+1,k), -factor*visc_top*vol_top);
+         else if(v_state(i,j+1,k) == SOLID)
+            vrhs[index] -= -v_obj*factor*visc_top*vol_top;
+         
+         if(v_state(i,j+1,k-1) == FLUID)
+            vmatrix.add_to_element(index,v_ind(i,j+1,k-1), factor*visc_top*vol_top);
+         else if(v_state(i,j+1,k-1) == SOLID)
+            vrhs[index] -= v_obj*factor*visc_top*vol_top;
+     
+         //bottom
+         if(v_state(i,j,k) == FLUID)
+            vmatrix.add_to_element(index,v_ind(i,j,k), +factor*visc_bottom*vol_bottom);
+         else if(v_state(i,j,k) == SOLID)
+            vrhs[index] -= v_obj*factor*visc_bottom*vol_bottom;
+         
+         if(v_state(i,j,k-1) == FLUID)
+            vmatrix.add_to_element(index,v_ind(i,j,k-1), -factor*visc_bottom*vol_bottom);
+         else if(v_state(i,j,k-1) == SOLID)
+            vrhs[index] -= -v_obj*factor*visc_bottom*vol_bottom;
+      
+		 //right
+         if(u_state(i+1,j,k) == FLUID)
+            vmatrix.add_to_element(index,u_ind(i+1,j,k), -factor*visc_right*vol_right);
+         else if(u_state(i+1,j,k) == SOLID)
+            vrhs[index] -= -u_obj*factor*visc_right*vol_right;
+			
+         if(u_state(i+1,j,k-1) == FLUID)
+            vmatrix.add_to_element(index,u_ind(i+1,j,k-1), factor*visc_right*vol_right);
+         else if(u_state(i+1,j,k-1) == SOLID)
+            vrhs[index] -= u_obj*factor*visc_right*vol_right;
+     
+         //left
+         if(u_state(i,j,k) == FLUID)
+            vmatrix.add_to_element(index,u_ind(i,j,k), +factor*visc_left*vol_left);
+         else if(u_state(i,j,k) == SOLID)
+            vrhs[index] -= u_obj*factor*visc_left*vol_left;
+         
+         if(u_state(i,j,k-1) == FLUID)
+            vmatrix.add_to_element(index,u_ind(i,j,k-1), -factor*visc_left*vol_left);
+         else if(u_state(i,j,k-1) == SOLID)
+            vrhs[index] -= -u_obj*factor*visc_left*vol_left;
+
+      }
+   }
+
+   double res_out;
+   int iter_out;
+
+   //std::cout << "about to solve" << std::endl;
+   solver.set_solver_parameters(1e-18, 1000);
+   solver.solve(vmatrix, vrhs, velocities, res_out, iter_out);
+   //std::cout << "done solve" << std::endl;
+
+   // Update the final velocities like a boss. 
+   #pragma omp parallel for
+   for(int k = 0; k < nk; ++k) {
+    for(int j = 0; j < nj; ++j) {
+      for(int i = 0; i < ni+1; ++i) {
+         if(u_state(i,j,k) == FLUID)
+            u(i,j,k) = (float)velocities[u_ind(i,j,k)];
+         else if(u_state(i,j,k) == SOLID) 
+            u(i,j,k) = u_obj;
+	  }
+	}
+   }
+   #pragma omp parallel for
+   for(int k = 0; k < nk; ++k) {
+    for(int j = 0; j < nj+1; ++j) {
+      for(int i = 0; i < ni; ++i) {
+         if(v_state(i,j,k) == FLUID)
+            v(i,j,k) = (float)velocities[v_ind(i,j,k)];
+         else if(v_state(i,j,k) == SOLID) 
+            v(i,j,k) = v_obj;
+	  }
+	}
+   }
+   #pragma omp parallel for
+   for(int k = 0; k < nk+1; ++k) {
+    for(int j = 0; j < nj; ++j) {
+      for(int i = 0; i < ni; ++i) {
+         if(w_state(i,j,k) == FLUID)
+            w(i,j,k) = (float)velocities[w_ind(i,j,k)];
+         else if(w_state(i,j,k) == SOLID) 
+            w(i,j,k) = w_obj;
+	  }
+	}
+   }
+}
+
+void FluidSim::compute_volume_fractions(const Array3f& levelset, Array3f& fractions, glm::vec3 fraction_origin, int subdivision) {
+	//Assumes levelset and fractions have the same dx
+   float sub_dx = 1.0 / subdivision;
+   int sample_max = subdivision*subdivision*subdivision;
+
+   #pragma omp parallel for
+   for(int k = 0; k < fractions.nk; ++k) {
+	   for(int j = 0; j < fractions.nj; ++j) {
+		  for(int i = 0; i < fractions.ni; ++i) {
+			 float start_x = fraction_origin[0] + (float)i;
+			 float start_y = fraction_origin[1] + (float)j;
+			 float start_z = fraction_origin[2] + (float)k;
+			 int incount = 0;
+
+			 for(int sub_k = 0; sub_k < subdivision; ++sub_k) {
+				 for(int sub_j = 0; sub_j < subdivision; ++sub_j) {
+					for(int sub_i = 0; sub_i < subdivision; ++sub_i) {
+					   float x_pos = start_x + (sub_i+0.5)*sub_dx;
+					   float y_pos = start_y + (sub_j+0.5)*sub_dx;
+					   float z_pos = start_z + (sub_k+0.5)*sub_dx;
+					   float phi_val = interpolate_value<glm::vec3>(glm::vec3(x_pos,y_pos,z_pos), levelset);
+					   if(phi_val < 0) 
+						  ++incount;
+					}
+				 }
+			 }
+			 fractions(i,j,k) = (float)incount / (float)sample_max;
+		  }
+	   }
+   }
+}
+
+void FluidSim::compute_viscosity_weights(float dt) {
+   compute_volume_fractions(liquid_phi, c_vol, glm::vec3(-0.5,-0.5,-0.5), 2);
+   compute_volume_fractions(liquid_phi, n_vol, glm::vec3(-1, -1,-1), 2);
+   compute_volume_fractions(liquid_phi, u_vol, glm::vec3(-1,-0.5,-0.5), 2);
+   compute_volume_fractions(liquid_phi, v_vol, glm::vec3(-0.5,-1,-0.5), 2);
+   compute_volume_fractions(liquid_phi, w_vol, glm::vec3(-0.5,-0.5,-1), 2);
+}
 
 void FluidSim::project(float dt) {
 
@@ -751,7 +1299,7 @@ void FluidSim::draw() {
     //-------------------------------------------------------------
     
     
-  /* glPolygonMode(GL_FRONT_AND_BACK, GL_LINES);
+   glPolygonMode(GL_FRONT_AND_BACK, GL_LINES);
    GLUquadric* particle_sphere;
    particle_sphere = gluNewQuadric();
    gluQuadricDrawStyle(particle_sphere, GLU_FILL );
@@ -770,7 +1318,7 @@ void FluidSim::draw() {
 	 
       gluSphere(particle_sphere, particle_radius, 20, 20);
       glPopMatrix();   
-   }*/
+   }
 
     //-------------------------------------------------------------
     //-----------------DRAW GRID BOUNDING BOX----------------------
@@ -902,7 +1450,7 @@ for(int i=0; i<mesh->faceList.size(); i++){
 glPopMatrix();*/
 
    //run marching cubes for mesh reconstruction
-   MarchingCubes(liquid_phi, dx, frameNum, outputOBJ);
+   //MarchingCubes(liquid_phi, dx, frameNum, outputOBJ);
 
    frameNum++;
 
