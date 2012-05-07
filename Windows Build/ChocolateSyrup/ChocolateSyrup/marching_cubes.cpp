@@ -363,7 +363,7 @@ string ZeroPadNumber(int num)
 }
 
 
-void MarchingCubes(const Array3f& liquid, float dx, int frameNum, bool outputOBJ) {
+void MarchingCubes(const Array3f& liquid, float dx, int frameNum, int fluidNum, bool outputOBJ) {
 
 	faces.clear();
 
@@ -413,7 +413,7 @@ void MarchingCubes(const Array3f& liquid, float dx, int frameNum, bool outputOBJ
 		}
 
 		std::stringstream ss;
-		ss << "C:/Users/karl/Desktop/meshes/mesh" << ZeroPadNumber(frameNum) << ".obj";
+		ss << "C:/Users/Daniel/Desktop/outputMeshs/mesh" << fluidNum << "-" << ZeroPadNumber(frameNum) << ".obj";
 		std::string s = ss.str();
 
 		ofstream outfile (s.c_str());

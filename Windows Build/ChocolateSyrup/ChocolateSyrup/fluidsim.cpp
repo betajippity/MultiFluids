@@ -77,7 +77,7 @@ void FluidSim::grabScreen()
 
 void FluidSim::initialize(float width, int ni_, int nj_, int nk_) {
 	frameNum = 0;
-	outputOBJ = false;
+	outputOBJ = true;
    ni = ni_;
    nj = nj_;
    nk = nk_;
@@ -137,7 +137,7 @@ void FluidSim::set_boundary(float (*phi)(const glm::vec3&)) {
 
 }
 
-void FluidSim::set_liquid(float (*phi)(const glm::vec3&), glm::vec3 color, double viscosityCoef) {
+void FluidSim::set_liquid(float (*phi)(const glm::vec3&), glm::vec3 color, double viscosityCoef, int id) {
    //surface.reset_phi(phi, dx, Vec3f(0.5f*dx,0.5f*dx,0.5f*dx), ni, nj, nk);
    
    //initialize particles
@@ -156,6 +156,8 @@ void FluidSim::set_liquid(float (*phi)(const glm::vec3&), glm::vec3 color, doubl
 			pt->position = pos;
 			pt->color = color;
 			pt->viscosity = viscosityCoef;
+			pt->fluid_id = id;
+			fluidIDS.insert(id);
 			particles.push_back(pt);		 
 			//particles.push_back(pos);
 			//colors.push_back(color);
@@ -168,7 +170,7 @@ void FluidSim::reset(float width, int ni_, int nj_, int nk_, float (*phi)(const 
 {
     initialize(width, ni_, nj_, nk_);
     particles.clear();
-    set_liquid(phi, glm::vec3(0,0,1), 0.0f);
+    set_liquid(phi, glm::vec3(0,0,1), 0.0f, 0);
 	mTotalFrameNum = 0;
 }
 
@@ -180,37 +182,41 @@ void FluidSim::advance(float dt) {
       float substep = cfl();   
       if(t + substep > dt)
          substep = dt - t;
-      //printf("Taking substep of size %f (to %0.3f%% of the frame)\n", substep, 100 * (t+substep)/dt);
+      printf("Taking substep of size %f (to %0.3f%% of the frame)\n", substep, 100 * (t+substep)/dt);
       
-      //printf(" Surface (particle) advection\n");
+      printf(" Surface (particle) advection\n");
       advect_particles(substep);
 
-      //printf(" Velocity advection\n");
+      printf(" Velocity advection\n");
       //Advance the velocity
       advect(substep);
       add_force(substep);
 
-	  //apply_viscosity(substep);
+	  printf(" Viscosity projection\n");
+	  apply_viscosity(substep);
 
-      //printf(" Pressure projection\n");
+      printf(" Pressure projection\n");
       project(substep); 
-       
+
       //Pressure projection only produces valid velocities in faces with non-zero associated face area.
       //Because the advection step may interpolate from these invalid faces, 
       //we must extrapolate velocities from the fluid domain into these invalid faces.
-      //printf(" Extrapolation\n");
+      printf(" Extrapolation\n");
       extrapolate(u, u_valid);
       extrapolate(v, v_valid);
       extrapolate(w, w_valid);
     
       //For extrapolated velocities, replace the normal component with
       //that of the object.
-      //printf(" Constrain boundary velocities\n");
+      printf(" Constrain boundary velocities\n");
       constrain_velocity();
 
       t+=substep;
    }
 
+   if(outputOBJ) {
+	   outputParticleMeshes();
+   }
    mTotalFrameNum++;
 }
 
@@ -316,7 +322,9 @@ void FluidSim::constrain_velocity() {
 
 void FluidSim::advect_particles(float dt) { 
    for(unsigned int p = 0; p < particles.size(); ++p) {
-      particles[p]->position = trace_rk2(particles[p]->position, dt);
+	  //preAdvect();
+      //particles[p]->position = trace_rk2PARTICLE(particles[p]->position,particles[p], dt);
+	  particles[p]->position = trace_rk2(particles[p]->position, dt);
    
       //check boundaries and project exterior particles back in
       float phi_val = interpolate_value<glm::vec3>(particles[p]->position/dx, nodal_solid_phi); 
@@ -328,8 +336,75 @@ void FluidSim::advect_particles(float dt) {
          particles[p]->position -= phi_val * grad;
       }
    }
-   
+}
 
+void FluidSim::preAdvect() {
+	set<int>::iterator fl;
+	for(fl = fluidIDS.begin(); fl != fluidIDS.end(); fl++) {
+	   Array3f fluid(liquid_phi.ni, liquid_phi.nj, liquid_phi.nk);
+	   fluid.assign(3*dx);
+	   int id = (*fl);
+
+	   // Compute the liquid phi for each fluid. 
+	   for(unsigned int p = 0; p < particles.size(); ++p) {
+		  if(particles[p]->fluid_id != id) continue;
+		  glm::vec3 cell_ind(particles[p]->position / dx);
+		  for(int k = max((float)0,(float)cell_ind[2] - 1); k <= min((float)cell_ind[2]+1,(float)nk-1); ++k) {
+			 for(int j = max((float)0,(float)cell_ind[1] - 1); j <= min((float)cell_ind[1]+1,(float)nj-1); ++j) {
+				for(int i = max((float)0,(float)cell_ind[0] - 1); i <= min((float)cell_ind[0]+1,(float)ni-1); ++i) {
+				   glm::vec3 sample_pos((i+0.5f)*dx, (j+0.5f)*dx,(k+0.5f)*dx);
+				   float test_val = glm::length(sample_pos-particles[p]->position) - particle_radius;
+				   if(test_val < fluid(i,j,k) && particles[p]->fluid_id == id)
+						fluid(i,j,k) = test_val;
+				}
+			 }
+		  }
+	   }
+
+	   // Calculate the fluid flow around a given particle..
+	   for(unsigned int p = 0; p < particles.size(); ++p) {
+		  if(particles[p]->fluid_id != id) continue;
+		  glm::vec3 flow(0.0, 0.0, 0.0);
+		  float flow_count = 0;
+		  glm::vec3 cell_ind(particles[p]->position / dx);
+		  for(int k = max((float)0,(float)cell_ind[2] - 1); k <= min((float)cell_ind[2]+1,(float)nk-1); ++k) {
+			 for(int j = max((float)0,(float)cell_ind[1] - 1); j <= min((float)cell_ind[1]+1,(float)nj-1); ++j) {
+				for(int i = max((float)0,(float)cell_ind[0] - 1); i <= min((float)cell_ind[0]+1,(float)ni-1); ++i) {
+				   glm::vec3 sample_pos((i+0.5f)*dx, (j+0.5f)*dx,(k+0.5f)*dx);
+				   if(fluid(i, j, k) < 0) {
+					   flow_count = flow_count + 1;
+					   flow = flow + (0.75f * get_velocity(sample_pos) + 0.25f * (sample_pos - particles[p]->position));
+				   }
+				}
+			 }
+		  }
+		  if(flow_count == 0) flow_count = 1;
+		  flow = flow / flow_count;
+		  particles[p]->flow = flow;
+		  //std::cout << particles[p]->flow.x << " " << particles[p]->flow.y << " " << particles[p]->flow.z << " " << std::endl;
+	   }
+   }
+}
+
+//Apply RK2 to advect a point in the domain.
+glm::vec3 FluidSim::trace_rk2PARTICLE(const glm::vec3& position, particle* p, float dt) {
+   glm::vec3 input = position;
+   glm::vec3 velocity = get_velocity(input);
+   velocity = get_velocity(input + 0.5f*dt*velocity);
+   
+   // Modification!!
+   velocity = 0.5f * (velocity + p->flow);
+
+   input += dt*velocity;
+   return input;
+}
+
+glm::vec3 FluidSim::trace_rk2(const glm::vec3& position, float dt) {
+   glm::vec3 input = position;
+   glm::vec3 velocity = get_velocity(input);
+   velocity = get_velocity(input + 0.5f*dt*velocity);
+   input += dt*velocity;
+   return input;
 }
 
 //Basic first order semi-Lagrangian advection of velocities
@@ -382,10 +457,14 @@ void FluidSim::compute_phi() {
       for(int k = max((float)0,(float)cell_ind[2] - 1); k <= min((float)cell_ind[2]+1,(float)nk-1); ++k) {
          for(int j = max((float)0,(float)cell_ind[1] - 1); j <= min((float)cell_ind[1]+1,(float)nj-1); ++j) {
             for(int i = max((float)0,(float)cell_ind[0] - 1); i <= min((float)cell_ind[0]+1,(float)ni-1); ++i) {
-				viscosity(i,j,k) = (float)viscosity(i,j,k) + (float)particles[p]->viscosity;
-				viscousCounts(i,j,k) = viscousCounts(i,j,k) + 1;
+				
                glm::vec3 sample_pos((i+0.5f)*dx, (j+0.5f)*dx,(k+0.5f)*dx);
                 float test_val = glm::length(sample_pos-particles[p]->position) - particle_radius;
+				if(test_val < 0) {
+					viscosity(i,j,k) = (float)viscosity(i,j,k) + (1 - (particle_radius + test_val)/particle_radius) * (float)particles[p]->viscosity;
+					viscousCounts(i,j,k) = viscousCounts(i,j,k) + 1;
+				}
+				
                if(test_val < liquid_phi(i,j,k))
                   liquid_phi(i,j,k) = test_val;
             }
@@ -523,6 +602,7 @@ void FluidSim::solve_viscosity(float dt) {
          vrhs[index] = u_vol(i,j,k) * u(i,j,k);
          vmatrix.set_element(index,index,u_vol(i,j,k));
          
+		 
          //uxx terms
          float visc_right = viscosity(i,j,k);
          float visc_left = viscosity(i-1,j,k);
@@ -627,7 +707,7 @@ void FluidSim::solve_viscosity(float dt) {
             vmatrix.add_to_element(index,w_ind(i-1,j,k), -factor*visc_near*vol_near);
          else if(w_state(i-1,j,k) == SOLID)
             vrhs[index] -= -w_obj*factor*visc_near*vol_near;
-
+			
       }
    }
 
@@ -638,7 +718,8 @@ void FluidSim::solve_viscosity(float dt) {
          
          vrhs[index] = v_vol(i,j,k) * v(i,j,k);
          vmatrix.set_element(index,index,v_vol(i,j,k));
-         
+        
+		 
          //vyy terms
          float visc_top = viscosity(i,j,k);
          float visc_bottom = viscosity(i,j-1,k);
@@ -743,7 +824,7 @@ void FluidSim::solve_viscosity(float dt) {
             vmatrix.add_to_element(index,w_ind(i,j-1,k), -factor*visc_near*vol_near);
          else if(w_state(i,j-1,k) == SOLID)
             vrhs[index] -= -w_obj*factor*visc_near*vol_near;
-
+			
       }
    }
 
@@ -754,7 +835,6 @@ void FluidSim::solve_viscosity(float dt) {
          
          vrhs[index] = w_vol(i,j,k) * w(i,j,k);
          vmatrix.set_element(index,index,w_vol(i,j,k));
-         
          //vyy terms
          float visc_far = viscosity(i,j,k);
          float visc_near = viscosity(i,j,k-1);
@@ -960,16 +1040,6 @@ void FluidSim::project(float dt) {
    
 }
 
-
-//Apply RK2 to advect a point in the domain.
-glm::vec3 FluidSim::trace_rk2(const glm::vec3& position, float dt) {
-   glm::vec3 input = position;
-   glm::vec3 velocity = get_velocity(input);
-   velocity = get_velocity(input + 0.5f*dt*velocity);
-   input += dt*velocity;
-   return input;
-}
-
 //Interpolate velocity from the MAC grid.
 glm::vec3 FluidSim::get_velocity(const glm::vec3& position) {
 
@@ -979,6 +1049,190 @@ glm::vec3 FluidSim::get_velocity(const glm::vec3& position) {
     float w_value = interpolate_value<glm::vec3>(position / dx - glm::vec3(0.5f, 0.5f, 0), w);
 
     return glm::vec3(u_value, v_value, w_value);
+}
+
+void FluidSim::solve_viscosity2(float dt) {
+   int ni = v.ni;
+   int nj = u.nj;
+   int nk = u.nk;
+
+   int system_size = ni*nj*nk;
+   if(rhs.size() != system_size) {
+      rhs.resize(system_size);
+      pressure.resize(system_size);
+      matrix.resize(system_size);
+   }
+   
+   matrix.zero();
+   rhs.assign(rhs.size(), 0);
+   pressure.assign(pressure.size(), 0);
+
+   #pragma omp parallel for
+   //Build the linear system for pressure
+   for(int k = 1; k < nk-1; ++k) {
+      for(int j = 1; j < nj-1; ++j) {
+         for(int i = 1; i < ni-1; ++i) {
+            int index = i + ni*j + ni*nj*k;
+
+            rhs[index] = 0;
+            pressure[index] = 0;
+            float centre_phi = liquid_phi(i,j,k);
+			float centre_viscous = viscosity(i,j,k);
+            if(centre_phi < 0) {
+
+               //right neighbour
+               float term = u_weights(i+1,j,k) * dt / sqr(dx);
+               float right_phi = liquid_phi(i+1,j,k);
+               if(right_phi < 0) {
+                  matrix.add_to_element(index, index, term);
+                  matrix.add_to_element(index, index + 1, -term);
+               }
+               else {
+                  float theta = fraction_inside(centre_phi, right_phi);
+                  if(theta < 0.01f) theta = 0.01f;
+                  matrix.add_to_element(index, index, term/theta);
+               }
+               rhs[index] -= u_weights(i+1,j,k)*u(i+1,j,k) / dx;
+
+               //left neighbour
+               term = u_weights(i,j,k) * dt / sqr(dx);
+               float left_phi = liquid_phi(i-1,j,k);
+               if(left_phi < 0) {
+                  matrix.add_to_element(index, index, term);
+                  matrix.add_to_element(index, index - 1, -term);
+               }
+               else {
+                  float theta = fraction_inside(centre_phi, left_phi);
+                  if(theta < 0.01f) theta = 0.01f;
+                  matrix.add_to_element(index, index, term/theta);
+               }
+               rhs[index] += u_weights(i,j,k)*u(i,j,k) / dx;
+
+               //top neighbour
+               term = v_weights(i,j+1,k) * dt / sqr(dx);
+               float top_phi = liquid_phi(i,j+1,k);
+               if(top_phi < 0) {
+                  matrix.add_to_element(index, index, term);
+                  matrix.add_to_element(index, index + ni, -term);
+               }
+               else {
+                  float theta = fraction_inside(centre_phi, top_phi);
+                  if(theta < 0.01f) theta = 0.01f;
+                  matrix.add_to_element(index, index, term/theta);
+               }
+               rhs[index] -= v_weights(i,j+1,k)*v(i,j+1,k) / dx;
+
+               //bottom neighbour
+               term = v_weights(i,j,k) * dt / sqr(dx);
+               float bot_phi = liquid_phi(i,j-1,k);
+               if(bot_phi < 0) {
+                  matrix.add_to_element(index, index, term);
+                  matrix.add_to_element(index, index - ni, -term);
+               }
+               else {
+                  float theta = fraction_inside(centre_phi, bot_phi);
+                  if(theta < 0.01f) theta = 0.01f;
+                  matrix.add_to_element(index, index, term/theta);
+               }
+               rhs[index] += v_weights(i,j,k)*v(i,j,k) / dx;
+
+
+               //far neighbour
+               term = w_weights(i,j,k+1) * dt / sqr(dx);
+               float far_phi = liquid_phi(i,j,k+1);
+               if(far_phi < 0) {
+                  matrix.add_to_element(index, index, term);
+                  matrix.add_to_element(index, index + ni*nj, -term);
+               }
+               else {
+                  float theta = fraction_inside(centre_phi, far_phi);
+                  if(theta < 0.01f) theta = 0.01f;
+                  matrix.add_to_element(index, index, term/theta);
+               }
+               rhs[index] -= w_weights(i,j,k+1)*w(i,j,k+1) / dx;
+
+               //near neighbour
+               term = w_weights(i,j,k) * dt / sqr(dx);
+               float near_phi = liquid_phi(i,j,k-1);
+               if(near_phi < 0) {
+                  matrix.add_to_element(index, index, term);
+                  matrix.add_to_element(index, index - ni*nj, -term);
+               }
+               else {
+                  float theta = fraction_inside(centre_phi, near_phi);
+                  if(theta < 0.01f) theta = 0.01f;
+                  matrix.add_to_element(index, index, term/theta);
+               }
+               rhs[index] += w_weights(i,j,k)*w(i,j,k) / dx;
+            }
+         }
+      }
+   }
+
+   //Solve the system using Robert Bridson's incomplete Cholesky PCG solver
+
+   double tolerance;
+   int iterations;
+   solver.set_solver_parameters(1e-18, 1000);
+   bool success = solver.solve(matrix, rhs, pressure, tolerance, iterations);
+   //printf("Solver took %d iterations and had residual %e\n", iterations, tolerance);
+   if(!success) {
+      printf("WARNING: Pressure solve failed!************************************************\n");
+   }
+
+   //Apply the velocity update
+   u_valid.assign(0);
+   #pragma omp parallel for
+   for(int k = 0; k < u.nk; ++k) for(int j = 0; j < u.nj; ++j) for(int i = 1; i < u.ni-1; ++i) {
+      int index = i + j*ni + k*ni*nj;
+      if(u_weights(i,j,k) > 0 && (liquid_phi(i,j,k) < 0 || liquid_phi(i-1,j,k) < 0)) {
+         float theta = 1;
+         if(liquid_phi(i,j,k) >= 0 || liquid_phi(i-1,j,k) >= 0)
+            theta = fraction_inside(liquid_phi(i-1,j,k), liquid_phi(i,j,k));
+         if(theta < 0.01f) theta = 0.01f;
+         u(i,j,k) -= dt  * (float)(pressure[index] - pressure[index-1]) / dx / theta; 
+         u_valid(i,j,k) = 1;
+      }
+   }
+   
+   v_valid.assign(0);
+   #pragma omp parallel for
+   for(int k = 0; k < v.nk; ++k) for(int j = 1; j < v.nj-1; ++j) for(int i = 0; i < v.ni; ++i) {
+      int index = i + j*ni + k*ni*nj;
+      if(v_weights(i,j,k) > 0 && (liquid_phi(i,j,k) < 0 || liquid_phi(i,j-1,k) < 0)) {
+         float theta = 1;
+         if(liquid_phi(i,j,k) >= 0 || liquid_phi(i,j-1,k) >= 0)
+            theta = fraction_inside(liquid_phi(i,j-1,k), liquid_phi(i,j,k));
+         if(theta < 0.01f) theta = 0.01f;
+         v(i,j,k) -= dt  * (float)(pressure[index] - pressure[index-ni]) / dx / theta; 
+         v_valid(i,j,k) = 1;
+      }
+   }
+
+   w_valid.assign(0);
+   #pragma omp parallel for
+   for(int k = 1; k < w.nk-1; ++k) for(int j = 0; j < w.nj; ++j) for(int i = 0; i < w.ni; ++i) {
+      int index = i + j*ni + k*ni*nj;
+      if(w_weights(i,j,k) > 0 && (liquid_phi(i,j,k) < 0 || liquid_phi(i,j,k-1) < 0)) {
+         float theta = 1;
+         if(liquid_phi(i,j,k) >= 0 || liquid_phi(i,j,k-1) >= 0)
+            theta = fraction_inside(liquid_phi(i,j,k-1), liquid_phi(i,j,k));
+         if(theta < 0.01f) theta = 0.01f;
+         w(i,j,k) -= dt  * (float)(pressure[index] - pressure[index-ni*nj]) / dx / theta; 
+         w_valid(i,j,k) = 1;
+      }
+   }
+ 
+
+   for(unsigned int i = 0; i < u_valid.a.size(); ++i)
+      if(u_valid.a[i] == 0)
+         u.a[i] = 0;
+   for(unsigned int i = 0; i < v_valid.a.size(); ++i)
+      if(v_valid.a[i] == 0)
+         v.a[i] = 0;
+   for(unsigned int i = 0; i < w_valid.a.size(); ++i)
+      if(w_valid.a[i] == 0)
+         w.a[i] = 0;
 }
 
 
@@ -1455,6 +1709,46 @@ glPopMatrix();*/
    frameNum++;
 
    if (mRecordEnabled) grabScreen();
+}
+
+void FluidSim::outputParticleMeshes() {
+	set<int>::iterator fl;
+	for(fl = fluidIDS.begin(); fl != fluidIDS.end(); fl++) {
+	   Array3f fluid(liquid_phi.ni, liquid_phi.nj, liquid_phi.nk);
+	   fluid.assign(3*dx);
+	   int id = (*fl);
+	   for(unsigned int p = 0; p < particles.size(); ++p) {
+		  glm::vec3 cell_ind(particles[p]->position / dx);
+		  for(int k = max((float)0,(float)cell_ind[2] - 1); k <= min((float)cell_ind[2]+1,(float)nk-1); ++k) {
+			 for(int j = max((float)0,(float)cell_ind[1] - 1); j <= min((float)cell_ind[1]+1,(float)nj-1); ++j) {
+				for(int i = max((float)0,(float)cell_ind[0] - 1); i <= min((float)cell_ind[0]+1,(float)ni-1); ++i) {
+				   glm::vec3 sample_pos((i+0.5f)*dx, (j+0.5f)*dx,(k+0.5f)*dx);
+				   float test_val = glm::length(sample_pos-particles[p]->position) - particle_radius;
+				   if(test_val < fluid(i,j,k) && particles[p]->fluid_id == id)
+						fluid(i,j,k) = test_val;
+				}
+			 }
+		  }
+	   }
+
+	   //extend phi slightly into solids (this is a simple, naive approach, but works reasonably well)
+	   /*Array3f phi_temp = liquid_phi;
+	   #pragma omp parallel for
+	   for(int k = 0; k < nk; ++k) {
+		  for(int j = 0; j < nj; ++j) {
+			 for(int i = 0; i < ni; ++i) {
+				if(liquid_phi(i,j,k) < 0.5*dx) {
+				   float solid_phi_val = 0.125f*(nodal_solid_phi(i,j,k) + nodal_solid_phi(i+1,j,k) + nodal_solid_phi(i,j+1,k) + nodal_solid_phi(i+1,j+1,k)
+					  + nodal_solid_phi(i,j,k+1) + nodal_solid_phi(i+1,j,k+1) + nodal_solid_phi(i,j+1,k+1) + nodal_solid_phi(i+1,j+1,k+1));
+				   if(solid_phi_val < 0)
+					  phi_temp(i,j,k) = -0.5f*dx;
+				}
+			 }
+		  }
+	   }*/
+
+	   MarchingCubes(fluid, dx, frameNum, id, true);
+   }
 }
 
 void FluidSim::set_lights_and_material(int object)

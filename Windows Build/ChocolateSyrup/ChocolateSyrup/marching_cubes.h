@@ -10,7 +10,7 @@
 
 float fGetOffset(float fValue1, float fValue2, float fValueDesired);
 
-void MarchingCubes(const Array3f& liquid, float dx, int frameNum, bool outputOBJ);
+void MarchingCubes(const Array3f& liquid, float dx, int frameNum, int fluidNum,  bool outputOBJ);
 void MarchCube(const Array3f& liquid, float fX, float fY, float fZ, float dx);
 
 #endif  // MARCHING_CUBES_H_

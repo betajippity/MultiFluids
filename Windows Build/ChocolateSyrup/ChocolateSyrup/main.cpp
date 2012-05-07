@@ -37,7 +37,7 @@ float grid_width = 1;		//the grid width shall always be 1.
 bool textOutput = false;
 
 FluidSim sim;
-//objsdf* mesh = new objsdf("C:/Users/Karl/Dropbox/Documents/Projects/SDFGen/dragon.obj");
+//objsdf* mesh = new objsdf("C:/Users/Daniel/Desktop/betajippity-MultiFluids-7efc0a7/Windows Build/ChocolateSyrup/bunnyLow.obj");
 
 
 Camera theCamera;
@@ -64,7 +64,7 @@ float ground_phi(const glm::vec3& position, float height) {
   return height - position.y;
 }
 
-float rad0 = 0.45f;
+float rad0 = 0.4f;
 
 float box_phi(const glm::vec3& position, glm::vec3& centre, glm::vec3 halfDim) {
   float distX = abs(position.x - centre.x) - halfDim.x;
@@ -115,9 +115,14 @@ float boundary_phi(const glm::vec3& position) {
 
 float liquid_phi(const glm::vec3& position) {
 	//return obj_phi(position);
-   return sphere_phi(position, glm::vec3(0.55f, 0.8f, 0.4f), 0.15f);
+   return sphere_phi(position, glm::vec3(0.6f, 0.7f, 0.4f), 0.25f);
 	//return sphere_phi(position, glm::vec3(0.5f,0.5f,0.5f), 0.1f);
-   
+}
+
+float dragon_phi(const glm::vec3& position) {
+	//return obj_phi(position);
+   return sphere_phi(position, glm::vec3(0.35f, 0.5f, 0.3f), 0.25f);
+	//return sphere_phi(position, glm::vec3(0.5f,0.5f,0.5f), 0.1f);
 }
 
 //-------------------------------------------------------------
@@ -227,9 +232,9 @@ void onKeyboardCb(unsigned char key, int x, int y)
    else if (key == '>') isRunning = true;
    else if (key == '=') isRunning = false;
    else if (key == '<') sim.reset(grid_width, grid_resolution, grid_resolution, grid_resolution, liquid_phi);
-   else if (key == 'q') sim.set_liquid(liquid_phi, glm::vec3(1,0,0), 0.0f);
-   else if (key == 'p') sim.set_liquid(liquid_phi, glm::vec3(0,1,0), 0.0f);
-   else if (key == 'l') sim.set_liquid(liquid_phi, glm::vec3(0,0,1), 0.0f);
+   else if (key == 'q') sim.set_liquid(liquid_phi, glm::vec3(1,0,0), 0.0f, 2);
+   else if (key == 'p') sim.set_liquid(liquid_phi, glm::vec3(0,1,0), 1.0f, 1);
+   else if (key == 'l') sim.set_liquid(liquid_phi, glm::vec3(0,0,1), 0.5f, 0);
    else if (key == 'w') sim.setTransparentRender(!sim.isTransparentRender());
    else if (key == 'e') sim.setVerbose(!sim.isVerbose());
    else if (key == 't') textOutput = !textOutput;
@@ -260,6 +265,8 @@ void onTimerCb(int value)
    }
    if (isRunning){
      sim.advance(timestep);
+	 if(sim.frameNum == 1)  sim.setRecording(!sim.isRecording(), savedWidth, savedHeight);
+	 if(sim.frameNum == 40) sim.set_liquid(liquid_phi, glm::vec3(1,0,0), 0.0f, 2);
    }
    if(textOutput){
      export_particles(outpath, sim.getTotalFrames(), sim.particles, sim.particle_radius);
@@ -344,7 +351,7 @@ void onDrawCb()
   // Draw Scene and overlay
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   theCamera.draw();
-  drawAxes();
+  //drawAxes();
   sim.draw();
   drawOverlay();
   glutSwapBuffers();
@@ -383,7 +390,7 @@ int main(int argc, char **argv)
    sim.initialize(grid_width, grid_resolution, grid_resolution, grid_resolution);
    //sim.mesh = mesh;
    sim.set_boundary(boundary_phi);
-   sim.set_liquid(liquid_phi, glm::vec3(0,0,1), 0.0f);
+   sim.set_liquid(dragon_phi, glm::vec3(0,0,1), 10.0f, 0);
 
    glutInit(&argc, argv);
    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);

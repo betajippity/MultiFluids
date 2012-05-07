@@ -5,17 +5,22 @@
 #include "pcgsolver/pcg_solver.h"
 #include "array3_utils.h"
 #include <vector>
+#include <set>
 #include "objsdf.h"
 
 struct particle{
 	glm::vec3 position;
 	glm::vec3 color;
 	double viscosity;
+	int fluid_id;
+	glm::vec3 flow;
 
 	particle(){
 		position = glm::vec3(0,0,0);
 		color = glm::vec3(0,0,0);
 		viscosity = 0.0;
+		fluid_id = 0;
+		flow = glm::vec3(0, 0,0);
 	}
 };
 
@@ -32,8 +37,10 @@ public:
 
     void initialize(float width, int ni_, int nj_, int nk_);
     void set_boundary(float (*phi)(const glm::vec3&));
-    void set_liquid(float (*phi)(const glm::vec3&), glm::vec3 color, double viscosityCoef);
+    void set_liquid(float (*phi)(const glm::vec3&), glm::vec3 color, double viscosityCoef, int id);
     void add_particle(const glm::vec3& pos, const glm::vec3& color);
+
+	void preAdvect();
 
     void advance(float dt);
 
@@ -78,6 +85,7 @@ public:
 	void compute_viscosity_weights(float dt);
 	void compute_volume_fractions(const Array3f& levelset, Array3f& fractions, glm::vec3 fraction_origin, int subdivision);
 	void solve_viscosity(float dt);
+	void solve_viscosity2(float dt);
 
 	int u_ind(int i, int j, int k);
 	int v_ind(int i, int j, int k);
@@ -107,10 +115,14 @@ public:
 
 	bool outputOBJ;
 	int frameNum;
+	set<int> fluidIDS;
 
 private:
 
+   void outputParticleMeshes();
+
    glm::vec3 trace_rk2(const glm::vec3& position, float dt);
+   glm::vec3 trace_rk2PARTICLE(const glm::vec3& position, particle* p, float dt);
 
    float cfl();
 
